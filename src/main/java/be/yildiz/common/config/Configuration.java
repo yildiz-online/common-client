@@ -1,0 +1,301 @@
+//        This file is part of the Yildiz-Online project, licenced under the MIT License
+//        (MIT)
+//
+//        Copyright (c) 2016 Grégory Van den Borre
+//
+//        More infos available: http://yildiz.bitbucket.org
+//
+//        Permission is hereby granted, free of charge, to any person obtaining a copy
+//        of this software and associated documentation files (the "Software"), to deal
+//        in the Software without restriction, including without limitation the rights
+//        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//        copies of the Software, and to permit persons to whom the Software is
+//        furnished to do so, subject to the following conditions:
+//
+//        The above copyright notice and this permission notice shall be included in all
+//        copies or substantial portions of the Software.
+//
+//        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//        SOFTWARE.
+
+package be.yildiz.common.config;
+
+import be.yildiz.common.exeption.ResourceMissingException;
+import be.yildiz.common.resource.PropertiesHelper;
+import be.yildiz.common.translation.Language;
+import lombok.NonNull;
+
+import java.io.File;
+import java.util.Properties;
+
+/**
+ * Configuration data, data are retrieved by parsing the property file. If the file does not contains the required property, a default value is returned.
+ *
+ * 
+ * @specfield login:String: Value of the login if the user saved it, empty string if not found.
+ * @specfield password:String: Value of the password if the user saved it, saved in clear to be updated in view if necessary, empty string if not found.
+ * @specfield language:String: Value of one possible language in the system, if empty of invalid, English is returned.
+ * @specfield saveCredential: boolean: if true, the password and language will be persisted in the property file.
+ * 
+ * @author Grégory Van Den Borre
+ */
+public final class Configuration {
+
+    /**
+     * Property key for language.
+     */
+    public static final String LANGUAGE = "language";
+
+    /**
+     * Property key for save credentials.
+     */
+    public static final String SAVE_CREDENTIALS = "save";
+
+    /**
+     * Property key for login.
+     */
+    public static final String LOGIN = "login";
+
+    /**
+     * Property key for password.
+     */
+    public static final String PASSWORD = "password";
+
+    /**
+     * Property key for the authentication host address.
+     */
+    public static final String AUTHENTICATION_HOST = "authentication_host";
+
+    /**
+     * Property key for the authentication port number.
+     */
+    public static final String AUTHENTICATION_PORT = "authentication_port";
+
+    /**
+     * Property key for the server host address.
+     */
+    public static final String SERVER_HOST = "server_host";
+
+    /**
+     * Property key for the server port number.
+     */
+    public static final String SERVER_PORT = "server_port";
+
+    /**
+     * Associated property file.
+     */
+    private final Properties properties;
+
+    /**
+     * Path of the config file.
+     */
+    private final File filePath;
+
+    /**
+     * Full constructor.
+     * 
+     * @param p
+     *            Associated property file.
+     * @param path
+     *            Configuration file path.
+     */
+    private Configuration(final Properties p, final File path) {
+        super();
+        this.properties = p;
+        this.filePath = path;
+    }
+
+    /**
+     * @return The login, or "" if the property is not found in this configuration.
+     */
+    public String getLogin() {
+        return this.properties.getProperty(LOGIN, "");
+    }
+
+    /**
+     * @param value
+     *            The login to set.
+     */
+    public Configuration setLogin(@NonNull final String value) {
+        this.properties.setProperty(LOGIN, value);
+        return this;
+    }
+
+    /**
+     * @return The password or "" if tht property is not found in this configuration.
+     */
+    public String getPassword() {
+        return this.properties.getProperty(Configuration.PASSWORD, "");
+    }
+
+    /**
+     * @param value
+     *            The password to set.
+     */
+    public Configuration setPassword(@NonNull final String value) {
+        this.properties.setProperty(Configuration.PASSWORD, value);
+        return this;
+    }
+
+    /**
+     * @return <code>true</code> if credentials have to be persisted on client computer, false otherwise.
+     */
+    public boolean isSaveCredentialsChecked() {
+        return Boolean.parseBoolean(this.properties.getProperty(Configuration.SAVE_CREDENTIALS));
+    }
+
+    /**
+     * @param checked
+     *            Flag to persist or not the credentials on client computer.
+     */
+    public Configuration setSaveCredentialsChecked(final boolean checked) {
+        this.properties.setProperty(Configuration.SAVE_CREDENTIALS, String.valueOf(checked));
+        return this;
+    }
+
+    /**
+     * Invert the flag to save or not the credentials on the client computer.
+     */
+    public void swapSaveCredentialsChecked() {
+        this.setSaveCredentialsChecked(!this.isSaveCredentialsChecked());
+    }
+
+    /**
+     * Test if the configuration has been loaded from the file and return it.
+     * 
+     * @param file
+     *            File containing the configuration, if the file does not exists, it will be created with default values.
+     * 
+     * @return A full copy of the config data to prevent any change in it.
+     * 
+     */
+    public static Configuration readFromFile(final File file) {
+        Properties p = new Properties();
+        Configuration config;
+        try {
+            p = PropertiesHelper.getPropertiesFromFile(file);
+            config = new Configuration(p, file);
+        } catch (ResourceMissingException e) {
+            config = new Configuration(p, file);
+            config.save();
+        }
+        return config;
+    }
+
+    /**
+     * Persist the configuration in a file.
+     */
+    public void save() {
+        PropertiesHelper.save(this.properties, this.filePath);
+    }
+
+    /**
+     * @return The language used for the game, of English if the value in property file is empty or invalid.
+     */
+    public Language getLanguage() {
+        String value = this.properties.getProperty(LANGUAGE, Language.EN.name());
+        try {
+            return Language.valueOf(value);
+        } catch (IllegalArgumentException e) {
+            return Language.EN;
+        }
+    }
+
+    /**
+     * @return <code>true</code> if the language is present in the property file.
+     */
+    boolean isLanguagePresent() {
+        return this.properties.getProperty(LANGUAGE) != null;
+    }
+
+    /**
+     * Change the language to use.
+     * 
+     * @param language
+     *            New language.
+     */
+    public Configuration setLanguage(final Language language) {
+        this.properties.setProperty(LANGUAGE, language.name());
+        return this;
+    }
+
+    /**
+     * Flag to check if the application must be run in debug mode, this flag is hard coded.
+     * 
+     * @return <code>true</code> If the application must be run in debug mode.
+     */
+    public boolean isDebug() {
+        return false;
+    }
+
+    /**
+     * @return The Authentication host address or "localhost" if that property is not found in this configuration.
+     */
+    public String getAuthenticationHost() {
+        return this.properties.getProperty(Configuration.AUTHENTICATION_HOST, "localhost");
+    }
+
+    /**
+     * @param value
+     *            The authentication host address to set.
+     * @throws NullPointerException If value is null.
+     */
+    public Configuration setAuthenticationHost(@NonNull final String value) {
+        this.properties.setProperty(Configuration.AUTHENTICATION_HOST, value);
+        return this;
+    }
+
+    /**
+     * @return The Authentication port number or 15023 if that property is not found in this configuration.
+     */
+    public int getAuthenticationPort() {
+        return Integer.valueOf(this.properties.getProperty(Configuration.AUTHENTICATION_PORT, "15023"));
+    }
+
+    /**
+     * @param value
+     *            The authentication port number to set.
+     */
+    public Configuration setAuthenticationPort(@NonNull final int value) {
+        this.properties.setProperty(Configuration.AUTHENTICATION_PORT, String.valueOf(value));
+        return this;
+    }
+
+    /**
+     * @return The server host address or "localhost" if that property is not found in this configuration.
+     */
+    public String getServerHost() {
+        return this.properties.getProperty(Configuration.SERVER_HOST, "localhost");
+    }
+
+    /**
+     * @param value
+     *            The server host address to set.
+     * @throws NullPointerException If value is null.
+     */
+    public Configuration setServerHost(@NonNull final String value) {
+        this.properties.setProperty(Configuration.SERVER_HOST, value);
+        return this;
+    }
+
+    /**
+     * @return The server port number or 11139 if that property is not found in this configuration.
+     */
+    public int getServerPort() {
+        return Integer.valueOf(this.properties.getProperty(Configuration.SERVER_PORT, "11139"));
+    }
+
+    /**
+     * @param value
+     *            The server port number to set.
+     */
+    public Configuration setServerPort(@NonNull final int value) {
+        this.properties.setProperty(Configuration.SERVER_PORT, String.valueOf(value));
+        return this;
+    }
+}
