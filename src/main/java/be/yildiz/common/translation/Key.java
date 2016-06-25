@@ -25,24 +25,21 @@
 
 package be.yildiz.common.translation;
 
-import java.util.List;
-import java.util.Optional;
-
 import be.yildiz.common.collections.Lists;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
  * A Key is a value meant to be translated, it is composed of a key, and optional arguments.
- * 
+ * <p>
  * The class is mutable to improve performances, but only accessible from its package.
- * 
+ *
+ * @author Grégory Van den Borre
  * @mutable
- * 
  * @specfield key:String:Key to translate.
  * @specfield args:Object[]:Optional arguments.
- * 
- * @author Grégory Van den Borre
- *
  */
 @EqualsAndHashCode
 public class Key {
@@ -59,10 +56,8 @@ public class Key {
 
     /**
      * Create a new instance with a key, this.args will be empty.
-     * 
-     * @param key
-     *            Value to translate.
-     * 
+     *
+     * @param key Value to translate.
      * @ensures this.key==key
      * @ensures this.args==Optional.empty()
      */
@@ -74,12 +69,9 @@ public class Key {
 
     /**
      * Create a new instance with a key and arguments, this.args will be empty if the args param is empty.
-     * 
-     * @param key
-     *            Value to translate.
-     * @param args
-     *            Arguments to add to translation.
-     * 
+     *
+     * @param key  Value to translate.
+     * @param args Arguments to add to translation.
      * @ensures this.key==key
      * @ensures this.args==this.args.length==0?Optional.empty():Optional.of(args)
      */
@@ -95,9 +87,8 @@ public class Key {
 
     /**
      * Create a new instance of Key with a key and no arguments.
-     * 
-     * @param key
-     *            Key to translate.
+     *
+     * @param key Key to translate.
      * @return The build Key.
      */
     public static Key get(final String key) {
@@ -106,11 +97,9 @@ public class Key {
 
     /**
      * Create a new instance of Key with a key and arguments.
-     * 
-     * @param key
-     *            Key to translate.
-     * @param args
-     *            Arguments to use for translation.
+     *
+     * @param key  Key to translate.
+     * @param args Arguments to use for translation.
      * @return The build Key.
      */
     public static Key get(String key, Object... args) {
@@ -119,9 +108,8 @@ public class Key {
 
     /**
      * Create a new instance of MultiKey to use several translation at once.
-     * 
-     * @param keys
-     *            Keys to translate, must be at least one, and no null values is allowed.
+     *
+     * @param keys Keys to translate, must be at least one, and no null values is allowed.
      * @return The build MultiKey.
      */
     public static MultiKey get(final Key... keys) {
@@ -134,16 +122,12 @@ public class Key {
 
     /**
      * A multi key is composed of several keys to provide the possibility to use several translation in one go.
-     * 
+     *
+     * @author Van den Borre Grégory
      * @mutable
-     * 
      * @specfield keys:List<Key>:contains the different keys, null values not allowed.
-     * 
      * @invariant keys.size() > 0
      * @invariant !keys.contains(null)
-     * 
-     * @author Van den Borre Grégory
-     *
      */
     public static final class MultiKey {
 
@@ -154,9 +138,8 @@ public class Key {
 
         /**
          * Create a new MultiKey instance, must contains at least one key, and no null values.
-         * 
-         * @param keys
-         *            Keys to add.
+         *
+         * @param keys Keys to add.
          */
         private MultiKey(final Key... keys) {
             super();
@@ -166,12 +149,11 @@ public class Key {
 
         /**
          * Add a new Key to this MultiKey
-         * 
-         * @param key
-         *            key to add, null is not allowed.
+         *
+         * @param key key to add, null is not allowed.
          */
         public void add(final Key key) {
-            if(key == null) {
+            if (key == null) {
                 throw new IllegalArgumentException("key is null");
             }
             if (!key.isEmpty()) {
@@ -182,10 +164,9 @@ public class Key {
 
         /**
          * Invariant, only called if assertions are enabled.
-         * 
-         * @throws AssertionError
-         *             if the invariant is broken in any way.
+         *
          * @return <code>true</code>.
+         * @throws AssertionError if the invariant is broken in any way.
          */
         private boolean invariant() {
             if (this.keys.isEmpty()) {

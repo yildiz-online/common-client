@@ -30,7 +30,7 @@ import be.yildiz.common.exeption.BaseException;
 
 /**
  * Thrown when the client version does not match with the expected from server.
- * 
+ *
  * @author Grégory Van den Borre
  */
 public final class InvalidVersionException extends BaseException {
@@ -40,11 +40,9 @@ public final class InvalidVersionException extends BaseException {
 
     /**
      * Build a new instance.
-     * 
-     * @param received
-     *            Version used by the client.
-     * @param expected
-     *            Version expected by the server.
+     *
+     * @param received Version used by the client.
+     * @param expected Version expected by the server.
      */
     public InvalidVersionException(final Version received, final Version expected) {
         super("Invalid client version, please update(received:" + received + "  expected:" + expected);

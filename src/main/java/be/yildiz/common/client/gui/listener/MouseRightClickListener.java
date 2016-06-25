@@ -29,18 +29,16 @@ import be.yildiz.common.vector.Point2D;
 
 /**
  * Listener notified when a the right button of the mouse is pressed.
- * 
- * @author Grégory Van den Borre
  *
+ * @author Grégory Van den Borre
  */
 @FunctionalInterface
 public interface MouseRightClickListener {
 
     /**
      * Called when the right button of the mouse is pressed.
-     * 
-     * @param position
-     *            Position of the mouse when pressed.
+     *
+     * @param position Position of the mouse when pressed.
      */
     void click(final Point2D position);
 }

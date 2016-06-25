@@ -27,16 +27,13 @@ package be.yildiz.common.translation;
 
 /**
  * Enumeration for possible languages.
- * 
+ *
+ * @author Grégory Van den Borre
  * @specfield description:String:Language translated in its own language.
  * @specfield value:int:Language unique index value.
- * 
  * @invariant description != null.
  * @invariant value >= 0.
- * 
  * @immutable
- * 
- * @author Grégory Van den Borre
  */
 public enum Language {
 
@@ -68,10 +65,9 @@ public enum Language {
 
     /**
      * Invariant, only called if assertions are enabled.
-     * 
-     * @throws AssertionError
-     *             if the invariant is broken in any way.
+     *
      * @return <code>true</code>.
+     * @throws AssertionError if the invariant is broken in any way.
      */
     private boolean invariant() {
         if (this.description == null) {

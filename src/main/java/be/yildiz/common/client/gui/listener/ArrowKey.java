@@ -27,7 +27,7 @@ package be.yildiz.common.client.gui.listener;
 
 /**
  * Enumeration of the 4 arrow keys.
- * 
+ *
  * @author Grégory Van den Borre
  */
 public enum ArrowKey {

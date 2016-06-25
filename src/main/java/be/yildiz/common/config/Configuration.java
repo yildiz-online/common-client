@@ -36,55 +36,53 @@ import java.util.Properties;
 /**
  * Configuration data, data are retrieved by parsing the property file. If the file does not contains the required property, a default value is returned.
  *
- * 
+ * @author Grégory Van Den Borre
  * @specfield login:String: Value of the login if the user saved it, empty string if not found.
  * @specfield password:String: Value of the password if the user saved it, saved in clear to be updated in view if necessary, empty string if not found.
  * @specfield language:String: Value of one possible language in the system, if empty of invalid, English is returned.
  * @specfield saveCredential: boolean: if true, the password and language will be persisted in the property file.
- * 
- * @author Grégory Van Den Borre
  */
 public final class Configuration {
 
     /**
      * Property key for language.
      */
-    public static final String LANGUAGE = "language";
+    public static final String LANGUAGE_KEY = "language";
 
     /**
      * Property key for save credentials.
      */
-    public static final String SAVE_CREDENTIALS = "save";
+    public static final String SAVE_CREDENTIALS_KEY = "save";
 
     /**
      * Property key for login.
      */
-    public static final String LOGIN = "login";
+    public static final String LOGIN_KEY = "user_login";
 
     /**
      * Property key for password.
      */
-    public static final String PASSWORD = "password";
+    public static final String PWD_KEY = "user_password";
 
     /**
      * Property key for the authentication host address.
      */
-    public static final String AUTHENTICATION_HOST = "authentication_host";
+    public static final String AUTHENTICATION_HOST_KEY = "authentication_host";
 
     /**
      * Property key for the authentication port number.
      */
-    public static final String AUTHENTICATION_PORT = "authentication_port";
+    public static final String AUTHENTICATION_PORT_KEY = "authentication_port";
 
     /**
      * Property key for the server host address.
      */
-    public static final String SERVER_HOST = "server_host";
+    public static final String SERVER_HOST_KEY = "server_host";
 
     /**
      * Property key for the server port number.
      */
-    public static final String SERVER_PORT = "server_port";
+    public static final String SERVER_PORT_KEY = "server_port";
 
     /**
      * Associated property file.
@@ -98,11 +96,9 @@ public final class Configuration {
 
     /**
      * Full constructor.
-     * 
-     * @param p
-     *            Associated property file.
-     * @param path
-     *            Configuration file path.
+     *
+     * @param p    Associated property file.
+     * @param path Configuration file path.
      */
     private Configuration(final Properties p, final File path) {
         super();
@@ -111,68 +107,10 @@ public final class Configuration {
     }
 
     /**
-     * @return The login, or "" if the property is not found in this configuration.
-     */
-    public String getLogin() {
-        return this.properties.getProperty(LOGIN, "");
-    }
-
-    /**
-     * @param value
-     *            The login to set.
-     */
-    public Configuration setLogin(@NonNull final String value) {
-        this.properties.setProperty(LOGIN, value);
-        return this;
-    }
-
-    /**
-     * @return The password or "" if tht property is not found in this configuration.
-     */
-    public String getPassword() {
-        return this.properties.getProperty(Configuration.PASSWORD, "");
-    }
-
-    /**
-     * @param value
-     *            The password to set.
-     */
-    public Configuration setPassword(@NonNull final String value) {
-        this.properties.setProperty(Configuration.PASSWORD, value);
-        return this;
-    }
-
-    /**
-     * @return <code>true</code> if credentials have to be persisted on client computer, false otherwise.
-     */
-    public boolean isSaveCredentialsChecked() {
-        return Boolean.parseBoolean(this.properties.getProperty(Configuration.SAVE_CREDENTIALS));
-    }
-
-    /**
-     * @param checked
-     *            Flag to persist or not the credentials on client computer.
-     */
-    public Configuration setSaveCredentialsChecked(final boolean checked) {
-        this.properties.setProperty(Configuration.SAVE_CREDENTIALS, String.valueOf(checked));
-        return this;
-    }
-
-    /**
-     * Invert the flag to save or not the credentials on the client computer.
-     */
-    public void swapSaveCredentialsChecked() {
-        this.setSaveCredentialsChecked(!this.isSaveCredentialsChecked());
-    }
-
-    /**
      * Test if the configuration has been loaded from the file and return it.
-     * 
-     * @param file
-     *            File containing the configuration, if the file does not exists, it will be created with default values.
-     * 
+     *
+     * @param file File containing the configuration, if the file does not exists, it will be created with default values.
      * @return A full copy of the config data to prevent any change in it.
-     * 
      */
     public static Configuration readFromFile(final File file) {
         Properties p = new Properties();
@@ -188,6 +126,58 @@ public final class Configuration {
     }
 
     /**
+     * @return The login, or "" if the property is not found in this configuration.
+     */
+    public String getLogin() {
+        return this.properties.getProperty(LOGIN_KEY, "");
+    }
+
+    /**
+     * @param value The login to set.
+     */
+    public Configuration setLogin(@NonNull final String value) {
+        this.properties.setProperty(LOGIN_KEY, value);
+        return this;
+    }
+
+    /**
+     * @return The password or "" if tht property is not found in this configuration.
+     */
+    public String getPassword() {
+        return this.properties.getProperty(Configuration.PWD_KEY, "");
+    }
+
+    /**
+     * @param value The password to set.
+     */
+    public Configuration setPassword(@NonNull final String value) {
+        this.properties.setProperty(Configuration.PWD_KEY, value);
+        return this;
+    }
+
+    /**
+     * @return <code>true</code> if credentials have to be persisted on client computer, false otherwise.
+     */
+    public boolean isSaveCredentialsChecked() {
+        return Boolean.parseBoolean(this.properties.getProperty(Configuration.SAVE_CREDENTIALS_KEY));
+    }
+
+    /**
+     * @param checked Flag to persist or not the credentials on client computer.
+     */
+    public Configuration setSaveCredentialsChecked(final boolean checked) {
+        this.properties.setProperty(Configuration.SAVE_CREDENTIALS_KEY, String.valueOf(checked));
+        return this;
+    }
+
+    /**
+     * Invert the flag to save or not the credentials on the client computer.
+     */
+    public void swapSaveCredentialsChecked() {
+        this.setSaveCredentialsChecked(!this.isSaveCredentialsChecked());
+    }
+
+    /**
      * Persist the configuration in a file.
      */
     public void save() {
@@ -198,7 +188,7 @@ public final class Configuration {
      * @return The language used for the game, of English if the value in property file is empty or invalid.
      */
     public Language getLanguage() {
-        String value = this.properties.getProperty(LANGUAGE, Language.EN.name());
+        String value = this.properties.getProperty(LANGUAGE_KEY, Language.EN.name());
         try {
             return Language.valueOf(value);
         } catch (IllegalArgumentException e) {
@@ -207,26 +197,25 @@ public final class Configuration {
     }
 
     /**
-     * @return <code>true</code> if the language is present in the property file.
-     */
-    boolean isLanguagePresent() {
-        return this.properties.getProperty(LANGUAGE) != null;
-    }
-
-    /**
      * Change the language to use.
-     * 
-     * @param language
-     *            New language.
+     *
+     * @param language New language.
      */
     public Configuration setLanguage(final Language language) {
-        this.properties.setProperty(LANGUAGE, language.name());
+        this.properties.setProperty(LANGUAGE_KEY, language.name());
         return this;
     }
 
     /**
+     * @return <code>true</code> if the language is present in the property file.
+     */
+    boolean isLanguagePresent() {
+        return this.properties.getProperty(LANGUAGE_KEY) != null;
+    }
+
+    /**
      * Flag to check if the application must be run in debug mode, this flag is hard coded.
-     * 
+     *
      * @return <code>true</code> If the application must be run in debug mode.
      */
     public boolean isDebug() {
@@ -237,16 +226,15 @@ public final class Configuration {
      * @return The Authentication host address or "localhost" if that property is not found in this configuration.
      */
     public String getAuthenticationHost() {
-        return this.properties.getProperty(Configuration.AUTHENTICATION_HOST, "localhost");
+        return this.properties.getProperty(Configuration.AUTHENTICATION_HOST_KEY, "localhost");
     }
 
     /**
-     * @param value
-     *            The authentication host address to set.
+     * @param value The authentication host address to set.
      * @throws NullPointerException If value is null.
      */
     public Configuration setAuthenticationHost(@NonNull final String value) {
-        this.properties.setProperty(Configuration.AUTHENTICATION_HOST, value);
+        this.properties.setProperty(Configuration.AUTHENTICATION_HOST_KEY, value);
         return this;
     }
 
@@ -254,15 +242,14 @@ public final class Configuration {
      * @return The Authentication port number or 15023 if that property is not found in this configuration.
      */
     public int getAuthenticationPort() {
-        return Integer.valueOf(this.properties.getProperty(Configuration.AUTHENTICATION_PORT, "15023"));
+        return Integer.valueOf(this.properties.getProperty(Configuration.AUTHENTICATION_PORT_KEY, "15023"));
     }
 
     /**
-     * @param value
-     *            The authentication port number to set.
+     * @param value The authentication port number to set.
      */
     public Configuration setAuthenticationPort(@NonNull final int value) {
-        this.properties.setProperty(Configuration.AUTHENTICATION_PORT, String.valueOf(value));
+        this.properties.setProperty(Configuration.AUTHENTICATION_PORT_KEY, String.valueOf(value));
         return this;
     }
 
@@ -270,16 +257,15 @@ public final class Configuration {
      * @return The server host address or "localhost" if that property is not found in this configuration.
      */
     public String getServerHost() {
-        return this.properties.getProperty(Configuration.SERVER_HOST, "localhost");
+        return this.properties.getProperty(Configuration.SERVER_HOST_KEY, "localhost");
     }
 
     /**
-     * @param value
-     *            The server host address to set.
+     * @param value The server host address to set.
      * @throws NullPointerException If value is null.
      */
     public Configuration setServerHost(@NonNull final String value) {
-        this.properties.setProperty(Configuration.SERVER_HOST, value);
+        this.properties.setProperty(Configuration.SERVER_HOST_KEY, value);
         return this;
     }
 
@@ -287,15 +273,14 @@ public final class Configuration {
      * @return The server port number or 11139 if that property is not found in this configuration.
      */
     public int getServerPort() {
-        return Integer.valueOf(this.properties.getProperty(Configuration.SERVER_PORT, "11139"));
+        return Integer.valueOf(this.properties.getProperty(Configuration.SERVER_PORT_KEY, "11139"));
     }
 
     /**
-     * @param value
-     *            The server port number to set.
+     * @param value The server port number to set.
      */
     public Configuration setServerPort(@NonNull final int value) {
-        this.properties.setProperty(Configuration.SERVER_PORT, String.valueOf(value));
+        this.properties.setProperty(Configuration.SERVER_PORT_KEY, String.valueOf(value));
         return this;
     }
 }

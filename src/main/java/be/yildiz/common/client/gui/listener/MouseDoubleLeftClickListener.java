@@ -29,18 +29,16 @@ import be.yildiz.common.vector.Point2D;
 
 /**
  * Listener notified when a the left button of the mouse is pressed twice rapidly.
- * 
- * @author Grégory Van den Borre
  *
+ * @author Grégory Van den Borre
  */
 @FunctionalInterface
 public interface MouseDoubleLeftClickListener {
 
     /**
      * Called when the left button of the mouse is pressed twice.
-     * 
-     * @param position
-     *            Position of the mouse when pressed.
+     *
+     * @param position Position of the mouse when pressed.
      */
     void click(final Point2D position);
 }

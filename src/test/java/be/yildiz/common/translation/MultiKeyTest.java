@@ -25,27 +25,26 @@
 
 package be.yildiz.common.translation;
 
+import be.yildiz.common.translation.Key.MultiKey;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import be.yildiz.common.translation.Key.MultiKey;
-
 /**
  * @author Grégory Van den Borre
  */
 public class MultiKeyTest {
-	
-	@BeforeClass
-	public static void enableAssert() {
-		ClassLoader.getSystemClassLoader().setDefaultAssertionStatus(true);
-	}
 
     @Rule
     public ExpectedException rule = ExpectedException.none();
-    
+
+    @BeforeClass
+    public static void enableAssert() {
+        ClassLoader.getSystemClassLoader().setDefaultAssertionStatus(true);
+    }
+
     @Test
     public void TestMultiKey() {
         Key k = Key.get("blabla");
@@ -55,21 +54,21 @@ public class MultiKeyTest {
         Assert.assertTrue(keys.keys.contains(k2));
         Assert.assertEquals(3, keys.keys.size());
     }
-    
+
     @Test
     public void TestMultiKeyEmpty() {
         Key[] k = {};
         this.rule.expect(IllegalArgumentException.class);
         Key.get(k);
     }
-    
+
     @Test
     public void TestMultiKeyNull() {
         Key[] k = {Key.get("blablabla"), null};
         this.rule.expect(IllegalArgumentException.class);
         Key.get(k);
     }
-    
+
     @Test
     public void TestAdd() {
         Key k = Key.get("blabla");
@@ -81,7 +80,7 @@ public class MultiKeyTest {
         Assert.assertEquals(4, keys.keys.size());
         Assert.assertTrue(keys.keys.contains(k3));
     }
-    
+
     @Test
     public void TestAddNull() {
         Key k = Key.get("blabla");

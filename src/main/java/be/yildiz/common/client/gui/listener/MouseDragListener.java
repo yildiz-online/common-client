@@ -29,7 +29,7 @@ import be.yildiz.common.vector.Point2D;
 
 /**
  * Listener to notify when the mouse is dragged.
- * 
+ *
  * @author Grégory Van den Borre
  */
 @FunctionalInterface
@@ -37,50 +37,42 @@ public interface MouseDragListener {
 
     /**
      * Called when the mouse is dragged holding the left button.
-     * 
-     * @param position
-     *            Current mouse position.
-     * @param delta
-     *            Delta between the current and the last position.
+     *
+     * @param position Current mouse position.
+     * @param delta    Delta between the current and the last position.
      */
     void mouseDragLeft(Point2D position, Point2D delta);
 
     /**
      * Called when the mouse is dragged holding the right button.
-     * 
-     * @param position
-     *            Current mouse position.
-     * @param delta
-     *            Delta between the current and the last position.
+     *
+     * @param position Current mouse position.
+     * @param delta    Delta between the current and the last position.
      */
     default void mouseDragRight(Point2D position, Point2D delta) {
     }
 
     /**
      * Called when the mouse is dragged holding the wheel button.
-     * 
-     * @param position
-     *            Current mouse position.
-     * @param delta
-     *            Delta between the current and the last position.
+     *
+     * @param position Current mouse position.
+     * @param delta    Delta between the current and the last position.
      */
     default void mouseDragWheel(Point2D position, Point2D delta) {
     }
 
     /**
      * Called when the mouse right button is released.
-     * 
-     * @param position
-     *            Current mouse position.
+     *
+     * @param position Current mouse position.
      */
     default void mouseDragRightReleased(Point2D position) {
     }
 
     /**
      * Called when the mouse left button is released.
-     * 
-     * @param position
-     *            Current mouse position.
+     *
+     * @param position Current mouse position.
      */
     default void mouseDragLeftReleased(Point2D position) {
     }

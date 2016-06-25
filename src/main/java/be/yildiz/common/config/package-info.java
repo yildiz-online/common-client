@@ -25,6 +25,7 @@
 
 /**
  * Contains the common elements used by the configuration across the clients.
+ *
  * @author Grégory Van den Borre
  */
 package be.yildiz.common.config;

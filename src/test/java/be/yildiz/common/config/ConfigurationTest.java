@@ -25,32 +25,31 @@
 
 package be.yildiz.common.config;
 
-import java.io.File;
-import java.util.Properties;
-
+import be.yildiz.common.resource.PropertiesHelper;
+import be.yildiz.common.translation.Language;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import be.yildiz.common.resource.PropertiesHelper;
-import be.yildiz.common.translation.Language;
+import java.io.File;
+import java.util.Properties;
 
 /**
  * @author Grégory Van den Borre
  */
 public final class ConfigurationTest {
-    
+
     private File f;
-    
+
     private Configuration c;
-    
+
     @Before
     public void initMethod() {
         this.f = new File("td");
         this.c = Configuration.readFromFile(f);
     }
-    
+
     @After
     public void afterMethod() {
         this.f.delete();
@@ -68,7 +67,7 @@ public final class ConfigurationTest {
         Assert.assertEquals(value, c.getLogin());
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void testSetLoginNull() {
         c.setLogin(null);
     }
@@ -78,7 +77,7 @@ public final class ConfigurationTest {
         Assert.assertEquals("", c.getPassword());
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void testSetPasswordNull() {
         c.setPassword(null);
     }
@@ -131,7 +130,7 @@ public final class ConfigurationTest {
         Assert.assertEquals(Language.EN, c.getLanguage());
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void testSetLanguageNull() {
         c.setLanguage(null);
     }
@@ -143,11 +142,11 @@ public final class ConfigurationTest {
         Assert.assertTrue(c.isLanguagePresent());
         Assert.assertEquals(Language.FR, c.getLanguage());
     }
-    
+
     @Test
     public void testGetSetInvalidLanguage() {
         Properties p = PropertiesHelper.getPropertiesFromFile(f);
-        p.setProperty(Configuration.LANGUAGE, "GF");
+        p.setProperty(Configuration.LANGUAGE_KEY, "GF");
         PropertiesHelper.save(p, f);
         Configuration oc = Configuration.readFromFile(f);
         Assert.assertTrue(oc.isLanguagePresent());

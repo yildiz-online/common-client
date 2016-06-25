@@ -27,27 +27,25 @@ package be.yildiz.common.client.debug;
 
 /**
  * Listener to get debug informations.
- * 
+ *
  * @author Grégory Van den Borre
  */
 public interface DebugListener {
-	
-	DebugListener EMPTY = new NoDebugListener();
 
-	/**
-	 * Update with the last debug information. This is done once per frame.
-	 * 
-	 * @param fps
-	 *            Current Frame per second rate.
-	 */
-	void updateFps(final float fps);
+    DebugListener EMPTY = new NoDebugListener();
 
-	/**
-	 * Display a debug message.
-	 * 
-	 * @param message
-	 *            Message to display.
-	 */
-	void displayDebugMessage(Object message);
+    /**
+     * Update with the last debug information. This is done once per frame.
+     *
+     * @param fps Current Frame per second rate.
+     */
+    void updateFps(final float fps);
+
+    /**
+     * Display a debug message.
+     *
+     * @param message Message to display.
+     */
+    void displayDebugMessage(Object message);
 
 }

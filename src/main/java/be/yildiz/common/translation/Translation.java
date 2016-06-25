@@ -25,17 +25,17 @@
 
 package be.yildiz.common.translation;
 
-import java.util.Map;
-import java.util.Properties;
-
 import be.yildiz.common.collections.Maps;
 import be.yildiz.common.translation.Key.MultiKey;
 import be.yildiz.common.util.StringUtil;
 import lombok.NonNull;
 
+import java.util.Map;
+import java.util.Properties;
+
 /**
  * Manage different languages, use properties to get the translation.
- * 
+ *
  * @author Grégory Van den Borre
  */
 public final class Translation {
@@ -53,11 +53,9 @@ public final class Translation {
 
     /**
      * Associate a language and its property file.
-     * 
-     * @param language
-     *            Language to add.
-     * @param provider
-     *            Object containing the language properties.
+     *
+     * @param language Language to add.
+     * @param provider Object containing the language properties.
      * @return This object.
      */
     public Translation addLanguage(final Language language, final LanguageProvider provider) {
@@ -67,17 +65,16 @@ public final class Translation {
     }
 
     private boolean invariant() {
-		if(this.languages.containsValue(null)) {
-			throw new AssertionError("Null value not allowed in languages.");
-		}
-		return true;
-	}
+        if (this.languages.containsValue(null)) {
+            throw new AssertionError("Null value not allowed in languages.");
+        }
+        return true;
+    }
 
-	/**
+    /**
      * Set the current language to use.
-     * 
-     * @param language
-     *            Language to use.
+     *
+     * @param language Language to use.
      * @return This object for method chaining.
      */
     public Translation chooseLanguage(final Language language) {
@@ -90,19 +87,17 @@ public final class Translation {
 
     /**
      * Retrieve a value in the properties.
-     * 
-     * @param key
-     *            Key property.
+     *
+     * @param key Key property.
      * @return The translated value.
-     * @throws IllegalArgumentException
-     *             if the key does not exist.
+     * @throws IllegalArgumentException if the key does not exist.
      */
     private String get(final String key) {
-        if(key == "") {
+        if (key == "") {
             return "";
         }
         String s = this.languages.get(this.chosenLanguage).getProperty(key);
-        if(s == null) {
+        if (s == null) {
             throw new IllegalArgumentException(key + " translation does not exists");
         }
         return s;
@@ -118,9 +113,8 @@ public final class Translation {
 
     /**
      * Get the translated value.
-     * 
-     * @param key
-     *            Key of the value to translate.
+     *
+     * @param key Key of the value to translate.
      * @return The translated value associated to the key.
      */
     public String translate(final Key key) {

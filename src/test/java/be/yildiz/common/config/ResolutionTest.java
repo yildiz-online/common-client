@@ -25,10 +25,10 @@
 
 package be.yildiz.common.config;
 
-import java.util.regex.Pattern;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.regex.Pattern;
 
 /**
  * @author Grégory Van den Borre

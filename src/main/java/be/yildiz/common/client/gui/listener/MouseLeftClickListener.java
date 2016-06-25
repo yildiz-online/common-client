@@ -27,20 +27,19 @@ package be.yildiz.common.client.gui.listener;
 
 /**
  * Listener notified when a the left button of the mouse is pressed.
- * 
- * @author Grégory Van den Borre
  *
+ * @author Grégory Van den Borre
  */
 @FunctionalInterface
 public interface MouseLeftClickListener {
 
     /**
      * Called when the left button of the mouse is pressed.
-     * 
-     * @param position
-     *            Position of the mouse when pressed.
+     *
+     * @param position Position of the mouse when pressed.
      */
     void click();
-    
-    default void clickAt(int x, int y){}
+
+    default void clickAt(int x, int y) {
+    }
 }

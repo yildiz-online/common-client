@@ -27,7 +27,7 @@ package be.yildiz.common.client.gui.listener;
 
 /**
  * Listener of the keyboard events.
- * 
+ *
  * @author Grégory Van den Borre
  */
 @FunctionalInterface
@@ -35,9 +35,8 @@ public interface KeyboardListener {
 
     /**
      * Called when a char key is pressed.
-     * 
-     * @param key
-     *            Key pressed.
+     *
+     * @param key Key pressed.
      */
     void keyPressed(char key);
 
@@ -55,27 +54,24 @@ public interface KeyboardListener {
 
     /**
      * Called when an arrow key has been pressed.
-     * 
-     * @param arrow
-     *            Enum value to get witch arrow has been pressed.
+     *
+     * @param arrow Enum value to get witch arrow has been pressed.
      */
     default void arrowKeyPressed(ArrowKey arrow) {
     }
 
     /**
      * Called when a key is released.
-     * 
-     * @param key
-     *            Code of the key.
+     *
+     * @param key Code of the key.
      */
     default void keyReleased(int key) {
     }
 
     /**
      * Called when a number from the keypad is pressed.
-     * 
-     * @param number
-     *            Number pressed.
+     *
+     * @param number Number pressed.
      */
     default void numberPressed(int number) {
     }

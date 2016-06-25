@@ -25,7 +25,7 @@
 
 /**
  * Contains the common exceptions for client applications.
- * 
+ *
  * @author Grégory Van den Borre
  */
 package be.yildiz.common.client.exception;

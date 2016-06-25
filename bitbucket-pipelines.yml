@@ -4,4 +4,4 @@ pipelines:
   default:
     - step:
         script:
-          - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.host.url=https://nemo.sonarqube.org -Dsonar.login=$SONAR
+          - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.host.url=https://sonarqube.com -Dsonar.login=$SONAR

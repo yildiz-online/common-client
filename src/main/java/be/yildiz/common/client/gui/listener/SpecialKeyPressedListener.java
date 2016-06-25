@@ -27,18 +27,16 @@ package be.yildiz.common.client.gui.listener;
 
 /**
  * Listener for special keys(SHIFT, CTRL, TAB...).
- * 
- * @author Grégory Van den Borre
  *
+ * @author Grégory Van den Borre
  */
 @FunctionalInterface
 public interface SpecialKeyPressedListener {
 
     /**
      * Called when a special key is pressed(SHIFT, CTRL, TAB,...).
-     * 
-     * @param key
-     *            code of the key.
+     *
+     * @param key code of the key.
      */
     void pressed(SpecialKey key);
 }

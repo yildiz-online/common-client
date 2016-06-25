@@ -32,9 +32,13 @@ package be.yildiz.common.client.debug;
 public class NoDebugListener implements DebugListener {
 
     @Override
-    public void updateFps(float fps) {}
+    public void updateFps(float fps) {
+        //does nothing.
+    }
 
     @Override
-    public void displayDebugMessage(Object message) {}
+    public void displayDebugMessage(Object message) {
+        //does nothing.
+    }
 
 }

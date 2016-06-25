@@ -25,16 +25,16 @@
 
 package be.yildiz.common.translation;
 
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.Assert;
 import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
  * @author Grégory Van den Borre
  */
 public class KeyTest {
-    
+
     @Rule
     public ExpectedException rule = ExpectedException.none();
 
@@ -44,14 +44,14 @@ public class KeyTest {
         Assert.assertEquals("blabla", k.translationKey);
         Assert.assertFalse(k.args.isPresent());
     }
-    
+
     @Test
     public void testGetKeyArgs() {
         Key k = Key.get("blabla", 1);
         Assert.assertEquals("blabla", k.translationKey);
         Assert.assertEquals(1, k.args.get()[0]);
     }
-    
+
     @Test
     public void testGetKeyArgsEmpty() {
         Key k = Key.get("blabla", new Object[]{});

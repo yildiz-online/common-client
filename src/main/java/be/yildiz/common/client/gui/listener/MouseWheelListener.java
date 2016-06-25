@@ -29,7 +29,7 @@ import be.yildiz.common.vector.Point2D;
 
 /**
  * Listener called when the mouse wheel is used.
- * 
+ *
  * @author Grégory Van Den Borre
  */
 @FunctionalInterface
@@ -37,11 +37,9 @@ public interface MouseWheelListener {
 
     /**
      * Method called when the wheel is scrolled.
-     * 
-     * @param mousePosition
-     *            Mouse position while the wheel is scrolled.
-     * @param count
-     *            How many times the wheel is rolled.
+     *
+     * @param mousePosition Mouse position while the wheel is scrolled.
+     * @param count         How many times the wheel is rolled.
      */
     void scroll(Point2D mousePosition, int count);
 

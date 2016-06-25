@@ -29,7 +29,7 @@ import be.yildiz.common.vector.Point2D;
 
 /**
  * Listen to mouse moves.
- * 
+ *
  * @author Grégory Van Den Borre
  */
 @FunctionalInterface
@@ -37,9 +37,8 @@ public interface MouseMoveListener {
 
     /**
      * Called when the mouse is moved.
-     * 
-     * @param position
-     *            Current mouse position.
+     *
+     * @param position Current mouse position.
      */
     void move(final Point2D position);
 

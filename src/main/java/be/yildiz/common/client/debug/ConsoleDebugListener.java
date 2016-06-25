@@ -30,15 +30,15 @@ package be.yildiz.common.client.debug;
  */
 public class ConsoleDebugListener implements DebugListener {
 
-	@Override
-	public void updateFps(float fps) {
-		System.out.println("FPS: " + fps);
+    @Override
+    public void updateFps(float fps) {
+        System.out.println("FPS: " + fps);
 
-	}
+    }
 
-	@Override
-	public void displayDebugMessage(Object message) {
-		System.out.println("DEBUG: " + message);
-	}
+    @Override
+    public void displayDebugMessage(Object message) {
+        System.out.println("DEBUG: " + message);
+    }
 
 }

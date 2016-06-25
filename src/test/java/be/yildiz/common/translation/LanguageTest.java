@@ -28,12 +28,8 @@ package be.yildiz.common.translation;
 import org.junit.Assert;
 import org.junit.Test;
 
-import be.yildiz.common.translation.Language;
-
 /**
- * 
  * @author Grégory Van den Borre
- *
  */
 public class LanguageTest {
 

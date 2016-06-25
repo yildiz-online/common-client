@@ -25,23 +25,20 @@
 
 package be.yildiz.common.translation;
 
+import be.yildiz.common.collections.Maps;
+
 import java.util.Map;
 import java.util.Properties;
 
-import be.yildiz.common.collections.Maps;
-
 /**
  * Provide a translation contained in a properties for a given language.
- * 
+ *
+ * @author Grégory Van den Borre
  * @specfield languages:Map<Language, Properties>:Provide the property data for a given language.
- * 
  * @mutable
- * 
  * @invariant language != null
  * @invariant !language.keys.contains(null)
  * @invariant !language.values.contains(null)
- * 
- * @author Grégory Van den Borre
  */
 public final class LanguageProvider {
 
@@ -71,17 +68,12 @@ public final class LanguageProvider {
 
     /**
      * Add a translation text.
-     * 
-     * @param key
-     *            Key to call in the application.
-     * @param french
-     *            French translation.
-     * @param english
-     *            English translation.
-     * @throws NullPointerException
-     *             If a value is <code>null</code>.
-     * @throws IllegalArgumentException
-     *             if the key is <code>null</code>.
+     *
+     * @param key     Key to call in the application.
+     * @param french  French translation.
+     * @param english English translation.
+     * @throws NullPointerException     If a value is <code>null</code>.
+     * @throws IllegalArgumentException if the key is <code>null</code>.
      */
     public void add(final String key, final String french, final String english) {
         this.fr.put(key, french);
@@ -90,14 +82,11 @@ public final class LanguageProvider {
 
     /**
      * Provide a properties containing the language translation.
-     * 
-     * @param language
-     *            Language to retrieve.
+     *
+     * @param language Language to retrieve.
      * @return The properties matching the language.
-     * @throws NullPointerException
-     *             If parameter is <code>null</code>.
-     * @throws IllegalArgumentException
-     *             if language is <code>null</code>.
+     * @throws NullPointerException     If parameter is <code>null</code>.
+     * @throws IllegalArgumentException if language is <code>null</code>.
      */
     public Properties get(final Language language) {
         return this.languages.get(language);

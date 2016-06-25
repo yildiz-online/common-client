@@ -27,7 +27,7 @@ package be.yildiz.common.client.gui.listener;
 
 /**
  * Enumeration of all possible special keys.
- * 
+ *
  * @author Grégory Van den Borre
  */
 public enum SpecialKey {

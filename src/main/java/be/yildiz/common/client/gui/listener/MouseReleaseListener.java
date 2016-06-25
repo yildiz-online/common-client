@@ -29,25 +29,23 @@ import be.yildiz.common.vector.Point2D;
 
 /**
  * Listener for the mouse release click events.
- * 
+ *
  * @author Grégory Van Den Borre
  */
 public interface MouseReleaseListener {
 
     /**
      * Called when a button of the mouse is released.
-     * 
-     * @param position
-     *            Position of the mouse when released.
+     *
+     * @param position Position of the mouse when released.
      */
     default void mouseLeftReleased(final Point2D position) {
     }
 
     /**
      * Called when a button of the mouse is released.
-     * 
-     * @param position
-     *            Position of the mouse when released.
+     *
+     * @param position Position of the mouse when released.
      */
     default void mouseRightReleased(final Point2D position) {
     }
