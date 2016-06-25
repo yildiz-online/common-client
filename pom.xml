@@ -48,4 +48,12 @@
       <artifactId>mockito-all</artifactId>
     </dependency>
   </dependencies>
+  
+  <repositories>
+    <repository>
+      <id>ossrh</id>
+      <name>OSS repository snapshot</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </repository>
+  </repositories>
 </project>
