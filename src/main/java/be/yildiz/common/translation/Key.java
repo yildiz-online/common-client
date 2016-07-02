@@ -116,8 +116,12 @@ public class Key {
         return new MultiKey(keys);
     }
 
+    /**
+     * Check if the key is empty.
+     * @return <code>true</code> if the key is empty.
+     */
     public boolean isEmpty() {
-        return this.translationKey.equals("");
+        return "".equals(this.translationKey);
     }
 
     /**

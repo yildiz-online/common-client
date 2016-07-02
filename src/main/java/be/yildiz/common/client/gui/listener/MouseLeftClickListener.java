@@ -35,11 +35,16 @@ public interface MouseLeftClickListener {
 
     /**
      * Called when the left button of the mouse is pressed.
-     *
-     * @param position Position of the mouse when pressed.
      */
     void click();
 
+    /**
+     * Called when the left button of the mouse is pressed.
+     * The default implementation is empty.
+     * @param x Left mouse position when the click is done.
+     * @param y Top mouse position when the click is done.
+     */
     default void clickAt(int x, int y) {
+        //Empty default implementation.
     }
 }

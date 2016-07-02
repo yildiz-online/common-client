@@ -58,4 +58,12 @@ public class KeyTest {
         Assert.assertEquals("blabla", k.translationKey);
         Assert.assertFalse(k.args.isPresent());
     }
+
+    @Test
+    public void testIsEmpty() {
+        Key k = Key.get("");
+        Assert.assertTrue(k.isEmpty());
+        k = Key.get("a");
+        Assert.assertFalse(k.isEmpty());
+    }
 }
