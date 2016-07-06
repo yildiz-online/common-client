@@ -10,6 +10,11 @@
 
   <packaging>jar</packaging>
   <inceptionYear>2011</inceptionYear>
+  <scm>
+    <connection>scm:git:https://bitbucket.org/yildiz-engine-team/common-client</connection>
+    <developerConnection>scm:git:https://bitbucket.org/yildiz-engine-team/common-client</developerConnection>
+    <url>https://bitbucket.org/yildiz-engine-team/common-client</url>
+  </scm>
   <parent>
     <groupId>be.yildiz-games</groupId>
     <artifactId>parent</artifactId>
