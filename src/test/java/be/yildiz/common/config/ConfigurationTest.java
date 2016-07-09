@@ -162,27 +162,31 @@ public final class ConfigurationTest {
      */
     public static class IsDebug {
 
+        private File getDebugFile(final String name) {
+            return getFile("config/debug/" + name);
+        }
+
         @Test
         public void fromEmptyFile() {
-            Configuration c = Configuration.readFromFile(new File("td"));
+            Configuration c = Configuration.readFromFile(this.getDebugFile("configDebugEmpty"));
             Assert.assertFalse(c.isDebug());
         }
 
         @Test
         public void fromFileTrueValue() {
-            Configuration c = Configuration.readFromFile(getFile("configDebugTrue"));
+            Configuration c = Configuration.readFromFile(this.getDebugFile("configDebugTrue"));
             Assert.assertTrue(c.isDebug());
         }
 
         @Test
         public void fromFileFalseValue() {
-            Configuration c = Configuration.readFromFile(getFile("configDebugFalse"));
+            Configuration c = Configuration.readFromFile(this.getDebugFile("configDebugFalse"));
             Assert.assertFalse(c.isDebug());
         }
 
         @Test(expected = IllegalArgumentException.class)
         public void fromFileAnyValue() {
-            Configuration c = Configuration.readFromFile(getFile("configDebugAny"));
+            Configuration c = Configuration.readFromFile(this.getDebugFile("configDebugAny"));
             Assert.assertFalse(c.isDebug());
         }
     }
