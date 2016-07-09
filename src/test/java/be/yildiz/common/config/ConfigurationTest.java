@@ -153,8 +153,37 @@ public final class ConfigurationTest {
         Assert.assertEquals(Language.EN, oc.getLanguage());
     }
 
-    @Test
-    public void testIsDebug() {
-        Assert.assertFalse(c.isDebug());
+    private static File getFile(final String name) {
+        return new File("src/test/resources/" + name + ".properties");
+    }
+
+    /**
+     * isDebug methods.
+     */
+    public static class IsDebug {
+
+        @Test
+        public void fromEmptyFile() {
+            Configuration c = Configuration.readFromFile(new File("td"));
+            Assert.assertFalse(c.isDebug());
+        }
+
+        @Test
+        public void fromFileTrueValue() {
+            Configuration c = Configuration.readFromFile(getFile("configDebugTrue"));
+            Assert.assertTrue(c.isDebug());
+        }
+
+        @Test
+        public void fromFileFalseValue() {
+            Configuration c = Configuration.readFromFile(getFile("configDebugFalse"));
+            Assert.assertFalse(c.isDebug());
+        }
+
+        @Test(expected = IllegalArgumentException.class)
+        public void fromFileAnyValue() {
+            Configuration c = Configuration.readFromFile(getFile("configDebugAny"));
+            Assert.assertFalse(c.isDebug());
+        }
     }
 }

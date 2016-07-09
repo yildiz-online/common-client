@@ -85,6 +85,11 @@ public final class Configuration {
     public static final String SERVER_PORT_KEY = "server_port";
 
     /**
+     * Property key to check the debug mode.
+     */
+    private static final String DEBUG_KEY = "debug";
+
+    /**
      * Associated property file.
      */
     private final Properties properties;
@@ -106,17 +111,19 @@ public final class Configuration {
         this.filePath = path;
     }
 
+
     /**
      * Test if the configuration has been loaded from the file and return it.
      *
      * @param file File containing the configuration, if the file does not exists, it will be created with default values.
      * @return A full copy of the config data to prevent any change in it.
      */
-    public static Configuration readFromFile(final File file) {
+    public static Configuration readFromFile(final File file, final String... args) {
+
         Properties p = new Properties();
         Configuration config;
         try {
-            p = PropertiesHelper.getPropertiesFromFile(file);
+            p = PropertiesHelper.getPropertiesFromFile(file, args);
             config = new Configuration(p, file);
         } catch (ResourceMissingException e) {
             config = new Configuration(p, file);
@@ -219,7 +226,7 @@ public final class Configuration {
      * @return <code>true</code> If the application must be run in debug mode.
      */
     public boolean isDebug() {
-        return false;
+        return PropertiesHelper.getBooleanValue(this.properties, Configuration.DEBUG_KEY, false);
     }
 
     /**
