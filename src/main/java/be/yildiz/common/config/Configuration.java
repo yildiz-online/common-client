@@ -192,15 +192,11 @@ public final class Configuration {
     }
 
     /**
-     * @return The language used for the game, of English if the value in property file is empty or invalid.
+     * @return The language used for the game, or English if the value in property file is empty or invalid.
      */
     public Language getLanguage() {
         String value = this.properties.getProperty(LANGUAGE_KEY, Language.EN.name());
-        try {
-            return Language.valueOf(value);
-        } catch (IllegalArgumentException e) {
-            return Language.EN;
-        }
+        return Language.valueOf(value);
     }
 
     /**

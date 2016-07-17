@@ -31,6 +31,8 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.runners.Enclosed;
+import org.junit.runner.RunWith;
 
 import java.io.File;
 import java.util.Properties;
@@ -38,6 +40,7 @@ import java.util.Properties;
 /**
  * @author Grégory Van den Borre
  */
+@RunWith(Enclosed.class)
 public final class ConfigurationTest {
 
     private File f;
