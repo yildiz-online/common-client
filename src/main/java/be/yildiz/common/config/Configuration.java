@@ -26,6 +26,7 @@
 package be.yildiz.common.config;
 
 import be.yildiz.common.exeption.ResourceMissingException;
+import be.yildiz.common.log.Logger;
 import be.yildiz.common.resource.PropertiesHelper;
 import be.yildiz.common.translation.Language;
 import lombok.NonNull;
@@ -87,7 +88,7 @@ public final class Configuration {
     /**
      * Property key to check the debug mode.
      */
-    private static final String DEBUG_KEY = "debug";
+    public static final String DEBUG_KEY = "debug";
 
     /**
      * Associated property file.
@@ -196,7 +197,12 @@ public final class Configuration {
      */
     public Language getLanguage() {
         String value = this.properties.getProperty(LANGUAGE_KEY, Language.EN.name());
-        return Language.valueOf(value);
+        try {
+            return Language.valueOf(value.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            Logger.error("Using not existing language", e);
+            return Language.EN;
+        }
     }
 
     /**
