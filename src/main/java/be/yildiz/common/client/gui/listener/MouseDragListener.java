@@ -50,6 +50,7 @@ public interface MouseDragListener {
      * @param delta    Delta between the current and the last position.
      */
     default void mouseDragRight(Point2D position, Point2D delta) {
+        //Default empty implementation.
     }
 
     /**
@@ -59,6 +60,7 @@ public interface MouseDragListener {
      * @param delta    Delta between the current and the last position.
      */
     default void mouseDragWheel(Point2D position, Point2D delta) {
+        //Default empty implementation.
     }
 
     /**
@@ -67,6 +69,7 @@ public interface MouseDragListener {
      * @param position Current mouse position.
      */
     default void mouseDragRightReleased(Point2D position) {
+        //Default empty implementation.
     }
 
     /**
@@ -75,5 +78,6 @@ public interface MouseDragListener {
      * @param position Current mouse position.
      */
     default void mouseDragLeftReleased(Point2D position) {
+        //Default empty implementation.
     }
 }

@@ -44,12 +44,14 @@ public interface KeyboardListener {
      * Called when enter key is pressed.
      */
     default void enterKeyPressed() {
+        //Default empty implementation.
     }
 
     /**
      * Called when delete key is pressed.
      */
     default void deleteKeyPressed() {
+        //Default empty implementation.
     }
 
     /**
@@ -58,6 +60,7 @@ public interface KeyboardListener {
      * @param arrow Enum value to get witch arrow has been pressed.
      */
     default void arrowKeyPressed(ArrowKey arrow) {
+        //Default empty implementation.
     }
 
     /**
@@ -66,6 +69,7 @@ public interface KeyboardListener {
      * @param key Code of the key.
      */
     default void keyReleased(int key) {
+        //Default empty implementation.
     }
 
     /**
@@ -74,5 +78,6 @@ public interface KeyboardListener {
      * @param number Number pressed.
      */
     default void numberPressed(int number) {
+        //Default empty implementation.
     }
 }

@@ -40,6 +40,7 @@ public interface MouseReleaseListener {
      * @param position Position of the mouse when released.
      */
     default void mouseLeftReleased(final Point2D position) {
+        //Default empty implementation.
     }
 
     /**
@@ -48,6 +49,7 @@ public interface MouseReleaseListener {
      * @param position Position of the mouse when released.
      */
     default void mouseRightReleased(final Point2D position) {
+        //Default empty implementation.
     }
 
 }

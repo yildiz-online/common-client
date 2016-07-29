@@ -45,6 +45,6 @@ public interface MouseLeftClickListener {
      * @param y Top mouse position when the click is done.
      */
     default void clickAt(int x, int y) {
-        //Empty default implementation.
+        //Default empty implementation.
     }
 }
