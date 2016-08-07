@@ -4,7 +4,6 @@
   <name>Yildiz Common Client</name>
   <description>Common library for the yildiz client projects, contains utilities, helper classes and more.</description>
 
-  <groupId>be.yildiz-games</groupId>
   <artifactId>common-client</artifactId>
   <version>1.0.0-0-SNAPSHOT</version>
 
