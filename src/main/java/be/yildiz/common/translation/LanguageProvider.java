@@ -32,14 +32,14 @@ import java.util.Properties;
 
 /**
  * Provide a translation contained in a properties for a given language.
+ * Mutable class.
  *
  * @author Grégory Van den Borre
- * @specfield languages:Map<Language, Properties>:Provide the property data for a given language.
- * @mutable
- * @invariant language != null
- * @invariant !language.keys.contains(null)
- * @invariant !language.values.contains(null)
+ *         specfield languages:Map of Language, Properties:Provide the property data for a given language.
  */
+//@Invariant("language != null")
+//@Invariant("!language.keys.contains(null)")
+//@Invariant("!language.values.contains(null)")
 public final class LanguageProvider {
 
     /**

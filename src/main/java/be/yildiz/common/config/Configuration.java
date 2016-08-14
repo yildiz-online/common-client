@@ -38,10 +38,10 @@ import java.util.Properties;
  * Configuration data, data are retrieved by parsing the property file. If the file does not contains the required property, a default value is returned.
  *
  * @author Grégory Van Den Borre
- * @specfield login:String: Value of the login if the user saved it, empty string if not found.
- * @specfield password:String: Value of the password if the user saved it, saved in clear to be updated in view if necessary, empty string if not found.
- * @specfield language:String: Value of one possible language in the system, if empty of invalid, English is returned.
- * @specfield saveCredential: boolean: if true, the password and language will be persisted in the property file.
+ *         specfield login:String: Value of the login if the user saved it, empty string if not found.
+ *         specfield password:String: Value of the password if the user saved it, saved in clear to be updated in view if necessary, empty string if not found.
+ *         specfield language:String: Value of one possible language in the system, if empty of invalid, English is returned.
+ *         specfield saveCredential: boolean: if true, the password and language will be persisted in the property file.
  */
 public final class Configuration {
 
@@ -117,6 +117,7 @@ public final class Configuration {
      * Test if the configuration has been loaded from the file and return it.
      *
      * @param file File containing the configuration, if the file does not exists, it will be created with default values.
+     * @param args Default values.
      * @return A full copy of the config data to prevent any change in it.
      */
     public static Configuration readFromFile(final File file, final String... args) {
@@ -157,6 +158,7 @@ public final class Configuration {
 
     /**
      * @param value The password to set.
+     * @return This object for chaining.
      */
     public Configuration setPassword(@NonNull final String value) {
         this.properties.setProperty(Configuration.PWD_KEY, value);
@@ -172,6 +174,7 @@ public final class Configuration {
 
     /**
      * @param checked Flag to persist or not the credentials on client computer.
+     * @return This object for chaining.
      */
     public Configuration setSaveCredentialsChecked(final boolean checked) {
         this.properties.setProperty(Configuration.SAVE_CREDENTIALS_KEY, String.valueOf(checked));
@@ -209,6 +212,7 @@ public final class Configuration {
      * Change the language to use.
      *
      * @param language New language.
+     * @return This object for chaining.
      */
     public Configuration setLanguage(final Language language) {
         this.properties.setProperty(LANGUAGE_KEY, language.name());
@@ -240,6 +244,7 @@ public final class Configuration {
 
     /**
      * @param value The authentication host address to set.
+     * @return This object for chaining.
      * @throws NullPointerException If value is null.
      */
     public Configuration setAuthenticationHost(@NonNull final String value) {
@@ -256,6 +261,7 @@ public final class Configuration {
 
     /**
      * @param value The authentication port number to set.
+     * @return This object for chaining.
      */
     public Configuration setAuthenticationPort(@NonNull final int value) {
         this.properties.setProperty(Configuration.AUTHENTICATION_PORT_KEY, String.valueOf(value));
@@ -271,6 +277,7 @@ public final class Configuration {
 
     /**
      * @param value The server host address to set.
+     * @return This object for chaining.
      * @throws NullPointerException If value is null.
      */
     public Configuration setServerHost(@NonNull final String value) {
@@ -287,6 +294,7 @@ public final class Configuration {
 
     /**
      * @param value The server port number to set.
+     * @return This object for chaining.
      */
     public Configuration setServerPort(@NonNull final int value) {
         this.properties.setProperty(Configuration.SERVER_PORT_KEY, String.valueOf(value));

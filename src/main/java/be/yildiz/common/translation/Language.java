@@ -27,14 +27,14 @@ package be.yildiz.common.translation;
 
 /**
  * Enumeration for possible languages.
+ * Immutable class.
  *
  * @author Grégory Van den Borre
- * @specfield description:String:Language translated in its own language.
- * @specfield value:int:Language unique index value.
- * @invariant description != null.
- * @invariant value >= 0.
- * @immutable
+ *         specfield description:String:Language translated in its own language.
+ *         specfield value:int:Language unique index value.
  */
+//@Invariant description != null.
+//@Invariant value >= 0.
 public enum Language {
 
     /**

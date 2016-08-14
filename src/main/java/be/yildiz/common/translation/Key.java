@@ -37,9 +37,9 @@ import java.util.Optional;
  * The class is mutable to improve performances, but only accessible from its package.
  *
  * @author Grégory Van den Borre
- * @mutable
- * @specfield key:String:Key to translate.
- * @specfield args:Object[]:Optional arguments.
+
+ * specfield key:String:Key to translate.
+ * specfield args:Object[]:Optional arguments.
  */
 @EqualsAndHashCode
 public class Key {
@@ -58,9 +58,9 @@ public class Key {
      * Create a new instance with a key, this.args will be empty.
      *
      * @param key Value to translate.
-     * @ensures this.key==key
-     * @ensures this.args==Optional.empty()
      */
+     //@Ensures("this.key==key")
+     //@Ensures("this.args==Optional.empty()")
     private Key(final String key) {
         super();
         this.translationKey = key;
@@ -72,9 +72,9 @@ public class Key {
      *
      * @param key  Value to translate.
      * @param args Arguments to add to translation.
-     * @ensures this.key==key
-     * @ensures this.args==this.args.length==0?Optional.empty():Optional.of(args)
      */
+    //@Ensures("this.key==key")
+    //@Ensures("this.args==this.args.length==0?Optional.empty():Optional.of(args)")
     private Key(final String key, final Object... args) {
         super();
         this.translationKey = key;
@@ -128,11 +128,10 @@ public class Key {
      * A multi key is composed of several keys to provide the possibility to use several translation in one go.
      *
      * @author Van den Borre Grégory
-     * @mutable
-     * @specfield keys:List<Key>:contains the different keys, null values not allowed.
-     * @invariant keys.size() > 0
-     * @invariant !keys.contains(null)
+     * specfield keys:List of Key:contains the different keys, null values not allowed.
      */
+    //@Invariant("keys.size() > 0")
+    //@Invariant("!keys.contains(null)")
     public static final class MultiKey {
 
         /**
