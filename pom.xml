@@ -5,7 +5,7 @@
   <description>Common library for the yildiz client projects, contains utilities, helper classes and more.</description>
 
   <artifactId>common-client</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2-SNAPSHOT</version>
 
   <packaging>jar</packaging>
   <inceptionYear>2011</inceptionYear>
@@ -17,12 +17,12 @@
   <parent>
     <groupId>be.yildiz-games</groupId>
     <artifactId>parent</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6-SNAPSHOT</version>
   </parent>
 
   <properties>
-    <version.bom-junit>1.0.1</version.bom-junit>
-    <version.common-shared>1.0.2</version.common-shared>
+    <version.bom-junit>1.0.2-SNAPSHOT</version.bom-junit>
+    <version.common-shared>1.0.3-SNAPSHOT</version.common-shared>
   </properties>
 
   <dependencyManagement>
