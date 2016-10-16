@@ -80,6 +80,16 @@ public final class LanguageProvider {
         this.en.put(key, english);
     }
 
+    public void add(TranslatedValueProvider translatedValue) {
+        this.add(translatedValue.getKey(), translatedValue.getFrench(), translatedValue.getEnglish());
+    }
+
+    public void add(TranslatedValuesProvider translatedValue) {
+        for(TranslatedValueProvider t : translatedValue) {
+            this.add(t.getKey(), t.getFrench(), t.getEnglish());
+        }
+    }
+
     /**
      * Provide a properties containing the language translation.
      *
