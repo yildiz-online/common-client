@@ -28,7 +28,17 @@ package be.yildiz.common.translation;
 /**
  * @author Grégory Van den Borre
  */
-public interface TranslatedValueProvider {
+public class SimpleTranslatedValueProvider implements TranslatedValueProvider {
 
-    TranslatedValue getTranslatedValue();
+
+    private final TranslatedValue translatedValue;
+
+    public SimpleTranslatedValueProvider(TranslatedValue translatedValue) {
+        this.translatedValue = translatedValue;
+    }
+
+    @Override
+    public TranslatedValue getTranslatedValue() {
+        return this.translatedValue;
+    }
 }

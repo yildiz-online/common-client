@@ -80,13 +80,20 @@ public final class LanguageProvider {
         this.en.put(key, english);
     }
 
-    public void add(TranslatedValueProvider translatedValue) {
-        this.add(translatedValue.getKey(), translatedValue.getFrench(), translatedValue.getEnglish());
+    public void add(TranslatedValueProvider provider) {
+        this.add(provider.getTranslatedValue());
+    }
+
+    public void add(TranslatedValue value) {
+        this.add(
+                value.getKey(),
+                value.getFrench(),
+                value.getEnglish());
     }
 
     public void add(TranslatedValuesProvider translatedValue) {
         for(TranslatedValueProvider t : translatedValue) {
-            this.add(t.getKey(), t.getFrench(), t.getEnglish());
+            this.add(t.getTranslatedValue());
         }
     }
 

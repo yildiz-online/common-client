@@ -30,7 +30,7 @@ import lombok.NonNull;
 /**
  * @author Grégory Van den Borre
  */
-public class TranslatedValue implements TranslatedValueProvider {
+public class TranslatedValue {
     private final String key;
     private final String french;
     private final String english;
@@ -41,17 +41,14 @@ public class TranslatedValue implements TranslatedValueProvider {
         this.english = english;
     }
 
-    @Override
     public String getKey() {
         return this.key;
     }
 
-    @Override
     public String getFrench() {
         return this.french;
     }
 
-    @Override
     public String getEnglish() {
         return english;
     }
