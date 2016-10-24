@@ -143,6 +143,7 @@ public final class Configuration {
 
     /**
      * @param value The login to set.
+     * @return This object for chaining.
      */
     public Configuration setLogin(@NonNull final String value) {
         this.properties.setProperty(LOGIN_KEY, value);
