@@ -57,6 +57,7 @@ public final class Translation {
      * @param language Language to add.
      * @param provider Object containing the language properties.
      * @return This object.
+     * @throws NullPointerException If any parameter is null.
      */
     public Translation addLanguage(final Language language, final LanguageProvider provider) {
         this.languages.put(language, provider.get(language));
