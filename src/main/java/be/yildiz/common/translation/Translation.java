@@ -93,7 +93,7 @@ public final class Translation {
      * @throws IllegalArgumentException if the key does not exist.
      */
     private String get(final String key) {
-        if (key == "") {
+        if (key.isEmpty()) {
             return "";
         }
         String s = this.languages.get(this.chosenLanguage).getProperty(key);
