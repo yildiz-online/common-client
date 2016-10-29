@@ -28,6 +28,7 @@ package be.yildiz.common.translation;
 /**
  * @author Grégory Van den Borre
  */
+@FunctionalInterface
 public interface TranslatedValueProvider {
 
     TranslatedValue getTranslatedValue();
