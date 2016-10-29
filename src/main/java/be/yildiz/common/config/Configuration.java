@@ -203,7 +203,7 @@ public final class Configuration {
         try {
             return Language.valueOf(value.toUpperCase());
         } catch (IllegalArgumentException e) {
-            Logger.warning("Using not existing language " + value);
+            Logger.error("Using not existing language " + value, e);
             return Language.EN;
         }
     }
