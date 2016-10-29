@@ -25,7 +25,6 @@
 
 package be.yildiz.common.config;
 
-import be.yildiz.common.exeption.ResourceMissingException;
 import be.yildiz.common.log.Logger;
 import be.yildiz.common.resource.PropertiesHelper;
 import be.yildiz.common.translation.Language;
@@ -124,10 +123,10 @@ public final class Configuration {
 
         Properties p = new Properties();
         Configuration config;
-        try {
+        if(file.exists()) {
             p = PropertiesHelper.getPropertiesFromFile(file, args);
             config = new Configuration(p, file);
-        } catch (ResourceMissingException e) {
+        } else {
             config = new Configuration(p, file);
             config.save();
         }
