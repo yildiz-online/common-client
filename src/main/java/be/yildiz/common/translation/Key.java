@@ -146,7 +146,10 @@ public class Key {
          */
         private MultiKey(final Key... keys) {
             super();
-            this.keys = Lists.newList(keys);
+            this.keys = Lists.newList();
+            for(Key k : keys) {
+                this.add(k);
+            }
             assert this.invariant();
         }
 
@@ -179,10 +182,6 @@ public class Key {
                 throw new IllegalArgumentException("null value not allowed.");
             }
             return true;
-        }
-
-        public boolean isEmpty() {
-            return this.keys.isEmpty();
         }
     }
 }
