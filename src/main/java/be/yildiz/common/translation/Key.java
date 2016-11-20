@@ -116,6 +116,10 @@ public class Key {
         return new MultiKey(keys);
     }
 
+    public static MultiKey get(final List<Key> keys) {
+        return new MultiKey(keys);
+    }
+
     /**
      * Check if the key is empty.
      * @return <code>true</code> if the key is empty.
@@ -148,6 +152,15 @@ public class Key {
             super();
             this.keys = Lists.newList();
             for(Key k : keys) {
+                this.add(k);
+            }
+            assert this.invariant();
+        }
+
+        private MultiKey(final List<Key> l) {
+            super();
+            this.keys = Lists.newList();
+            for(Key k : l) {
                 this.add(k);
             }
             assert this.invariant();
