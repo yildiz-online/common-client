@@ -26,6 +26,7 @@
   <modelVersion>4.0.0</modelVersion>
   <name>Yildiz Common Client</name>
   <description>Common library for the yildiz client projects, contains utilities, helper classes and more.</description>
+  <url>https://bitbucket.org/yildiz-engine-team/common-client</url>
 
   <artifactId>common-client</artifactId>
   <version>1.0.4-SNAPSHOT</version>
@@ -43,11 +44,6 @@
     <version>1.0.8-SNAPSHOT</version>
   </parent>
 
-  <properties>
-    <version.bom-junit>1.0.4-SNAPSHOT</version.bom-junit>
-    <version.common-shared>1.0.5-SNAPSHOT</version.common-shared>
-  </properties>
-
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -64,7 +60,6 @@
     <dependency>
       <groupId>be.yildiz-games</groupId>
       <artifactId>common-shared</artifactId>
-      <version>${version.common-shared}</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
