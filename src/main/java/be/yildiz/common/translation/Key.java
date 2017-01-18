@@ -27,7 +27,6 @@ import be.yildiz.common.collections.Lists;
 import lombok.EqualsAndHashCode;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * A Key is a value meant to be translated, it is composed of a key, and optional arguments.
@@ -50,7 +49,7 @@ public class Key {
     /**
      * Optional arguments.
      */
-    final Optional<Object[]> args;
+    final Object[] args;
 
     /**
      * Create a new instance with a key, this.args will be empty.
@@ -58,11 +57,9 @@ public class Key {
      * @param key Value to translate.
      */
      //@Ensures("this.key==key")
-     //@Ensures("this.args==Optional.empty()")
+     //@Ensures("this.args==new Object[0]")
     private Key(final String key) {
-        super();
-        this.translationKey = key;
-        this.args = Optional.empty();
+        this(key, new Object[0]);
     }
 
     /**
@@ -71,16 +68,28 @@ public class Key {
      * @param key  Value to translate.
      * @param args Arguments to add to translation.
      */
-    //@Ensures("this.key==key")
-    //@Ensures("this.args==this.args.length==0?Optional.empty():Optional.of(args)")
+    //@Invariant("keys != null")
+    //@Invariant("args != null")
     private Key(final String key, final Object... args) {
         super();
         this.translationKey = key;
-        if (args.length == 0) {
-            this.args = Optional.empty();
-        } else {
-            this.args = Optional.of(args);
+        this.args = args;
+        assert this.invariant();
+    }
+
+    private boolean invariant() {
+        if(this.translationKey == null) {
+            throw new IllegalArgumentException("Translation key should not be null.");
         }
+        if(this.args == null) {
+            throw new IllegalArgumentException("Args should not be null.");
+        }
+        for(Object o: this.args) {
+            if(o == null) {
+                throw new IllegalArgumentException("Args should not contains null.");
+            }
+        }
+        return true;
     }
 
     /**
@@ -157,6 +166,9 @@ public class Key {
 
         private MultiKey(final List<Key> l) {
             super();
+            if (l == null) {
+                throw new IllegalArgumentException("List is null");
+            }
             this.keys = Lists.newList();
             for(Key k : l) {
                 this.add(k);

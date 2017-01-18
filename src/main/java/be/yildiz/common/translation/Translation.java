@@ -117,6 +117,6 @@ public final class Translation {
      * @return The translated value associated to the key.
      */
     public String translate(final Key key) {
-        return key.args.isPresent() ? StringUtil.fillVariable(this.get(key.translationKey), key.args.get()) : this.get(key.translationKey);
+        return StringUtil.fillVariable(this.get(key.translationKey), key.args);
     }
 }
