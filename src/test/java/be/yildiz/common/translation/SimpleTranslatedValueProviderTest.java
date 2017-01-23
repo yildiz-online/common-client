@@ -23,26 +23,30 @@
 
 package be.yildiz.common.translation;
 
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.experimental.runners.Enclosed;
+import org.junit.runner.RunWith;
+
 /**
  * @author Grégory Van den Borre
  */
-public class SimpleTranslatedValueProvider implements TranslatedValueProvider {
+@RunWith(Enclosed.class)
+public class SimpleTranslatedValueProviderTest {
 
-    /**
-     * Wrapped value.
-     */
-    private final TranslatedValue translatedValue;
+    public static class Constructor {
 
-    public SimpleTranslatedValueProvider(final TranslatedValue translatedValue) {
-        super();
-        if(translatedValue == null) {
-            throw new IllegalArgumentException("TranslatedValue cannot be null.");
+        @Test
+        public void happyFlow() {
+            TranslatedValue v = new TranslatedValue("k", "f", "e");
+            TranslatedValueProvider p = new SimpleTranslatedValueProvider(v);
+            Assert.assertEquals(v, p.getTranslatedValue());
         }
-        this.translatedValue = translatedValue;
+
+        @Test(expected = IllegalArgumentException.class)
+        public void withNull() {
+            new SimpleTranslatedValueProvider(null);
+        }
     }
 
-    @Override
-    public TranslatedValue getTranslatedValue() {
-        return this.translatedValue;
-    }
 }
