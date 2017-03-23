@@ -126,7 +126,7 @@ public class LanguageProviderTest {
             Assert.assertNotNull(p.get(Language.EN));
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void nullParameter() {
             LanguageProvider p = new LanguageProvider();
             p.get(null);

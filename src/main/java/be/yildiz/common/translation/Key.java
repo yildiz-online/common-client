@@ -24,8 +24,8 @@
 package be.yildiz.common.translation;
 
 import be.yildiz.common.collections.Lists;
-import lombok.EqualsAndHashCode;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -38,7 +38,6 @@ import java.util.List;
  * specfield key:String:Key to translate.
  * specfield args:Object[]:Optional arguments.
  */
-@EqualsAndHashCode
 public class Key {
 
     /**
@@ -133,6 +132,31 @@ public class Key {
      */
     public boolean isEmpty() {
         return "".equals(this.translationKey);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Key key = (Key) o;
+
+        if (!translationKey.equals(key.translationKey)) {
+            return false;
+        }
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(args, key.args);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = translationKey.hashCode();
+        result = 31 * result + Arrays.hashCode(args);
+        return result;
     }
 
     /**

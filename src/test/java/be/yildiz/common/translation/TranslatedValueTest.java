@@ -44,17 +44,17 @@ public class TranslatedValueTest {
             Assert.assertEquals("enValue", v.getEnglish());
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withNullKey() {
             new TranslatedValue(null, "frValue", "enValue");
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withNullFrench() {
             new TranslatedValue("aKey", null, "enValue");
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withNullEnglish() {
             new TranslatedValue("aKey", "frValue", null);
         }

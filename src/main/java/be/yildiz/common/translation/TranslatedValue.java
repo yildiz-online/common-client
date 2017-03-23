@@ -23,8 +23,6 @@
 
 package be.yildiz.common.translation;
 
-import lombok.NonNull;
-
 /**
  * @author Grégory Van den Borre
  */
@@ -33,7 +31,10 @@ public class TranslatedValue {
     private final String french;
     private final String english;
 
-    public TranslatedValue(@NonNull String key, @NonNull String french, @NonNull String english) {
+    public TranslatedValue(String key, String french, String english) {
+        assert key != null;
+        assert  french != null;
+        assert english != null;
         this.key = key;
         this.french = french;
         this.english = english;

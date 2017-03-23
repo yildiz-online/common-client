@@ -36,13 +36,13 @@ public final class TranslationTest {
     @Rule
     public final ExpectedException rule = ExpectedException.none();
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = AssertionError.class)
     public void testAddLanguageNullArg() {
         Translation t = new Translation();
         t.addLanguage(null, new LanguageProvider());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = AssertionError.class)
     public void testAddLanguageArgNull() {
         Translation t = new Translation();
         t.addLanguage(Language.EN, null);

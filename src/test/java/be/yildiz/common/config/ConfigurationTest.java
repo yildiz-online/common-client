@@ -66,7 +66,7 @@ public final class ConfigurationTest {
             Assert.assertEquals("tree", c.getLogin());
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withNull() {
             Configuration c = givenAnEmpty();
             c.setLogin(null);
@@ -97,7 +97,7 @@ public final class ConfigurationTest {
             Assert.assertEquals("leaf", c.getPassword());
         }
 
-        @Test(expected = NullPointerException.class)
+        @Test(expected = AssertionError.class)
         public void withNull() {
             Configuration c = givenAnEmpty();
             c.setPassword(null);

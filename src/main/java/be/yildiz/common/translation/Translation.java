@@ -26,7 +26,6 @@ package be.yildiz.common.translation;
 import be.yildiz.common.collections.Maps;
 import be.yildiz.common.translation.Key.MultiKey;
 import be.yildiz.common.util.StringUtil;
-import lombok.NonNull;
 
 import java.util.Map;
 import java.util.Properties;
@@ -46,7 +45,6 @@ public final class Translation {
     /**
      * Language currently active.
      */
-    @NonNull
     private Language chosenLanguage = Language.EN;
 
     /**
@@ -58,6 +56,8 @@ public final class Translation {
      * @throws NullPointerException If any parameter is null.
      */
     public Translation addLanguage(final Language language, final LanguageProvider provider) {
+        assert language != null;
+        assert provider != null;
         this.languages.put(language, provider.get(language));
         assert this.invariant();
         return this;
@@ -77,6 +77,7 @@ public final class Translation {
      * @return This object for method chaining.
      */
     public Translation chooseLanguage(final Language language) {
+        assert language != null;
         if (!this.languages.containsKey(language)) {
             throw new IllegalArgumentException("Unexisting language:" + language);
         }

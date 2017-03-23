@@ -24,7 +24,6 @@
 package be.yildiz.common.translation;
 
 import be.yildiz.common.collections.Maps;
-import lombok.NonNull;
 
 import java.util.Map;
 import java.util.Properties;
@@ -114,7 +113,8 @@ public final class LanguageProvider {
      * @return The properties matching the language.
      * @throws NullPointerException     If language is <code>null</code>.
      */
-    public Properties get(@NonNull final Language language) {
+    public Properties get(final Language language) {
+        assert language != null;
         return this.languages.get(language);
     }
 

@@ -26,7 +26,6 @@ package be.yildiz.common.config;
 import be.yildiz.common.log.Logger;
 import be.yildiz.common.resource.PropertiesHelper;
 import be.yildiz.common.translation.Language;
-import lombok.NonNull;
 
 import java.io.File;
 import java.util.Properties;
@@ -142,7 +141,8 @@ public final class Configuration {
      * @param value The login to set.
      * @return This object for chaining.
      */
-    public Configuration setLogin(@NonNull final String value) {
+    public Configuration setLogin(final String value) {
+        assert value != null;
         this.properties.setProperty(LOGIN_KEY, value);
         return this;
     }
@@ -158,7 +158,8 @@ public final class Configuration {
      * @param value The password to set.
      * @return This object for chaining.
      */
-    public Configuration setPassword(@NonNull final String value) {
+    public Configuration setPassword(final String value) {
+        assert value != null;
         this.properties.setProperty(Configuration.PWD_KEY, value);
         return this;
     }
@@ -245,7 +246,8 @@ public final class Configuration {
      * @return This object for chaining.
      * @throws NullPointerException If value is null.
      */
-    public Configuration setAuthenticationHost(@NonNull final String value) {
+    public Configuration setAuthenticationHost(final String value) {
+        assert value != null;
         this.properties.setProperty(Configuration.AUTHENTICATION_HOST_KEY, value);
         return this;
     }
@@ -261,7 +263,7 @@ public final class Configuration {
      * @param value The authentication port number to set.
      * @return This object for chaining.
      */
-    public Configuration setAuthenticationPort(@NonNull final int value) {
+    public Configuration setAuthenticationPort(final int value) {
         this.properties.setProperty(Configuration.AUTHENTICATION_PORT_KEY, String.valueOf(value));
         return this;
     }
@@ -278,7 +280,8 @@ public final class Configuration {
      * @return This object for chaining.
      * @throws NullPointerException If value is null.
      */
-    public Configuration setServerHost(@NonNull final String value) {
+    public Configuration setServerHost(final String value) {
+        assert value != null;
         this.properties.setProperty(Configuration.SERVER_HOST_KEY, value);
         return this;
     }
@@ -294,7 +297,7 @@ public final class Configuration {
      * @param value The server port number to set.
      * @return This object for chaining.
      */
-    public Configuration setServerPort(@NonNull final int value) {
+    public Configuration setServerPort(final int value) {
         this.properties.setProperty(Configuration.SERVER_PORT_KEY, String.valueOf(value));
         return this;
     }
