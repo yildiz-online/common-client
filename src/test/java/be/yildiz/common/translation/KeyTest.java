@@ -173,6 +173,35 @@ public class KeyTest {
         }
     }
 
+    public static class Equals {
+
+        @Test
+        public void sameInstance() {
+            Key k = Key.get("k1");
+            Assert.assertTrue(k.equals(k));
+        }
+
+        @Test
+        public void sameValue() {
+            Assert.assertTrue(Key.get("k1").equals(Key.get("k1")));
+        }
+
+        @Test
+        public void differentValue() {
+            Assert.assertFalse(Key.get("k1").equals(Key.get("k2")));
+        }
+
+        @Test
+        public void withNull() {
+            Assert.assertFalse(Key.get("k1").equals(null));
+        }
+
+        @Test
+        public void differentType() {
+            Assert.assertFalse(Key.get("k1").equals("k1"));
+        }
+    }
+
     @Test
     public void withEmptyKey() {
         Key k = Key.get("");
