@@ -156,6 +156,23 @@ public class KeyTest {
         }
     }
 
+    public static class HashCode {
+
+        @Test
+        public void happyFlow() {
+            Key k1 = Key.get("k1");
+            Key k2 = Key.get("k1");
+            Assert.assertTrue(k1.hashCode() == k2.hashCode());
+        }
+
+        @Test
+        public void differentValue() {
+            Key k1 = Key.get("k1");
+            Key k2 = Key.get("k2");
+            Assert.assertFalse(k1.hashCode() == k2.hashCode());
+        }
+    }
+
     @Test
     public void withEmptyKey() {
         Key k = Key.get("");
