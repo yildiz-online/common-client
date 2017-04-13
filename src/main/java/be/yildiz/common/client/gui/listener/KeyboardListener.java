@@ -35,30 +35,34 @@ public interface KeyboardListener {
      * Called when a char key is pressed.
      *
      * @param key Key pressed.
+     * @return True if the listener used the key, false otherwise.
      */
-    void keyPressed(char key);
+    boolean keyPressed(char key);
 
     /**
      * Called when enter key is pressed.
+     * @return True if the listener used the key, false otherwise.
      */
-    default void enterKeyPressed() {
-        //Default empty implementation.
+    default boolean enterKeyPressed() {
+        return false;
     }
 
     /**
      * Called when delete key is pressed.
+     * @return True if the listener used the key, false otherwise.
      */
-    default void deleteKeyPressed() {
-        //Default empty implementation.
+    default boolean deleteKeyPressed() {
+        return false;
     }
 
     /**
      * Called when an arrow key has been pressed.
      *
      * @param arrow Enum value to get witch arrow has been pressed.
+     * @return True if the listener used the key, false otherwise.
      */
-    default void arrowKeyPressed(ArrowKey arrow) {
-        //Default empty implementation.
+    default boolean arrowKeyPressed(ArrowKey arrow) {
+        return false;
     }
 
     /**
@@ -74,8 +78,9 @@ public interface KeyboardListener {
      * Called when a number from the keypad is pressed.
      *
      * @param number Number pressed.
+     * @return True if the listener used the key, false otherwise.
      */
-    default void numberPressed(int number) {
-        //Default empty implementation.
+    default boolean numberPressed(int number) {
+        return false;
     }
 }
