@@ -23,6 +23,9 @@
 
 package be.yildiz.common.gui.listener;
 
+import be.yildiz.common.client.gui.listener.ArrowKey;
+import be.yildiz.common.client.gui.listener.KeyboardListener;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -31,6 +34,11 @@ import org.junit.Test;
 public class KeyboardListenerTest {
 
     @Test
-    public void test() {
+    public void testDefaultInterface() {
+        KeyboardListener kb = (c) -> true;
+        Assert.assertFalse(kb.enterKeyPressed());
+        Assert.assertFalse(kb.deleteKeyPressed());
+        Assert.assertFalse(kb.arrowKeyPressed(ArrowKey.DOWN));
+        Assert.assertFalse(kb.numberPressed(0));
     }
 }
