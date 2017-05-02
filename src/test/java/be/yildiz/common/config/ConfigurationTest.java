@@ -23,9 +23,11 @@
 
 package be.yildiz.common.config;
 
+import be.yildiz.common.log.Logger;
 import be.yildiz.common.resource.PropertiesHelper;
 import be.yildiz.common.translation.Language;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
@@ -43,6 +45,11 @@ public final class ConfigurationTest {
 
     public static class Key {
 
+        @Before
+        public void init() {
+            Logger.disable();
+        }
+
         @Test
         public void values() {
             Assert.assertEquals("user_login", Configuration.LOGIN_KEY);
@@ -58,6 +65,11 @@ public final class ConfigurationTest {
     }
 
     public static class SetLogin {
+
+        @Before
+        public void init() {
+            Logger.disable();
+        }
 
         @Test
         public void happyFlow() {
@@ -75,6 +87,11 @@ public final class ConfigurationTest {
 
     public static class GetLogin {
 
+        @Before
+        public void init() {
+            Logger.disable();
+        }
+
         @Test
         public void happyFlow() {
             Configuration c = Configuration.readFromFile(getFile("login/chair"));
@@ -89,6 +106,11 @@ public final class ConfigurationTest {
     }
 
     public static class SetPassword {
+
+        @Before
+        public void init() {
+            Logger.disable();
+        }
 
         @Test
         public void happyFlow() {
@@ -106,6 +128,11 @@ public final class ConfigurationTest {
 
     public static class GetPassword {
 
+        @Before
+        public void init() {
+            Logger.disable();
+        }
+
         @Test
         public void happyFlow() {
             Configuration c = Configuration.readFromFile(getFile("password/table"));
@@ -120,6 +147,11 @@ public final class ConfigurationTest {
     }
 
     public static class IsSaveCredential {
+
+        @Before
+        public void init() {
+            Logger.disable();
+        }
 
         private Configuration givenSaveCredentialConfiguration(final String file) {
             return Configuration.readFromFile(getFile("save/" + file));
@@ -152,6 +184,11 @@ public final class ConfigurationTest {
 
     public static class SetSave {
 
+        @Before
+        public void init() {
+            Logger.disable();
+        }
+
         @Test
         public void withTrueThenFalse() {
             Configuration c = givenAnEmpty();
@@ -175,6 +212,11 @@ public final class ConfigurationTest {
 
     public static class SaveFile {
 
+        @Before
+        public void init() {
+            Logger.disable();
+        }
+
         @Test
         public void save() {
             File f = new File("fileToSave.properties");
@@ -194,6 +236,11 @@ public final class ConfigurationTest {
     }
 
     public static class GetLanguage {
+
+        @Before
+        public void init() {
+            Logger.disable();
+        }
 
         private Configuration givenLanguageConfiguration(final String file) {
             return Configuration.readFromFile(getFile("language/" + file));
@@ -243,6 +290,11 @@ public final class ConfigurationTest {
 
     public static class SetLanguage {
 
+        @Before
+        public void init() {
+            Logger.disable();
+        }
+
         @Test
         public void french() {
             Configuration c = givenAnEmpty();
@@ -264,6 +316,11 @@ public final class ConfigurationTest {
      * isDebug methods.
      */
     public static class IsDebug {
+
+        @Before
+        public void init() {
+            Logger.disable();
+        }
 
         private Configuration givenDebugConfiguration(final String file) {
             return Configuration.readFromFile(getFile("debug/" + file));
