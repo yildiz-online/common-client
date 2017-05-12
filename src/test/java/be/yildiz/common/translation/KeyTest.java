@@ -79,7 +79,7 @@ public class KeyTest {
 
         @Test(expected = IllegalArgumentException.class)
         public void withKeyListNull() {
-            Key.get((List)null);
+            Key.get((List<Key>)null);
         }
 
         @Test(expected = IllegalArgumentException.class)
