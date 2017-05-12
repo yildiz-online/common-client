@@ -50,7 +50,7 @@ In your maven project, add the dependency
 <dependency>
     <groupId>be.yildiz-games</groupId>
     <artifactId>common-client</artifactId>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
 </dependency>
 ```
 
