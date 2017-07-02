@@ -24,14 +24,13 @@
 package be.yildiz.common.client.exception;
 
 import be.yildiz.common.Version;
-import be.yildiz.common.exeption.BaseException;
 
 /**
  * Thrown when the client version does not match with the expected from server.
  *
  * @author Grégory Van den Borre
  */
-public final class InvalidVersionException extends BaseException {
+public final class InvalidVersionException extends RuntimeException {
 
     /***/
     private static final long serialVersionUID = 1307936739479669685L;
