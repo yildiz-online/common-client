@@ -25,7 +25,7 @@ package be.yildiz.common.config;
 
 import be.yildiz.common.log.Logger;
 import be.yildiz.common.resource.PropertiesHelper;
-import be.yildiz.common.translation.Language;
+import be.yildiz.common.language.Language;
 
 import java.io.File;
 import java.util.Properties;

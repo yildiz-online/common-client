@@ -23,6 +23,7 @@
 
 package be.yildiz.common.translation;
 
+import be.yildiz.common.language.Language;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;

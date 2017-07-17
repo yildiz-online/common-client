@@ -24,6 +24,7 @@
 package be.yildiz.common.translation;
 
 import be.yildiz.common.collections.Lists;
+import be.yildiz.common.language.Language;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;

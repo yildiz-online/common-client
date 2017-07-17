@@ -24,6 +24,7 @@
 package be.yildiz.common.translation;
 
 import be.yildiz.common.collections.Maps;
+import be.yildiz.common.language.Language;
 
 import java.util.Map;
 import java.util.Properties;
