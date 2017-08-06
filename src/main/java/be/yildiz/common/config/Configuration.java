@@ -108,6 +108,10 @@ public final class Configuration {
         this.filePath = path;
     }
 
+    public static Configuration empty() {
+        return new Configuration(new Properties(), new File("config"));
+    }
+
 
     /**
      * Test if the configuration has been loaded from the file and return it.
