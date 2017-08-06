@@ -39,50 +39,44 @@ public final class TranslationTest {
 
     @Test(expected = AssertionError.class)
     public void testAddLanguageNullArg() {
-        Translation t = new Translation();
-        t.addLanguage(null, new LanguageProvider());
+        Translation.getInstance().addLanguage(null, new LanguageProvider());
     }
 
     @Test(expected = AssertionError.class)
     public void testAddLanguageArgNull() {
-        Translation t = new Translation();
-        t.addLanguage(Language.EN, null);
+        Translation.getInstance().addLanguage(Language.EN, null);
     }
 
     @Test
     public void testAddLanguageArgArg() {
-        Translation t = new Translation();
-        t.addLanguage(Language.EN, new LanguageProvider());
+        Translation.getInstance().addLanguage(Language.EN, new LanguageProvider());
     }
 
     @Test
     public void testChooseLanguageNotExisting() {
-        Translation t = new Translation();
-        t.addLanguage(Language.EN, new LanguageProvider());
+        Translation.getInstance().addLanguage(Language.EN, new LanguageProvider());
         rule.expect(IllegalArgumentException.class);
-        t.chooseLanguage(Language.FR);
+        Translation.getInstance().chooseLanguage(Language.FR);
         rule.expect(IllegalArgumentException.class);
-        t.chooseLanguage(null);
+        Translation.getInstance().chooseLanguage(null);
     }
 
     @Test
     public void testGet() {
-        Translation t = new Translation();
         LanguageProvider p = new LanguageProvider();
         p.add("test", "testfr", "testen");
-        t.addLanguage(Language.EN, p);
-        t.chooseLanguage(Language.EN);
-        Assert.assertEquals("testen", t.translate(Key.get("test")));
+        Translation.getInstance().addLanguage(Language.EN, p);
+        Translation.getInstance().chooseLanguage(Language.EN);
+        Assert.assertEquals("testen", Translation.getInstance().translate(Key.get("test")));
     }
 
     @Test
     public void testGetNotExisting() {
-        Translation t = new Translation();
         LanguageProvider p = new LanguageProvider();
         p.add("test", "testfr", "testen");
-        t.addLanguage(Language.EN, p);
-        t.chooseLanguage(Language.EN);
+        Translation.getInstance().addLanguage(Language.EN, p);
+        Translation.getInstance().chooseLanguage(Language.EN);
         rule.expect(IllegalArgumentException.class);
-        t.translate(Key.get("test:)"));
+        Translation.getInstance().translate(Key.get("test:)"));
     }
 }

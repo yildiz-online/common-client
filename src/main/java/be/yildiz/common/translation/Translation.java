@@ -38,6 +38,8 @@ import java.util.Properties;
  */
 public final class Translation {
 
+    private static final Translation INSTANCE = new Translation();
+
     /**
      * Association between a language and its values.
      */
@@ -47,6 +49,14 @@ public final class Translation {
      * Language currently active.
      */
     private Language chosenLanguage = Language.EN;
+
+    private Translation() {
+        super();
+    }
+
+    public static Translation getInstance() {
+        return INSTANCE;
+    }
 
     /**
      * Associate a language and its property file.
