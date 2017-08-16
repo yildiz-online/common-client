@@ -112,7 +112,7 @@ public class KeyTest {
 
         @Test(expected = IllegalArgumentException.class)
         public void withArgsNull() {
-            Key.get("blabla", null);
+            Key.get("blabla", (Object[]) null);
         }
 
         @Test
