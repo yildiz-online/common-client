@@ -23,9 +23,10 @@
 
 package be.yildiz.common.config;
 
-import be.yildiz.common.log.Logger;
-import be.yildiz.common.resource.PropertiesHelper;
 import be.yildiz.common.language.Language;
+import be.yildiz.common.resource.PropertiesHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.Properties;
@@ -40,6 +41,8 @@ import java.util.Properties;
  *         specfield saveCredential: boolean: if true, the password and language will be persisted in the property file.
  */
 public final class Configuration {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Configuration.class);
 
     /**
      * Property key for language.
@@ -206,7 +209,7 @@ public final class Configuration {
         try {
             return Language.valueOf(value.toUpperCase());
         } catch (IllegalArgumentException e) {
-            Logger.error("Using not existing language " + value, e);
+            LOGGER.error("Using not existing language " + value, e);
             return Language.EN;
         }
     }
