@@ -58,7 +58,7 @@ public class LanguageProviderTest {
         @Test(expected = NullPointerException.class)
         public void frNull() {
             LanguageProvider p = new LanguageProvider();
-            p.add("aKey", null, "enValue");
+            p.add("aKey", (String)null, "enValue");
         }
 
         @Test(expected = NullPointerException.class)
