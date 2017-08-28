@@ -25,6 +25,7 @@ package be.yildiz.common.translation;
 
 import be.yildiz.common.collections.Maps;
 import be.yildiz.common.language.Language;
+import be.yildiz.common.language.LanguageValue;
 
 import java.util.Map;
 import java.util.Properties;
@@ -34,7 +35,7 @@ import java.util.Properties;
  * Mutable class.
  *
  * @author Grégory Van den Borre
- *         specfield languages:Map of Language, Properties:Provide the property data for a given language.
+ *         specfield languages:Map of LanguageValue, Properties:Provide the property data for a given language.
  */
 //@Invariant("language != null")
 //@Invariant("!language.keys.contains(null)")
@@ -61,8 +62,12 @@ public final class LanguageProvider {
      */
     public LanguageProvider() {
         super();
-        this.languages.put(Language.EN, this.en);
-        this.languages.put(Language.FR, this.fr);
+        this.languages.put(LanguageValue.EN, this.en);
+        this.languages.put(LanguageValue.FR, this.fr);
+    }
+
+    public void registerLanguage(Language l) {
+        this.languages.put(l, new Properties());
     }
 
     /**
@@ -76,6 +81,10 @@ public final class LanguageProvider {
     public void add(final String key, final String french, final String english) {
         this.fr.put(key, french);
         this.en.put(key, english);
+    }
+
+    public void add(final String key, final Language language, final String value) {
+        this.languages.get(language).put(key, value);
     }
 
     public void add(TranslatedValueProvider provider) {
@@ -110,7 +119,7 @@ public final class LanguageProvider {
     /**
      * Provide a properties containing the language translation.
      *
-     * @param language Language to retrieve.
+     * @param language LanguageValue to retrieve.
      * @return The properties matching the language.
      * @throws NullPointerException     If language is <code>null</code>.
      */

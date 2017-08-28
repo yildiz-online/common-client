@@ -24,6 +24,7 @@
 package be.yildiz.common.config;
 
 import be.yildiz.common.language.Language;
+import be.yildiz.common.language.LanguageValue;
 import be.yildiz.common.resource.PropertiesHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -205,12 +206,12 @@ public final class Configuration {
      * @return The language used for the game, or English if the value in property file is empty or invalid.
      */
     public Language getLanguage() {
-        String value = this.properties.getProperty(LANGUAGE_KEY, Language.EN.name());
+        String value = this.properties.getProperty(LANGUAGE_KEY, LanguageValue.EN.name());
         try {
-            return Language.valueOf(value.toUpperCase());
+            return LanguageValue.valueOf(value.toUpperCase());
         } catch (IllegalArgumentException e) {
             LOGGER.error("Using not existing language " + value, e);
-            return Language.EN;
+            return LanguageValue.EN;
         }
     }
 
@@ -220,7 +221,7 @@ public final class Configuration {
      * @param language New language.
      * @return This object for chaining.
      */
-    public Configuration setLanguage(final Language language) {
+    public Configuration setLanguage(final LanguageValue language) {
         this.properties.setProperty(LANGUAGE_KEY, language.name());
         return this;
     }

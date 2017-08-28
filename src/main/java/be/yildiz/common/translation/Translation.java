@@ -24,7 +24,7 @@
 package be.yildiz.common.translation;
 
 import be.yildiz.common.collections.Maps;
-import be.yildiz.common.language.Language;
+import be.yildiz.common.language.LanguageValue;
 import be.yildiz.common.translation.Key.MultiKey;
 import be.yildiz.common.util.StringUtil;
 
@@ -43,12 +43,12 @@ public final class Translation {
     /**
      * Association between a language and its values.
      */
-    private final Map<Language, Properties> languages = Maps.newMap();
+    private final Map<LanguageValue, Properties> languages = Maps.newMap();
 
     /**
-     * Language currently active.
+     * LanguageValue currently active.
      */
-    private Language chosenLanguage = Language.EN;
+    private LanguageValue chosenLanguage = LanguageValue.EN;
 
     private Translation() {
         super();
@@ -61,12 +61,12 @@ public final class Translation {
     /**
      * Associate a language and its property file.
      *
-     * @param language Language to add.
+     * @param language LanguageValue to add.
      * @param provider Object containing the language properties.
      * @return This object.
      * @throws NullPointerException If any parameter is null.
      */
-    public Translation addLanguage(final Language language, final LanguageProvider provider) {
+    public Translation addLanguage(final LanguageValue language, final LanguageProvider provider) {
         assert language != null;
         assert provider != null;
         this.languages.put(language, provider.get(language));
@@ -84,10 +84,10 @@ public final class Translation {
     /**
      * Set the current language to use.
      *
-     * @param language Language to use.
+     * @param language LanguageValue to use.
      * @return This object for method chaining.
      */
-    public Translation chooseLanguage(final Language language) {
+    public Translation chooseLanguage(final LanguageValue language) {
         assert language != null;
         if (!this.languages.containsKey(language)) {
             throw new IllegalArgumentException("Unexisting language:" + language);

@@ -23,7 +23,7 @@
 
 package be.yildiz.common.config;
 
-import be.yildiz.common.language.Language;
+import be.yildiz.common.language.LanguageValue;
 import be.yildiz.common.resource.PropertiesHelper;
 import org.junit.Assert;
 import org.junit.Test;
@@ -181,13 +181,13 @@ public final class ConfigurationTest {
             Configuration write = Configuration.readFromFile(f);
             write.setLogin("aLoginValue");
             write.setPassword("aPwdValue");
-            write.setLanguage(Language.FR);
+            write.setLanguage(LanguageValue.FR);
             write.setSaveCredentialsChecked(true);
             write.save();
             Configuration read = Configuration.readFromFile(f);
             Assert.assertEquals("aLoginValue", read.getLogin());
             Assert.assertEquals("aPwdValue", read.getPassword());
-            Assert.assertEquals(Language.FR, read.getLanguage());
+            Assert.assertEquals(LanguageValue.FR, read.getLanguage());
             Assert.assertTrue(read.isSaveCredentialsChecked());
             f.deleteOnExit();
         }
@@ -203,28 +203,28 @@ public final class ConfigurationTest {
         public void english() {
             Configuration c = givenLanguageConfiguration("english");
             Assert.assertTrue(c.isLanguagePresent());
-            Assert.assertEquals(Language.EN, c.getLanguage());
+            Assert.assertEquals(LanguageValue.EN, c.getLanguage());
         }
 
         @Test
         public void french() {
             Configuration c = givenLanguageConfiguration("french");
             Assert.assertTrue(c.isLanguagePresent());
-            Assert.assertEquals(Language.FR, c.getLanguage());
+            Assert.assertEquals(LanguageValue.FR, c.getLanguage());
         }
 
         @Test
         public void invalid() {
             Configuration c = givenLanguageConfiguration("invalid");
             Assert.assertTrue(c.isLanguagePresent());
-            Assert.assertEquals(Language.EN, c.getLanguage());
+            Assert.assertEquals(LanguageValue.EN, c.getLanguage());
         }
 
         @Test
         public void withEmpty() {
             Configuration c = givenAnEmpty();
             Assert.assertFalse(c.isLanguagePresent());
-            Assert.assertEquals(Language.EN, c.getLanguage());
+            Assert.assertEquals(LanguageValue.EN, c.getLanguage());
         }
 
         @Test
@@ -236,7 +236,7 @@ public final class ConfigurationTest {
             PropertiesHelper.save(p, f);
             Configuration oc = Configuration.readFromFile(f);
             Assert.assertTrue(oc.isLanguagePresent());
-            Assert.assertEquals(Language.EN, oc.getLanguage());
+            Assert.assertEquals(LanguageValue.EN, oc.getLanguage());
             f.deleteOnExit();
         }
     }
@@ -247,10 +247,10 @@ public final class ConfigurationTest {
         public void french() {
             Configuration c = givenAnEmpty();
             Assert.assertFalse(c.isLanguagePresent());
-            Assert.assertEquals(Language.EN, c.getLanguage());
-            c.setLanguage(Language.FR);
+            Assert.assertEquals(LanguageValue.EN, c.getLanguage());
+            c.setLanguage(LanguageValue.FR);
             Assert.assertTrue(c.isLanguagePresent());
-            Assert.assertEquals(Language.FR, c.getLanguage());
+            Assert.assertEquals(LanguageValue.FR, c.getLanguage());
         }
 
         @Test(expected = NullPointerException.class)
