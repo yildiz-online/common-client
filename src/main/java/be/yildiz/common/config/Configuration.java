@@ -206,13 +206,8 @@ public final class Configuration {
      * @return The language used for the game, or English if the value in property file is empty or invalid.
      */
     public Language getLanguage() {
-        String value = this.properties.getProperty(LANGUAGE_KEY, LanguageValue.EN.name());
-        try {
-            return LanguageValue.valueOf(value.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            LOGGER.error("Using not existing language " + value, e);
-            return LanguageValue.EN;
-        }
+        String value = this.properties.getProperty(LANGUAGE_KEY, LanguageValue.EN.shortName);
+        return LanguageValue.fromShortName(value);
     }
 
     /**
@@ -221,8 +216,8 @@ public final class Configuration {
      * @param language New language.
      * @return This object for chaining.
      */
-    public Configuration setLanguage(final LanguageValue language) {
-        this.properties.setProperty(LANGUAGE_KEY, language.name());
+    public Configuration setLanguage(final Language language) {
+        this.properties.setProperty(LANGUAGE_KEY, language.getShortName());
         return this;
     }
 
