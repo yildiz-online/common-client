@@ -77,7 +77,7 @@ public final class ConfigurationTest {
 
         @Test
         public void happyFlow() {
-            Configuration c = Configuration.readFromFile(getFile("login/chair"));
+            Configuration c = Configuration.getInstance().readFromFile(getFile("login/chair"));
             Assert.assertEquals("chair", c.getLogin());
         }
 
@@ -108,7 +108,7 @@ public final class ConfigurationTest {
 
         @Test
         public void happyFlow() {
-            Configuration c = Configuration.readFromFile(getFile("password/table"));
+            Configuration c = Configuration.getInstance().readFromFile(getFile("password/table"));
             Assert.assertEquals("table", c.getPassword());
         }
 
@@ -122,7 +122,7 @@ public final class ConfigurationTest {
     public static class IsSaveCredential {
 
         private Configuration givenSaveCredentialConfiguration(final String file) {
-            return Configuration.readFromFile(getFile("save/" + file));
+            return Configuration.getInstance().readFromFile(getFile("save/" + file));
         }
 
         @Test
@@ -178,13 +178,13 @@ public final class ConfigurationTest {
         @Test
         public void save() {
             File f = new File("fileToSave.properties");
-            Configuration write = Configuration.readFromFile(f);
+            Configuration write = Configuration.getInstance().readFromFile(f);
             write.setLogin("aLoginValue");
             write.setPassword("aPwdValue");
             write.setLanguage(LanguageValue.FR);
             write.setSaveCredentialsChecked(true);
             write.save();
-            Configuration read = Configuration.readFromFile(f);
+            Configuration read = Configuration.getInstance().readFromFile(f);
             Assert.assertEquals("aLoginValue", read.getLogin());
             Assert.assertEquals("aPwdValue", read.getPassword());
             Assert.assertEquals(LanguageValue.FR, read.getLanguage());
@@ -196,7 +196,7 @@ public final class ConfigurationTest {
     public static class GetLanguage {
 
         private Configuration givenLanguageConfiguration(final String file) {
-            return Configuration.readFromFile(getFile("language/" + file));
+            return Configuration.getInstance().readFromFile(getFile("language/" + file));
         }
 
         @Test
@@ -234,7 +234,7 @@ public final class ConfigurationTest {
             Properties p = PropertiesHelper.getPropertiesFromFile(f);
             p.setProperty(Configuration.LANGUAGE_KEY, "GF");
             PropertiesHelper.save(p, f);
-            Configuration oc = Configuration.readFromFile(f);
+            Configuration oc = Configuration.getInstance().readFromFile(f);
             Assert.assertTrue(oc.isLanguagePresent());
             Assert.assertEquals(LanguageValue.EN, oc.getLanguage());
             f.deleteOnExit();
@@ -266,7 +266,7 @@ public final class ConfigurationTest {
     public static class IsDebug {
 
         private Configuration givenDebugConfiguration(final String file) {
-            return Configuration.readFromFile(getFile("debug/" + file));
+            return Configuration.getInstance().readFromFile(getFile("debug/" + file));
         }
 
         @Test
@@ -303,6 +303,6 @@ public final class ConfigurationTest {
         if(!p.isEmpty()) {
             throw new InvalidParameterException("configEmpty.properties is not empty");
         }
-        return Configuration.readFromFile(getFile("configEmpty"));
+        return Configuration.getInstance().readFromFile(getFile("configEmpty"));
     }
 }

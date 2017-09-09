@@ -83,6 +83,11 @@ public final class LanguageProvider {
         this.en.put(key, english);
     }
 
+    public void add(final Key key, final String french, final String english) {
+        this.fr.put(key.translationKey, french);
+        this.en.put(key.translationKey, english);
+    }
+
     public void add(final String key, final Language language, final String value) {
         this.languages.get(language).put(key, value);
     }

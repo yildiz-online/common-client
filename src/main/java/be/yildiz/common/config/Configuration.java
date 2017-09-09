@@ -30,6 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.Optional;
 import java.util.Properties;
 
 /**
@@ -44,6 +45,8 @@ import java.util.Properties;
 public final class Configuration {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Configuration.class);
+
+    private static final Configuration INSTANCE = new Configuration();
 
     /**
      * Property key for language.
@@ -93,27 +96,22 @@ public final class Configuration {
     /**
      * Associated property file.
      */
-    private final Properties properties;
+    private Properties properties = new Properties();
 
     /**
      * Path of the config file.
      */
-    private final File filePath;
+    private File filePath = new File("config.properties");
 
     /**
      * Full constructor.
-     *
-     * @param p    Associated property file.
-     * @param path Configuration file path.
      */
-    private Configuration(final Properties p, final File path) {
+    private Configuration() {
         super();
-        this.properties = p;
-        this.filePath = path;
     }
 
-    public static Configuration empty() {
-        return new Configuration(new Properties(), new File("config"));
+    public static Configuration getInstance() {
+        return INSTANCE;
     }
 
 
@@ -124,18 +122,15 @@ public final class Configuration {
      * @param args Default values.
      * @return A full copy of the config data to prevent any change in it.
      */
-    public static Configuration readFromFile(final File file, final String... args) {
-
-        Properties p = new Properties();
-        Configuration config;
+    public Configuration readFromFile(final File file, final String... args) {
+        this.filePath = file;
         if(file.exists()) {
-            p = PropertiesHelper.getPropertiesFromFile(file, args);
-            config = new Configuration(p, file);
+            this.properties = PropertiesHelper.getPropertiesFromFile(file, args);
         } else {
-            config = new Configuration(p, file);
-            config.save();
+            LOGGER.debug("Create non-existing property file " + file.getAbsolutePath());
+            this.save();
         }
-        return config;
+        return this;
     }
 
     /**
@@ -199,7 +194,8 @@ public final class Configuration {
      * Persist the configuration in a file.
      */
     public void save() {
-        PropertiesHelper.save(this.properties, this.filePath);
+
+        Optional.ofNullable(this.filePath).ifPresent(p -> PropertiesHelper.save(this.properties, p));
     }
 
     /**
