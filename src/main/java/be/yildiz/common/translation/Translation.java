@@ -132,4 +132,8 @@ public final class Translation {
     public String translate(final Key key) {
         return StringUtil.fillVariable(this.get(key.translationKey), key.args);
     }
+
+    public String translate(final Key key, String... args) {
+        return StringUtil.fillVariable(this.get(key.translationKey), args);
+    }
 }
