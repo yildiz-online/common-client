@@ -24,59 +24,53 @@
 package be.yildiz.common.translation;
 
 import be.yildiz.common.language.LanguageValue;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre
  */
-public final class TranslationTest {
+final class TranslationTest {
 
-    @Rule
-    public final ExpectedException rule = ExpectedException.none();
-
-    @Test(expected = AssertionError.class)
-    public void testAddLanguageNullArg() {
-        Translation.getInstance().addLanguage(null, new LanguageProvider());
-    }
-
-    @Test(expected = AssertionError.class)
-    public void testAddLanguageArgNull() {
-        Translation.getInstance().addLanguage(LanguageValue.EN, null);
+    @Test
+    void testAddLanguageNullArg() {
+        assertThrows(AssertionError.class, () -> Translation.getInstance().addLanguage(null, new LanguageProvider()));
     }
 
     @Test
-    public void testAddLanguageArgArg() {
+    void testAddLanguageArgNull() {
+        assertThrows(AssertionError.class, () -> Translation.getInstance().addLanguage(LanguageValue.EN, null));
+    }
+
+    @Test
+    void testAddLanguageArgArg() {
         Translation.getInstance().addLanguage(LanguageValue.EN, new LanguageProvider());
     }
 
     @Test
-    public void testChooseLanguageNotExisting() {
+    void testChooseLanguageNotExisting() {
         Translation.getInstance().addLanguage(LanguageValue.EN, new LanguageProvider());
-        rule.expect(IllegalArgumentException.class);
-        Translation.getInstance().chooseLanguage(LanguageValue.FR);
-        rule.expect(IllegalArgumentException.class);
-        Translation.getInstance().chooseLanguage(null);
+        assertThrows(IllegalArgumentException.class, () -> Translation.getInstance().chooseLanguage(LanguageValue.FR));
+        assertThrows(AssertionError.class, () -> Translation.getInstance().chooseLanguage(null));
     }
 
     @Test
-    public void testGet() {
+    void testGet() {
         LanguageProvider p = new LanguageProvider();
-        p.add("test", "testfr", "testen");
+        p.add("test", "test-fr", "test-en");
         Translation.getInstance().addLanguage(LanguageValue.EN, p);
         Translation.getInstance().chooseLanguage(LanguageValue.EN);
-        Assert.assertEquals("testen", Translation.getInstance().translate(Key.get("test")));
+        assertEquals("test-en", Translation.getInstance().translate(Key.get("test")));
     }
 
     @Test
-    public void testGetNotExisting() {
+    void testGetNotExisting() {
         LanguageProvider p = new LanguageProvider();
-        p.add("test", "testfr", "testen");
+        p.add("test", "test-fr", "test-en");
         Translation.getInstance().addLanguage(LanguageValue.EN, p);
         Translation.getInstance().chooseLanguage(LanguageValue.EN);
-        rule.expect(IllegalArgumentException.class);
-        Translation.getInstance().translate(Key.get("test:)"));
+        assertThrows(IllegalArgumentException.class, () -> Translation.getInstance().translate(Key.get("test:)")));
     }
 }

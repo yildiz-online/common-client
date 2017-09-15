@@ -23,35 +23,36 @@
 
 package be.yildiz.common.config;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.regex.Pattern;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Grégory Van den Borre
  */
-public class ResolutionTest {
+class ResolutionTest {
 
     @Test
-    public void testToString() {
+    void testToString() {
         Pattern p = Pattern.compile("^\\d{3,4}X\\d{3,4}$");
         for (Resolution r : Resolution.values()) {
-            Assert.assertTrue(r.toString(), p.matcher(r.toString()).matches());
+            assertTrue(p.matcher(r.toString()).matches());
         }
     }
 
     @Test
-    public void testGetX() {
+    void testGetX() {
         for (Resolution r : Resolution.values()) {
-            Assert.assertTrue(r.x >= 800 && r.x <= 1920);
+            assertTrue(r.x >= 800 && r.x <= 1920);
         }
     }
 
     @Test
-    public void testGetY() {
+    void testGetY() {
         for (Resolution r : Resolution.values()) {
-            Assert.assertTrue(r.y >= 600 && r.y <= 1280);
+            assertTrue(r.y >= 600 && r.y <= 1280);
         }
     }
 

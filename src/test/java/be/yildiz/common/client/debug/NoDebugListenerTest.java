@@ -23,21 +23,22 @@
 
 package be.yildiz.common.client.debug;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Grégory Van den Borre
  */
-public class NoDebugListenerTest {
+class NoDebugListenerTest {
 
     @Test
-    public void testUpdateFps() {
+    void testUpdateFps() {
         DebugListener l = new NoDebugListener();
         l.updateFps(10);
     }
 
     @Test
-    public void testDisplayDebugMessage() {
+    void testDisplayDebugMessage() {
         DebugListener l = new NoDebugListener();
         l.displayDebugMessage(null);
         l.displayDebugMessage("ok");

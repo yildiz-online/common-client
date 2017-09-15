@@ -23,29 +23,30 @@
 
 package be.yildiz.common.translation;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class SimpleTranslatedValueProviderTest {
+class SimpleTranslatedValueProviderTest {
 
-    public static class Constructor {
+    @Nested
+    class Constructor {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             TranslatedValue v = new TranslatedValue("k", "f", "e");
             TranslatedValueProvider p = new SimpleTranslatedValueProvider(v);
-            Assert.assertEquals(v, p.getTranslatedValue());
+            assertEquals(v, p.getTranslatedValue());
         }
 
-        @Test(expected = IllegalArgumentException.class)
-        public void withNull() {
-            new SimpleTranslatedValueProvider(null);
+        @Test
+        void withNull() {
+            assertThrows(IllegalArgumentException.class, () -> new SimpleTranslatedValueProvider(null));
         }
     }
 

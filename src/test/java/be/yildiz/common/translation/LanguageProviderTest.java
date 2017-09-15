@@ -25,71 +25,73 @@ package be.yildiz.common.translation;
 
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.language.LanguageValue;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class LanguageProviderTest {
+class LanguageProviderTest {
 
-    public static class AddString {
+    @Nested
+    class AddString {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             LanguageProvider p = new LanguageProvider();
             p.add("aKey", "frValue", "enValue");
-            Assert.assertEquals("frValue", p.get(LanguageValue.FR).getProperty("aKey"));
-            Assert.assertEquals("enValue", p.get(LanguageValue.EN).getProperty("aKey"));
+            assertEquals("frValue", p.get(LanguageValue.FR).getProperty("aKey"));
+            assertEquals("enValue", p.get(LanguageValue.EN).getProperty("aKey"));
         }
 
-        @Test(expected = NullPointerException.class)
-        public void keyNull() {
+        @Test
+        void keyNull() {
             LanguageProvider p = new LanguageProvider();
-            p.add((String)null, "frValue", "enValue");
+            assertThrows(NullPointerException.class, () -> p.add((String)null, "frValue", "enValue"));
         }
 
-        @Test(expected = NullPointerException.class)
-        public void frNull() {
+        @Test
+        void frNull() {
             LanguageProvider p = new LanguageProvider();
-            p.add("aKey", (String)null, "enValue");
+            assertThrows(NullPointerException.class, () -> p.add("aKey", (String)null, "enValue"));
         }
 
-        @Test(expected = NullPointerException.class)
-        public void enNull() {
+        @Test
+        void enNull() {
             LanguageProvider p = new LanguageProvider();
-            p.add("aKey", "frValue", null);
+            assertThrows(NullPointerException.class, () -> p.add("aKey", "frValue", null));
         }
     }
 
-    public static class AddValue {
+    @Nested
+    class AddValue {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             LanguageProvider p = new LanguageProvider();
             TranslatedValue v = new TranslatedValue("aKey", "frValue", "enValue");
             p.add(v);
-            Assert.assertEquals("frValue", p.get(LanguageValue.FR).getProperty("aKey"));
-            Assert.assertEquals("enValue", p.get(LanguageValue.EN).getProperty("aKey"));
+            assertEquals("frValue", p.get(LanguageValue.FR).getProperty("aKey"));
+            assertEquals("enValue", p.get(LanguageValue.EN).getProperty("aKey"));
         }
 
-        @Test(expected = NullPointerException.class)
-        public void valueNull() {
+        @Test
+        void valueNull() {
             LanguageProvider p = new LanguageProvider();
-            p.add((TranslatedValue)null);
+            assertThrows(NullPointerException.class, () -> p.add((TranslatedValue)null));
         }
     }
 
-    public static class AddProvider {
+    @Nested
+    class AddProvider {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             LanguageProvider p = new LanguageProvider();
             TranslatedValuesProvider tvp = new TranslatedValuesProvider() {
 
@@ -105,32 +107,33 @@ public class LanguageProviderTest {
                 }
             };
             p.add(tvp);
-            Assert.assertEquals("frValue", p.get(LanguageValue.FR).getProperty("aKey"));
-            Assert.assertEquals("enValue", p.get(LanguageValue.EN).getProperty("aKey"));
-            Assert.assertEquals("frValue2", p.get(LanguageValue.FR).getProperty("aKey2"));
-            Assert.assertEquals("enValue2", p.get(LanguageValue.EN).getProperty("aKey2"));
+            assertEquals("frValue", p.get(LanguageValue.FR).getProperty("aKey"));
+            assertEquals("enValue", p.get(LanguageValue.EN).getProperty("aKey"));
+            assertEquals("frValue2", p.get(LanguageValue.FR).getProperty("aKey2"));
+            assertEquals("enValue2", p.get(LanguageValue.EN).getProperty("aKey2"));
         }
 
-        @Test(expected = NullPointerException.class)
-        public void valueNull() {
+        @Test
+        void valueNull() {
             LanguageProvider p = new LanguageProvider();
-            p.add((TranslatedValuesProvider) null);
+            assertThrows(NullPointerException.class, () -> p.add((TranslatedValuesProvider) null));
         }
     }
 
-    public static class Get {
+    @Nested
+    class Get {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             LanguageProvider p = new LanguageProvider();
-            Assert.assertNotNull(p.get(LanguageValue.FR));
-            Assert.assertNotNull(p.get(LanguageValue.EN));
+            assertNotNull(p.get(LanguageValue.FR));
+            assertNotNull(p.get(LanguageValue.EN));
         }
 
-        @Test(expected = AssertionError.class)
-        public void nullParameter() {
+        @Test
+        void nullParameter() {
             LanguageProvider p = new LanguageProvider();
-            p.get(null);
+            assertThrows(AssertionError.class, () -> p.get(null));
         }
     }
 }

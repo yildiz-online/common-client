@@ -24,190 +24,193 @@
 package be.yildiz.common.translation;
 
 import be.yildiz.common.collections.Lists;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class KeyTest {
+class KeyTest {
 
-    public static class GetKey {
+    @Nested
+    class GetKey {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             Key k = Key.get("blabla");
-            Assert.assertEquals("blabla", k.translationKey);
-            Assert.assertFalse(k.args.length > 0);
-        }
-
-        @Test(expected = IllegalArgumentException.class)
-        public void withNull() {
-            Key.get((String)null);
+            assertEquals("blabla", k.translationKey);
+            assertFalse(k.args.length > 0);
         }
 
         @Test
-        public void withKey() {
+        void withNull() {
+            assertThrows(IllegalArgumentException.class, () -> Key.get((String)null));
+        }
+
+        @Test
+        void withKey() {
             Key k1 = Key.get("k1");
             Key k2 = Key.get("k2");
             Key.MultiKey mk = Key.get(k1, k2);
-            Assert.assertEquals(2, mk.keys.size());
-            Assert.assertTrue(mk.keys.contains(k1) && mk.keys.contains(k2));
+            assertEquals(2, mk.keys.size());
+            assertTrue(mk.keys.contains(k1) && mk.keys.contains(k2));
         }
 
         @Test
-        public void withKeyList() {
+        void withKeyList() {
             Key k1 = Key.get("k1");
             Key k2 = Key.get("k2");
             List<Key> keys = Arrays.asList(k1, k2);
             Key.MultiKey mk = Key.get(keys);
-            Assert.assertEquals(2, mk.keys.size());
-            Assert.assertTrue(mk.keys.contains(k1) && mk.keys.contains(k2));
+            assertEquals(2, mk.keys.size());
+            assertTrue(mk.keys.contains(k1) && mk.keys.contains(k2));
         }
 
-        @Test(expected = IllegalArgumentException.class)
-        public void withKeyListContainingNull() {
+        @Test
+        void withKeyListContainingNull() {
             List<Key> keys = Arrays.asList(Key.get("k1"), null);
-            Key.get(keys);
-        }
-
-        @Test(expected = IllegalArgumentException.class)
-        public void withKeyListNull() {
-            Key.get((List<Key>)null);
-        }
-
-        @Test(expected = IllegalArgumentException.class)
-        public void withKeyListEmpty() {
-            Key.get(Lists.newList());
-        }
-
-        @Test(expected = IllegalArgumentException.class)
-        public void withNullKey() {
-            Key.get((Key)null);
-        }
-
-        @Test(expected = IllegalArgumentException.class)
-        public void withEmptyKey() {
-            Key.get();
+            assertThrows(IllegalArgumentException.class, () -> Key.get(keys));
         }
 
         @Test
-        public void withArgs() {
+        void withKeyListNull() {
+            assertThrows(IllegalArgumentException.class, () -> Key.get((List<Key>)null));
+        }
+
+        @Test
+        void withKeyListEmpty() {
+            assertThrows(IllegalArgumentException.class, () -> Key.get(Lists.newList()));
+        }
+
+        @Test
+        void withNullKey() {
+            assertThrows(IllegalArgumentException.class, () -> Key.get((Key)null));
+        }
+
+        @Test
+        void withEmptyKey() {
+            assertThrows(IllegalArgumentException.class, Key::get);
+        }
+
+        @Test
+        void withArgs() {
             Key k = Key.get("blabla", 1);
-            Assert.assertEquals("blabla", k.translationKey);
-            Assert.assertEquals(1, k.args[0]);
-        }
-
-        @Test(expected = IllegalArgumentException.class)
-        public void withArgsContainingNull() {
-            Object[] args = {"ok", null};
-            Key.get("blabla", args);
-        }
-
-        @Test(expected = IllegalArgumentException.class)
-        public void withArgsNull() {
-            Key.get("blabla", (Object[]) null);
+            assertEquals("blabla", k.translationKey);
+            assertEquals(1, k.args[0]);
         }
 
         @Test
-        public void withEmptyArgs() {
+        void withArgsContainingNull() {
+            Object[] args = {"ok", null};
+            assertThrows(IllegalArgumentException.class, () -> Key.get("blabla", args));
+        }
+
+        @Test
+        void withArgsNull() {
+            assertThrows(IllegalArgumentException.class, () -> Key.get("blabla", (Object[]) null));
+        }
+
+        @Test
+        void withEmptyArgs() {
             Key k = Key.get("blabla", new Object[]{});
-            Assert.assertEquals("blabla", k.translationKey);
-            Assert.assertFalse(k.args.length > 0);
+            assertEquals("blabla", k.translationKey);
+            assertFalse(k.args.length > 0);
         }
     }
 
-    public static class Add {
+    @Nested
+    class Add {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             Key k1 = Key.get("k1");
             Key k2 = Key.get("k2");
             Key k3 = Key.get("k3");
             Key.MultiKey mk = Key.get(k1, k2);
             mk.add(k3);
-            Assert.assertEquals(3, mk.keys.size());
-            Assert.assertTrue(mk.keys.contains(k1) && mk.keys.contains(k2) && mk.keys.contains(k3));
-        }
-
-        @Test(expected = IllegalArgumentException.class)
-        public void withNull() {
-            Key k1 = Key.get("k1");
-            Key k2 = Key.get("k2");
-            Key.MultiKey mk = Key.get(k1, k2);
-            mk.add(null);
+            assertEquals(3, mk.keys.size());
+            assertTrue(mk.keys.contains(k1) && mk.keys.contains(k2) && mk.keys.contains(k3));
         }
 
         @Test
-        public void withEmpty() {
+        void withNull() {
+            Key k1 = Key.get("k1");
+            Key k2 = Key.get("k2");
+            Key.MultiKey mk = Key.get(k1, k2);
+            assertThrows(IllegalArgumentException.class, () -> mk.add(null));
+        }
+
+        @Test
+        void withEmpty() {
             Key k1 = Key.get("k1");
             Key k2 = Key.get("k2");
             Key k3 = Key.get("");
             Key.MultiKey mk = Key.get(k1, k2);
             mk.add(k3);
-            Assert.assertEquals(2, mk.keys.size());
-            Assert.assertTrue(mk.keys.contains(k1) && mk.keys.contains(k2));
+            assertEquals(2, mk.keys.size());
+            assertTrue(mk.keys.contains(k1) && mk.keys.contains(k2));
         }
     }
 
-    public static class HashCode {
+    @Nested
+    class HashCode {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             Key k1 = Key.get("k1");
             Key k2 = Key.get("k1");
-            Assert.assertTrue(k1.hashCode() == k2.hashCode());
+            assertTrue(k1.hashCode() == k2.hashCode());
         }
 
         @Test
-        public void differentValue() {
+        void differentValue() {
             Key k1 = Key.get("k1");
             Key k2 = Key.get("k2");
-            Assert.assertFalse(k1.hashCode() == k2.hashCode());
+            assertFalse(k1.hashCode() == k2.hashCode());
         }
     }
 
-    public static class Equals {
+    @Nested
+    class Equals {
 
         @Test
-        public void sameInstance() {
+        void sameInstance() {
             Key k = Key.get("k1");
-            Assert.assertTrue(k.equals(k));
+            assertTrue(k.equals(k));
         }
 
         @Test
-        public void sameValue() {
-            Assert.assertTrue(Key.get("k1").equals(Key.get("k1")));
+        void sameValue() {
+            assertTrue(Key.get("k1").equals(Key.get("k1")));
         }
 
         @Test
-        public void differentValue() {
-            Assert.assertFalse(Key.get("k1").equals(Key.get("k2")));
+        void differentValue() {
+            assertFalse(Key.get("k1").equals(Key.get("k2")));
         }
 
         @Test
-        public void withNull() {
-            Assert.assertFalse(Key.get("k1").equals(null));
+        void withNull() {
+            assertFalse(Key.get("k1").equals(null));
         }
 
         @Test
-        public void differentType() {
-            Assert.assertFalse(Key.get("k1").equals("k1"));
+        void differentType() {
+            assertFalse(Key.get("k1").equals("k1"));
         }
     }
 
     @Test
-    public void withEmptyKey() {
+    void withEmptyKey() {
         Key k = Key.get("");
-        Assert.assertTrue(k.isEmpty());
+        assertTrue(k.isEmpty());
         k = Key.get("a");
-        Assert.assertFalse(k.isEmpty());
+        assertFalse(k.isEmpty());
     }
 
 
