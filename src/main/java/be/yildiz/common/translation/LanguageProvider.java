@@ -23,7 +23,7 @@
 
 package be.yildiz.common.translation;
 
-import be.yildiz.common.collections.Maps;
+import be.yildizgames.common.collection.Maps;
 import be.yildiz.common.language.Language;
 import be.yildiz.common.language.LanguageValue;
 

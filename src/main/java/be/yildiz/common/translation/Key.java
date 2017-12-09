@@ -23,7 +23,7 @@
 
 package be.yildiz.common.translation;
 
-import be.yildiz.common.collections.Lists;
+import be.yildizgames.common.collection.Lists;
 
 import java.util.Arrays;
 import java.util.List;
