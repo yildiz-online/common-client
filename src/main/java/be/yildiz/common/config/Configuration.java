@@ -26,8 +26,6 @@ package be.yildiz.common.config;
 import be.yildiz.common.language.Language;
 import be.yildiz.common.language.LanguageValue;
 import be.yildiz.common.resource.PropertiesHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.Optional;
@@ -43,8 +41,6 @@ import java.util.Properties;
  *         specfield saveCredential: boolean: if true, the password and language will be persisted in the property file.
  */
 public final class Configuration {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(Configuration.class);
 
     private static final Configuration INSTANCE = new Configuration();
 
@@ -127,7 +123,6 @@ public final class Configuration {
         if(file.exists()) {
             this.properties = PropertiesHelper.getPropertiesFromFile(file, args);
         } else {
-            LOGGER.debug("Create non-existing property file " + file.getAbsolutePath());
             this.save();
         }
         return this;
