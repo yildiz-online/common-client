@@ -23,12 +23,12 @@
 
 package be.yildiz.common.translation;
 
-import be.yildizgames.common.collection.Maps;
 import be.yildiz.common.language.Language;
 import be.yildiz.common.language.LanguageValue;
 import be.yildiz.common.translation.Key.MultiKey;
-import be.yildiz.common.util.StringUtil;
+import be.yildizgames.common.util.StringUtil;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -44,7 +44,7 @@ public final class Translation {
     /**
      * Association between a language and its values.
      */
-    private final Map<Language, Properties> languages = Maps.newMap();
+    private final Map<Language, Properties> languages = new HashMap<>();
 
     /**
      * LanguageValue currently active.

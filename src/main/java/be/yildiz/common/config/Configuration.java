@@ -25,10 +25,9 @@ package be.yildiz.common.config;
 
 import be.yildiz.common.language.Language;
 import be.yildiz.common.language.LanguageValue;
-import be.yildiz.common.resource.PropertiesHelper;
+import be.yildizgames.common.util.PropertiesHelper;
 
 import java.io.File;
-import java.util.Optional;
 import java.util.Properties;
 
 /**
@@ -114,17 +113,11 @@ public final class Configuration {
     /**
      * Test if the configuration has been loaded from the file and return it.
      *
-     * @param file File containing the configuration, if the file does not exists, it will be created with default values.
-     * @param args Default values.
+     * @param p Properties containing the configuration.
      * @return A full copy of the config data to prevent any change in it.
      */
-    public Configuration readFromFile(final File file, final String... args) {
-        this.filePath = file;
-        if(file.exists()) {
-            this.properties = PropertiesHelper.getPropertiesFromFile(file, args);
-        } else {
-            this.save();
-        }
+    public Configuration readFromProperties(final Properties p) {
+        this.properties = p;
         return this;
     }
 
@@ -183,14 +176,6 @@ public final class Configuration {
      */
     public void swapSaveCredentialsChecked() {
         this.setSaveCredentialsChecked(!this.isSaveCredentialsChecked());
-    }
-
-    /**
-     * Persist the configuration in a file.
-     */
-    public void save() {
-
-        Optional.ofNullable(this.filePath).ifPresent(p -> PropertiesHelper.save(this.properties, p));
     }
 
     /**

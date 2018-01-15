@@ -23,11 +23,11 @@
 
 package be.yildiz.common.translation;
 
-import be.yildizgames.common.collection.Lists;
 import be.yildiz.common.language.LanguageValue;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -95,7 +95,7 @@ class LanguageProviderTest {
             LanguageProvider p = new LanguageProvider();
             TranslatedValuesProvider tvp = new TranslatedValuesProvider() {
 
-                List<TranslatedValueProvider> providers = Lists.newList();
+                List<TranslatedValueProvider> providers = new ArrayList<>();
 
                 {
                     providers.add(() -> new TranslatedValue("aKey", "frValue", "enValue"));

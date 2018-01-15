@@ -23,10 +23,10 @@
 
 package be.yildiz.common.translation;
 
-import be.yildizgames.common.collection.Maps;
 import be.yildiz.common.language.Language;
 import be.yildiz.common.language.LanguageValue;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -45,7 +45,7 @@ public final class LanguageProvider {
     /**
      * Available languages.
      */
-    private final Map<Language, Properties> languages = Maps.newMap();
+    private final Map<Language, Properties> languages = new HashMap<>();
 
     /**
      * Property holding the French translation.

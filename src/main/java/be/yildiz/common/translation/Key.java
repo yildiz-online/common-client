@@ -23,8 +23,7 @@
 
 package be.yildiz.common.translation;
 
-import be.yildizgames.common.collection.Lists;
-
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -181,7 +180,7 @@ public class Key {
          */
         private MultiKey(final Key... keys) {
             super();
-            this.keys = Lists.newList();
+            this.keys = new ArrayList<>();
             for(Key k : keys) {
                 this.add(k);
             }
@@ -193,7 +192,7 @@ public class Key {
             if (l == null) {
                 throw new IllegalArgumentException("List is null");
             }
-            this.keys = Lists.newList();
+            this.keys = new ArrayList<>();
             for(Key k : l) {
                 this.add(k);
             }

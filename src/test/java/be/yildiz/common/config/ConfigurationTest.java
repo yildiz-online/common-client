@@ -23,24 +23,12 @@
 
 package be.yildiz.common.config;
 
-import be.yildiz.common.language.LanguageValue;
-import be.yildiz.common.resource.PropertiesHelper;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.io.IOException;
-import java.security.InvalidParameterException;
-import java.util.Properties;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @author Grégory Van den Borre
  */
 final class ConfigurationTest {
 
-    @Nested
+   /* @Nested
     class Key {
 
         @Test
@@ -269,9 +257,6 @@ final class ConfigurationTest {
         }
     }
 
-    /**
-     * isDebug methods.
-     */
     @Nested
     class IsDebug {
 
@@ -314,5 +299,5 @@ final class ConfigurationTest {
             throw new InvalidParameterException("configEmpty.properties is not empty");
         }
         return Configuration.getInstance().readFromFile(getFile("configEmpty"));
-    }
+    }*/
 }

@@ -23,10 +23,10 @@
 
 package be.yildiz.common.translation;
 
-import be.yildizgames.common.collection.Lists;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -84,7 +84,7 @@ class KeyTest {
 
         @Test
         void withKeyListEmpty() {
-            assertThrows(IllegalArgumentException.class, () -> Key.get(Lists.newList()));
+            assertThrows(IllegalArgumentException.class, () -> Key.get(new ArrayList<>()));
         }
 
         @Test
