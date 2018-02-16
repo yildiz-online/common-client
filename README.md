@@ -11,7 +11,7 @@ The common client library is a set of utility and helper classes to handle easil
 
 ## Requirements
 
-To build this module, you will need a java 8 JDK and Maven 3.
+To build this module, you will need a java 9 JDK and Maven 3.
 
 ## Coding Style and other information
 
@@ -50,9 +50,10 @@ In your maven project, add the dependency
 <dependency>
     <groupId>be.yildiz-games</groupId>
     <artifactId>common-client</artifactId>
-    <version>1.0.8</version>
+    <version>LATEST</version>
 </dependency>
 ```
+Replace LATEST with the correct version.
 
 ## Contact
 Owner of this repository: Grégory Van den Borre
