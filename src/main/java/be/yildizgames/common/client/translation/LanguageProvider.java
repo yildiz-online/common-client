@@ -74,7 +74,7 @@ public final class LanguageProvider {
     /**
      * Add a translation text.
      *
-     * @param key     Key to call in the application.
+     * @param key     TranslationKey to call in the application.
      * @param french  French translation.
      * @param english English translation.
      * @throws NullPointerException     If any parameter is <code>null</code>.
@@ -84,7 +84,7 @@ public final class LanguageProvider {
         this.en.put(key, english);
     }
 
-    public void add(final Key key, final String french, final String english) {
+    public void add(final TranslationKey key, final String french, final String english) {
         this.fr.put(key.translationKey, french);
         this.en.put(key.translationKey, english);
     }

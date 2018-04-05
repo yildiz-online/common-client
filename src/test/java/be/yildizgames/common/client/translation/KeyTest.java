@@ -46,64 +46,64 @@ class KeyTest {
 
         @Test
         void happyFlow() {
-            Key k = Key.get("blabla");
+            TranslationKey k = TranslationKey.get("blabla");
             assertEquals("blabla", k.translationKey);
             assertFalse(k.args.length > 0);
         }
 
         @Test
         void withNull() {
-            assertThrows(IllegalArgumentException.class, () -> Key.get((String)null));
+            assertThrows(IllegalArgumentException.class, () -> TranslationKey.get((String)null));
         }
 
         @Test
         void withKey() {
-            Key k1 = Key.get("k1");
-            Key k2 = Key.get("k2");
-            Key.MultiKey mk = Key.get(k1, k2);
+            TranslationKey k1 = TranslationKey.get("k1");
+            TranslationKey k2 = TranslationKey.get("k2");
+            TranslationKey.MultiKey mk = TranslationKey.get(k1, k2);
             assertEquals(2, mk.keys.size());
             assertTrue(mk.keys.contains(k1) && mk.keys.contains(k2));
         }
 
         @Test
         void withKeyList() {
-            Key k1 = Key.get("k1");
-            Key k2 = Key.get("k2");
-            List<Key> keys = Arrays.asList(k1, k2);
-            Key.MultiKey mk = Key.get(keys);
+            TranslationKey k1 = TranslationKey.get("k1");
+            TranslationKey k2 = TranslationKey.get("k2");
+            List<TranslationKey> keys = Arrays.asList(k1, k2);
+            TranslationKey.MultiKey mk = TranslationKey.get(keys);
             assertEquals(2, mk.keys.size());
             assertTrue(mk.keys.contains(k1) && mk.keys.contains(k2));
         }
 
         @Test
         void withKeyListContainingNull() {
-            List<Key> keys = Arrays.asList(Key.get("k1"), null);
-            assertThrows(IllegalArgumentException.class, () -> Key.get(keys));
+            List<TranslationKey> keys = Arrays.asList(TranslationKey.get("k1"), null);
+            assertThrows(IllegalArgumentException.class, () -> TranslationKey.get(keys));
         }
 
         @Test
         void withKeyListNull() {
-            assertThrows(IllegalArgumentException.class, () -> Key.get((List<Key>)null));
+            assertThrows(IllegalArgumentException.class, () -> TranslationKey.get((List<TranslationKey>)null));
         }
 
         @Test
         void withKeyListEmpty() {
-            assertThrows(IllegalArgumentException.class, () -> Key.get(new ArrayList<>()));
+            assertThrows(IllegalArgumentException.class, () -> TranslationKey.get(new ArrayList<>()));
         }
 
         @Test
         void withNullKey() {
-            assertThrows(IllegalArgumentException.class, () -> Key.get((Key)null));
+            assertThrows(IllegalArgumentException.class, () -> TranslationKey.get((TranslationKey)null));
         }
 
         @Test
         void withEmptyKey() {
-            assertThrows(IllegalArgumentException.class, Key::get);
+            assertThrows(IllegalArgumentException.class, TranslationKey::get);
         }
 
         @Test
         void withArgs() {
-            Key k = Key.get("blabla", 1);
+            TranslationKey k = TranslationKey.get("blabla", 1);
             assertEquals("blabla", k.translationKey);
             assertEquals(1, k.args[0]);
         }
@@ -111,17 +111,17 @@ class KeyTest {
         @Test
         void withArgsContainingNull() {
             Object[] args = {"ok", null};
-            assertThrows(IllegalArgumentException.class, () -> Key.get("blabla", args));
+            assertThrows(IllegalArgumentException.class, () -> TranslationKey.get("blabla", args));
         }
 
         @Test
         void withArgsNull() {
-            assertThrows(IllegalArgumentException.class, () -> Key.get("blabla", (Object[]) null));
+            assertThrows(IllegalArgumentException.class, () -> TranslationKey.get("blabla", (Object[]) null));
         }
 
         @Test
         void withEmptyArgs() {
-            Key k = Key.get("blabla", new Object[]{});
+            TranslationKey k = TranslationKey.get("blabla", new Object[]{});
             assertEquals("blabla", k.translationKey);
             assertFalse(k.args.length > 0);
         }
@@ -132,10 +132,10 @@ class KeyTest {
 
         @Test
         void happyFlow() {
-            Key k1 = Key.get("k1");
-            Key k2 = Key.get("k2");
-            Key k3 = Key.get("k3");
-            Key.MultiKey mk = Key.get(k1, k2);
+            TranslationKey k1 = TranslationKey.get("k1");
+            TranslationKey k2 = TranslationKey.get("k2");
+            TranslationKey k3 = TranslationKey.get("k3");
+            TranslationKey.MultiKey mk = TranslationKey.get(k1, k2);
             mk.add(k3);
             assertEquals(3, mk.keys.size());
             assertTrue(mk.keys.contains(k1) && mk.keys.contains(k2) && mk.keys.contains(k3));
@@ -143,18 +143,18 @@ class KeyTest {
 
         @Test
         void withNull() {
-            Key k1 = Key.get("k1");
-            Key k2 = Key.get("k2");
-            Key.MultiKey mk = Key.get(k1, k2);
+            TranslationKey k1 = TranslationKey.get("k1");
+            TranslationKey k2 = TranslationKey.get("k2");
+            TranslationKey.MultiKey mk = TranslationKey.get(k1, k2);
             assertThrows(IllegalArgumentException.class, () -> mk.add(null));
         }
 
         @Test
         void withEmpty() {
-            Key k1 = Key.get("k1");
-            Key k2 = Key.get("k2");
-            Key k3 = Key.get("");
-            Key.MultiKey mk = Key.get(k1, k2);
+            TranslationKey k1 = TranslationKey.get("k1");
+            TranslationKey k2 = TranslationKey.get("k2");
+            TranslationKey k3 = TranslationKey.get("");
+            TranslationKey.MultiKey mk = TranslationKey.get(k1, k2);
             mk.add(k3);
             assertEquals(2, mk.keys.size());
             assertTrue(mk.keys.contains(k1) && mk.keys.contains(k2));
@@ -166,15 +166,15 @@ class KeyTest {
 
         @Test
         void happyFlow() {
-            Key k1 = Key.get("k1");
-            Key k2 = Key.get("k1");
+            TranslationKey k1 = TranslationKey.get("k1");
+            TranslationKey k2 = TranslationKey.get("k1");
             assertTrue(k1.hashCode() == k2.hashCode());
         }
 
         @Test
         void differentValue() {
-            Key k1 = Key.get("k1");
-            Key k2 = Key.get("k2");
+            TranslationKey k1 = TranslationKey.get("k1");
+            TranslationKey k2 = TranslationKey.get("k2");
             assertFalse(k1.hashCode() == k2.hashCode());
         }
     }
@@ -184,36 +184,36 @@ class KeyTest {
 
         @Test
         void sameInstance() {
-            Key k = Key.get("k1");
+            TranslationKey k = TranslationKey.get("k1");
             assertTrue(k.equals(k));
         }
 
         @Test
         void sameValue() {
-            assertTrue(Key.get("k1").equals(Key.get("k1")));
+            assertTrue(TranslationKey.get("k1").equals(TranslationKey.get("k1")));
         }
 
         @Test
         void differentValue() {
-            assertFalse(Key.get("k1").equals(Key.get("k2")));
+            assertFalse(TranslationKey.get("k1").equals(TranslationKey.get("k2")));
         }
 
         @Test
         void withNull() {
-            assertFalse(Key.get("k1").equals(null));
+            assertFalse(TranslationKey.get("k1").equals(null));
         }
 
         @Test
         void differentType() {
-            assertFalse(Key.get("k1").equals("k1"));
+            assertFalse(TranslationKey.get("k1").equals("k1"));
         }
     }
 
     @Test
     void withEmptyKey() {
-        Key k = Key.get("");
+        TranslationKey k = TranslationKey.get("");
         assertTrue(k.isEmpty());
-        k = Key.get("a");
+        k = TranslationKey.get("a");
         assertFalse(k.isEmpty());
     }
 

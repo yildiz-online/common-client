@@ -29,19 +29,19 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * A Key is a value meant to be translated, it is composed of a key, and optional arguments.
+ * A TranslationKey is a value meant to be translated, it is composed of a key, and optional arguments.
  * <p>
  * The class is mutable to improve performances, but only accessible from its package.
  *
  * @author Grégory Van den Borre
 
- * specfield key:String:Key to translate.
+ * specfield key:String:TranslationKey to translate.
  * specfield args:Object[]:Optional arguments.
  */
-public class Key {
+public class TranslationKey {
 
     /**
-     * Key to translate.
+     * TranslationKey to translate.
      */
     final String translationKey;
 
@@ -57,7 +57,7 @@ public class Key {
      */
      //@Ensures("this.key==key")
      //@Ensures("this.args==new Object[0]")
-    private Key(final String key) {
+    private TranslationKey(final String key) {
         this(key, new Object[0]);
     }
 
@@ -69,7 +69,7 @@ public class Key {
      */
     //@Invariant("keys != null")
     //@Invariant("args != null")
-    private Key(final String key, final Object... args) {
+    private TranslationKey(final String key, final Object... args) {
         super();
         this.translationKey = key;
         this.args = args;
@@ -92,24 +92,24 @@ public class Key {
     }
 
     /**
-     * Create a new instance of Key with a key and no arguments.
+     * Create a new instance of TranslationKey with a key and no arguments.
      *
-     * @param key Key to translate.
-     * @return The build Key.
+     * @param key TranslationKey to translate.
+     * @return The build TranslationKey.
      */
-    public static Key get(final String key) {
-        return new Key(key);
+    public static TranslationKey get(final String key) {
+        return new TranslationKey(key);
     }
 
     /**
-     * Create a new instance of Key with a key and arguments.
+     * Create a new instance of TranslationKey with a key and arguments.
      *
-     * @param key  Key to translate.
+     * @param key  TranslationKey to translate.
      * @param args Arguments to use for translation.
-     * @return The build Key.
+     * @return The build TranslationKey.
      */
-    public static Key get(String key, Object... args) {
-        return new Key(key, args);
+    public static TranslationKey get(String key, Object... args) {
+        return new TranslationKey(key, args);
     }
 
     /**
@@ -118,11 +118,11 @@ public class Key {
      * @param keys Keys to translate, must be at least one, and no null values is allowed.
      * @return The build MultiKey.
      */
-    public static MultiKey get(final Key... keys) {
+    public static MultiKey get(final TranslationKey... keys) {
         return new MultiKey(keys);
     }
 
-    public static MultiKey get(final List<Key> keys) {
+    public static MultiKey get(final List<TranslationKey> keys) {
         return new MultiKey(keys);
     }
 
@@ -139,11 +139,11 @@ public class Key {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Key)) {
+        if (!(o instanceof TranslationKey)) {
             return false;
         }
 
-        Key key = (Key) o;
+        TranslationKey key = (TranslationKey) o;
 
         if (!translationKey.equals(key.translationKey)) {
             return false;
@@ -163,7 +163,7 @@ public class Key {
      * A multi key is composed of several keys to provide the possibility to use several translation in one go.
      *
      * @author Van den Borre Grégory
-     * specfield keys:List of Key:contains the different keys, null values not allowed.
+     * specfield keys:List of TranslationKey:contains the different keys, null values not allowed.
      */
     //@Invariant("keys.size() > 0")
     //@Invariant("!keys.contains(null)")
@@ -172,40 +172,40 @@ public class Key {
         /**
          * List of keys composing this multikey, null not allowed.
          */
-        final List<Key> keys;
+        final List<TranslationKey> keys;
 
         /**
          * Create a new MultiKey instance, must contains at least one key, and no null values.
          *
          * @param keys Keys to add.
          */
-        private MultiKey(final Key... keys) {
+        private MultiKey(final TranslationKey... keys) {
             super();
             this.keys = new ArrayList<>();
-            for(Key k : keys) {
+            for(TranslationKey k : keys) {
                 this.add(k);
             }
             assert this.invariant();
         }
 
-        private MultiKey(final List<Key> l) {
+        private MultiKey(final List<TranslationKey> l) {
             super();
             if (l == null) {
                 throw new IllegalArgumentException("List is null");
             }
             this.keys = new ArrayList<>();
-            for(Key k : l) {
+            for(TranslationKey k : l) {
                 this.add(k);
             }
             assert this.invariant();
         }
 
         /**
-         * Add a new Key to this MultiKey
+         * Add a new TranslationKey to this MultiKey
          *
          * @param key key to add, null is not allowed.
          */
-        public void add(final Key key) {
+        public void add(final TranslationKey key) {
             if (key == null) {
                 throw new IllegalArgumentException("key is null");
             }

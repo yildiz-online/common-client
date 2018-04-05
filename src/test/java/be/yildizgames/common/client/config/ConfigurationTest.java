@@ -30,7 +30,7 @@ package be.yildizgames.common.client.config;
 final class ConfigurationTest {
 
    /* @Nested
-    class Key {
+    class TranslationKey {
 
         @Test
         void values() {

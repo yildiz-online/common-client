@@ -63,7 +63,7 @@ final class TranslationTest {
         p.add("test", "test-fr", "test-en");
         Translation.getInstance().addLanguage(LanguageValue.EN, p);
         Translation.getInstance().chooseLanguage(LanguageValue.EN);
-        assertEquals("test-en", Translation.getInstance().translate(Key.get("test")));
+        assertEquals("test-en", Translation.getInstance().translate(TranslationKey.get("test")));
     }
 
     @Test
@@ -72,6 +72,6 @@ final class TranslationTest {
         p.add("test", "test-fr", "test-en");
         Translation.getInstance().addLanguage(LanguageValue.EN, p);
         Translation.getInstance().chooseLanguage(LanguageValue.EN);
-        assertThrows(IllegalArgumentException.class, () -> Translation.getInstance().translate(Key.get("test:)")));
+        assertThrows(IllegalArgumentException.class, () -> Translation.getInstance().translate(TranslationKey.get("test:)")));
     }
 }

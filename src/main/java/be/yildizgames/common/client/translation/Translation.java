@@ -100,7 +100,7 @@ public final class Translation {
     /**
      * Retrieve a value in the properties.
      *
-     * @param key Key property.
+     * @param key TranslationKey property.
      * @return The translated value.
      * @throws IllegalArgumentException if the key does not exist.
      */
@@ -115,9 +115,9 @@ public final class Translation {
         return s;
     }
 
-    public String translate(final Key.MultiKey keys) {
+    public String translate(final TranslationKey.MultiKey keys) {
         StringBuilder sb = new StringBuilder();
-        for (Key k : keys.keys) {
+        for (TranslationKey k : keys.keys) {
             sb.append(this.translate(k));
         }
         return sb.toString();
@@ -126,14 +126,14 @@ public final class Translation {
     /**
      * Get the translated value.
      *
-     * @param key Key of the value to translate.
+     * @param key TranslationKey of the value to translate.
      * @return The translated value associated to the key.
      */
-    public String translate(final Key key) {
+    public String translate(final TranslationKey key) {
         return StringUtil.fillVariable(this.get(key.translationKey), key.args);
     }
 
-    public String translate(final Key key, String... args) {
+    public String translate(final TranslationKey key, String... args) {
         return StringUtil.fillVariable(this.get(key.translationKey), args);
     }
 }
