@@ -33,13 +33,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * @author Grégory Van den Borre
  */
-class TranslatedValueTest {
+public class TranslatedValueTest {
 
     @Nested
-    class Constructor {
+    public class Constructor {
 
         @Test
-        void happyFlow() {
+        public void happyFlow() {
             TranslatedValue v = new TranslatedValue("aKey", "frValue", "enValue");
             assertEquals("aKey", v.getKey());
             assertEquals("frValue", v.getFrench());
@@ -47,17 +47,17 @@ class TranslatedValueTest {
         }
 
         @Test
-        void withNullKey() {
+        public void withNullKey() {
             assertThrows(AssertionError.class, () -> new TranslatedValue(null, "frValue", "enValue"));
         }
 
         @Test
-        void withNullFrench() {
+        public void withNullFrench() {
             assertThrows(AssertionError.class, () -> new TranslatedValue("aKey", null, "enValue"));
         }
 
         @Test
-        void withNullEnglish() {
+        public void withNullEnglish() {
             assertThrows(AssertionError.class, () -> new TranslatedValue("aKey", "frValue", null));
         }
 

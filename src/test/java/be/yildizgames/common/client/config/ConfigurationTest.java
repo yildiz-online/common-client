@@ -27,7 +27,7 @@ package be.yildizgames.common.client.config;
 /**
  * @author Grégory Van den Borre
  */
-final class ConfigurationTest {
+public final class ConfigurationTest {
 
    /* @Nested
     class TranslationKey {

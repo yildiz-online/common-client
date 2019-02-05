@@ -39,25 +39,25 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * @author Grégory Van den Borre
  */
-class KeyTest {
+public class KeyTest {
 
     @Nested
-    class GetKey {
+    public class GetKey {
 
         @Test
-        void happyFlow() {
+        public void happyFlow() {
             TranslationKey k = TranslationKey.get("blabla");
             assertEquals("blabla", k.translationKey);
             assertFalse(k.args.length > 0);
         }
 
         @Test
-        void withNull() {
+        public void withNull() {
             assertThrows(IllegalArgumentException.class, () -> TranslationKey.get((String)null));
         }
 
         @Test
-        void withKey() {
+        public void withKey() {
             TranslationKey k1 = TranslationKey.get("k1");
             TranslationKey k2 = TranslationKey.get("k2");
             TranslationKey.MultiKey mk = TranslationKey.get(k1, k2);
@@ -66,7 +66,7 @@ class KeyTest {
         }
 
         @Test
-        void withKeyList() {
+        public void withKeyList() {
             TranslationKey k1 = TranslationKey.get("k1");
             TranslationKey k2 = TranslationKey.get("k2");
             List<TranslationKey> keys = Arrays.asList(k1, k2);
@@ -76,51 +76,51 @@ class KeyTest {
         }
 
         @Test
-        void withKeyListContainingNull() {
+        public void withKeyListContainingNull() {
             List<TranslationKey> keys = Arrays.asList(TranslationKey.get("k1"), null);
             assertThrows(IllegalArgumentException.class, () -> TranslationKey.get(keys));
         }
 
         @Test
-        void withKeyListNull() {
+        public void withKeyListNull() {
             assertThrows(IllegalArgumentException.class, () -> TranslationKey.get((List<TranslationKey>)null));
         }
 
         @Test
-        void withKeyListEmpty() {
+        public void withKeyListEmpty() {
             assertThrows(IllegalArgumentException.class, () -> TranslationKey.get(new ArrayList<>()));
         }
 
         @Test
-        void withNullKey() {
+        public void withNullKey() {
             assertThrows(IllegalArgumentException.class, () -> TranslationKey.get((TranslationKey)null));
         }
 
         @Test
-        void withEmptyKey() {
+        public void withEmptyKey() {
             assertThrows(IllegalArgumentException.class, TranslationKey::get);
         }
 
         @Test
-        void withArgs() {
+        public void withArgs() {
             TranslationKey k = TranslationKey.get("blabla", 1);
             assertEquals("blabla", k.translationKey);
             assertEquals(1, k.args[0]);
         }
 
         @Test
-        void withArgsContainingNull() {
+        public void withArgsContainingNull() {
             Object[] args = {"ok", null};
             assertThrows(IllegalArgumentException.class, () -> TranslationKey.get("blabla", args));
         }
 
         @Test
-        void withArgsNull() {
+        public void withArgsNull() {
             assertThrows(IllegalArgumentException.class, () -> TranslationKey.get("blabla", (Object[]) null));
         }
 
         @Test
-        void withEmptyArgs() {
+        public void withEmptyArgs() {
             TranslationKey k = TranslationKey.get("blabla", new Object[]{});
             assertEquals("blabla", k.translationKey);
             assertFalse(k.args.length > 0);
@@ -128,10 +128,10 @@ class KeyTest {
     }
 
     @Nested
-    class Add {
+    public class Add {
 
         @Test
-        void happyFlow() {
+        public void happyFlow() {
             TranslationKey k1 = TranslationKey.get("k1");
             TranslationKey k2 = TranslationKey.get("k2");
             TranslationKey k3 = TranslationKey.get("k3");
@@ -142,7 +142,7 @@ class KeyTest {
         }
 
         @Test
-        void withNull() {
+        public void withNull() {
             TranslationKey k1 = TranslationKey.get("k1");
             TranslationKey k2 = TranslationKey.get("k2");
             TranslationKey.MultiKey mk = TranslationKey.get(k1, k2);
@@ -150,7 +150,7 @@ class KeyTest {
         }
 
         @Test
-        void withEmpty() {
+        public void withEmpty() {
             TranslationKey k1 = TranslationKey.get("k1");
             TranslationKey k2 = TranslationKey.get("k2");
             TranslationKey k3 = TranslationKey.get("");
@@ -162,17 +162,17 @@ class KeyTest {
     }
 
     @Nested
-    class HashCode {
+    public class HashCode {
 
         @Test
-        void happyFlow() {
+        public void happyFlow() {
             TranslationKey k1 = TranslationKey.get("k1");
             TranslationKey k2 = TranslationKey.get("k1");
             assertTrue(k1.hashCode() == k2.hashCode());
         }
 
         @Test
-        void differentValue() {
+        public void differentValue() {
             TranslationKey k1 = TranslationKey.get("k1");
             TranslationKey k2 = TranslationKey.get("k2");
             assertFalse(k1.hashCode() == k2.hashCode());
@@ -180,37 +180,37 @@ class KeyTest {
     }
 
     @Nested
-    class Equals {
+    public class Equals {
 
         @Test
-        void sameInstance() {
+        public void sameInstance() {
             TranslationKey k = TranslationKey.get("k1");
             assertTrue(k.equals(k));
         }
 
         @Test
-        void sameValue() {
+        public void sameValue() {
             assertTrue(TranslationKey.get("k1").equals(TranslationKey.get("k1")));
         }
 
         @Test
-        void differentValue() {
+        public void differentValue() {
             assertFalse(TranslationKey.get("k1").equals(TranslationKey.get("k2")));
         }
 
         @Test
-        void withNull() {
+        public void withNull() {
             assertFalse(TranslationKey.get("k1").equals(null));
         }
 
         @Test
-        void differentType() {
+        public void differentType() {
             assertFalse(TranslationKey.get("k1").equals("k1"));
         }
     }
 
     @Test
-    void withEmptyKey() {
+    public void withEmptyKey() {
         TranslationKey k = TranslationKey.get("");
         assertTrue(k.isEmpty());
         k = TranslationKey.get("a");

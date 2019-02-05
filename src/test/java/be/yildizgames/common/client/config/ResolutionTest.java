@@ -33,10 +33,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * @author Grégory Van den Borre
  */
-class ResolutionTest {
+public class ResolutionTest {
 
     @Test
-    void testToString() {
+    public void testToString() {
         Pattern p = Pattern.compile("^\\d{3,4}X\\d{3,4}$");
         for (Resolution r : Resolution.values()) {
             assertTrue(p.matcher(r.toString()).matches());
@@ -44,14 +44,14 @@ class ResolutionTest {
     }
 
     @Test
-    void testGetX() {
+    public void testGetX() {
         for (Resolution r : Resolution.values()) {
             assertTrue(r.x >= 800 && r.x <= 1920);
         }
     }
 
     @Test
-    void testGetY() {
+    public void testGetY() {
         for (Resolution r : Resolution.values()) {
             assertTrue(r.y >= 600 && r.y <= 1280);
         }

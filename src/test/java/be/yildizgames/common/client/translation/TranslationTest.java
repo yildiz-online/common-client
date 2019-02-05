@@ -33,32 +33,32 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * @author Grégory Van den Borre
  */
-final class TranslationTest {
+public final class TranslationTest {
 
     @Test
-    void testAddLanguageNullArg() {
+    public void testAddLanguageNullArg() {
         assertThrows(AssertionError.class, () -> Translation.getInstance().addLanguage(null, new LanguageProvider()));
     }
 
     @Test
-    void testAddLanguageArgNull() {
+    public void testAddLanguageArgNull() {
         assertThrows(AssertionError.class, () -> Translation.getInstance().addLanguage(LanguageValue.EN, null));
     }
 
     @Test
-    void testAddLanguageArgArg() {
+    public void testAddLanguageArgArg() {
         Translation.getInstance().addLanguage(LanguageValue.EN, new LanguageProvider());
     }
 
     @Test
-    void testChooseLanguageNotExisting() {
+    public void testChooseLanguageNotExisting() {
         Translation.getInstance().addLanguage(LanguageValue.EN, new LanguageProvider());
         assertThrows(IllegalArgumentException.class, () -> Translation.getInstance().chooseLanguage(LanguageValue.FR));
         assertThrows(AssertionError.class, () -> Translation.getInstance().chooseLanguage(null));
     }
 
     @Test
-    void testGet() {
+    public void testGet() {
         LanguageProvider p = new LanguageProvider();
         p.add("test", "test-fr", "test-en");
         Translation.getInstance().addLanguage(LanguageValue.EN, p);
@@ -67,7 +67,7 @@ final class TranslationTest {
     }
 
     @Test
-    void testGetNotExisting() {
+    public void testGetNotExisting() {
         LanguageProvider p = new LanguageProvider();
         p.add("test", "test-fr", "test-en");
         Translation.getInstance().addLanguage(LanguageValue.EN, p);

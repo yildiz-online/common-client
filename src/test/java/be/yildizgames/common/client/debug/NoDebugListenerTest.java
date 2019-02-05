@@ -30,16 +30,16 @@ import org.junit.jupiter.api.Test;
 /**
  * @author Grégory Van den Borre
  */
-class NoDebugListenerTest {
+public class NoDebugListenerTest {
 
     @Test
-    void testUpdateFps() {
+    public void testUpdateFps() {
         DebugListener l = new NoDebugListener();
         l.updateFps(10);
     }
 
     @Test
-    void testDisplayDebugMessage() {
+    public void testDisplayDebugMessage() {
         DebugListener l = new NoDebugListener();
         l.displayDebugMessage(null);
         l.displayDebugMessage("ok");

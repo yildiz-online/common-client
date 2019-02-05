@@ -33,20 +33,20 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * @author Grégory Van den Borre
  */
-class SimpleTranslatedValueProviderTest {
+public class SimpleTranslatedValueProviderTest {
 
     @Nested
-    class Constructor {
+    public class Constructor {
 
         @Test
-        void happyFlow() {
+        public void happyFlow() {
             TranslatedValue v = new TranslatedValue("k", "f", "e");
             TranslatedValueProvider p = new SimpleTranslatedValueProvider(v);
             assertEquals(v, p.getTranslatedValue());
         }
 
         @Test
-        void withNull() {
+        public void withNull() {
             assertThrows(IllegalArgumentException.class, () -> new SimpleTranslatedValueProvider(null));
         }
     }
