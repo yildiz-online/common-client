@@ -24,8 +24,6 @@
 
 package be.yildizgames.common.client.config;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
-
 /**
  * List of resolutions supported by the game.
  *

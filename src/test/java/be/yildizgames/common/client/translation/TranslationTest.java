@@ -60,7 +60,14 @@ public final class TranslationTest {
         p.registerLanguage(LanguageValue.EN);
         Translation.getInstance().addLanguage(LanguageValue.EN, p);
         assertThrows(IllegalArgumentException.class, () -> Translation.getInstance().chooseLanguage(LanguageValue.FR));
-        assertThrows(AssertionError.class, () -> Translation.getInstance().chooseLanguage(null));
+    }
+
+    @Test
+    public void testChooseLanguageNull() {
+        LanguageProvider p = new LanguageProvider();
+        p.registerLanguage(LanguageValue.EN);
+        Translation.getInstance().addLanguage(LanguageValue.EN, p);
+        assertThrows(ImplementationException.class, () -> Translation.getInstance().chooseLanguage(null));
     }
 
     @Test

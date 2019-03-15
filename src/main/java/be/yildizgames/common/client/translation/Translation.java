@@ -82,7 +82,7 @@ public final class Translation {
      * @return This object for method chaining.
      */
     public Translation chooseLanguage(final Language language) {
-        assert language != null;
+        ImplementationException.throwForNull(language);
         if (!this.languages.containsKey(language)) {
             throw new IllegalArgumentException("Unexisting language:" + language);
         }
