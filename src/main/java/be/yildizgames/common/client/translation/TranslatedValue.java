@@ -24,6 +24,9 @@
 
 package be.yildizgames.common.client.translation;
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
+import be.yildizgames.common.util.language.Language;
+
 /**
  * @author Grégory Van den Borre
  */
@@ -31,28 +34,28 @@ public class TranslatedValue {
 
     private final String key;
 
-    private final String french;
+    private final Language language;
 
-    private final String english;
+    private final String value;
 
-    public TranslatedValue(String key, String french, String english) {
-        assert key != null;
-        assert  french != null;
-        assert english != null;
+    public TranslatedValue(String key, Language language, String value) {
+        ImplementationException.throwForNull(key);
+        ImplementationException.throwForNull(language);
+        ImplementationException.throwForNull(value);
         this.key = key;
-        this.french = french;
-        this.english = english;
+        this.language = language;
+        this.value = value;
     }
 
-    public String getKey() {
+    public final String getKey() {
         return this.key;
     }
 
-    public String getFrench() {
-        return this.french;
+    public final Language getLanguage() {
+        return this.language;
     }
 
-    public String getEnglish() {
-        return english;
+    public final String getValue() {
+        return this.value;
     }
 }

@@ -24,12 +24,29 @@
 
 package be.yildizgames.common.client.config;
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
+import be.yildizgames.common.exception.technical.TechnicalException;
+import be.yildizgames.common.util.language.LanguageValue;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.security.InvalidParameterException;
+import java.util.Properties;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 /**
  * @author Grégory Van den Borre
  */
 public final class ConfigurationTest {
 
-   /* @Nested
+    @Nested
     class TranslationKey {
 
         @Test
@@ -50,16 +67,16 @@ public final class ConfigurationTest {
     class SetLogin {
 
         @Test
-        void happyFlow() {
+        void happyFlow() throws IOException {
             Configuration c = givenAnEmpty();
             c.setLogin("tree");
             assertEquals("tree", c.getLogin());
         }
 
         @Test
-        void withNull() {
+        void withNull() throws IOException {
             Configuration c = givenAnEmpty();
-            assertThrows(AssertionError.class, () -> c.setLogin(null));
+            assertThrows(ImplementationException.class, () -> c.setLogin(null));
         }
     }
 
@@ -67,13 +84,15 @@ public final class ConfigurationTest {
     class GetLogin {
 
         @Test
-        void happyFlow() {
-            Configuration c = Configuration.getInstance().readFromFile(getFile("login/chair"));
+        void happyFlow() throws IOException {
+            Properties p = new Properties();
+            p.load(new FileInputStream(getFile("login/chair")));
+            Configuration c = Configuration.getInstance().readFromProperties(p);
             assertEquals("chair", c.getLogin());
         }
 
         @Test
-        void empty() {
+        void empty() throws IOException {
             Configuration c = givenAnEmpty();
             assertEquals("", c.getLogin());
         }
@@ -83,16 +102,16 @@ public final class ConfigurationTest {
     class SetPassword {
 
         @Test
-        void happyFlow() {
+        void happyFlow() throws IOException {
             Configuration c = givenAnEmpty();
             c.setPassword("leaf");
             assertEquals("leaf", c.getPassword());
         }
 
         @Test
-        void withNull() {
+        void withNull() throws IOException {
             Configuration c = givenAnEmpty();
-            assertThrows(AssertionError.class, () -> c.setPassword(null));
+            assertThrows(ImplementationException.class, () -> c.setPassword(null));
         }
     }
 
@@ -100,13 +119,15 @@ public final class ConfigurationTest {
     class GetPassword {
 
         @Test
-        void happyFlow() {
-            Configuration c = Configuration.getInstance().readFromFile(getFile("password/table"));
+        void happyFlow() throws IOException {
+            Properties p = new Properties();
+            p.load(new FileInputStream(getFile("password/table")));
+            Configuration c = Configuration.getInstance().readFromProperties(p);
             assertEquals("table", c.getPassword());
         }
 
         @Test
-        void empty() {
+        void empty() throws IOException {
             Configuration c = givenAnEmpty();
             assertEquals("", c.getPassword());
         }
@@ -115,30 +136,32 @@ public final class ConfigurationTest {
     @Nested
     class IsSaveCredential {
 
-        private Configuration givenSaveCredentialConfiguration(final String file) {
-            return Configuration.getInstance().readFromFile(getFile("save/" + file));
+        private Configuration givenSaveCredentialConfiguration(final String file) throws IOException {
+            Properties p = new Properties();
+            p.load(new FileInputStream(getFile("save/" + file)));
+            return Configuration.getInstance().readFromProperties(p);
         }
 
         @Test
-        void fromEmptyFile() {
+        void fromEmptyFile() throws IOException {
             Configuration c = givenAnEmpty();
             assertFalse(c.isSaveCredentialsChecked());
         }
 
         @Test
-        void fromFileTrueValue() {
+        void fromFileTrueValue() throws IOException {
             Configuration c = givenSaveCredentialConfiguration("true");
             assertTrue(c.isSaveCredentialsChecked());
         }
 
         @Test
-        void fromFileFalseValue() {
+        void fromFileFalseValue() throws IOException {
             Configuration c = givenSaveCredentialConfiguration("false");
             assertFalse(c.isSaveCredentialsChecked());
         }
 
         @Test
-        void fromFileAnyValue() {
+        void fromFileAnyValue() throws IOException {
             Configuration c = givenSaveCredentialConfiguration("invalid");
             assertFalse(c.isSaveCredentialsChecked());
         }
@@ -148,7 +171,7 @@ public final class ConfigurationTest {
     class SetSave {
 
         @Test
-        void withTrueThenFalse() {
+        void withTrueThenFalse() throws IOException {
             Configuration c = givenAnEmpty();
             c.setSaveCredentialsChecked(true);
             assertTrue(c.isSaveCredentialsChecked());
@@ -157,7 +180,7 @@ public final class ConfigurationTest {
         }
 
         @Test
-        void swap() {
+        void swap() throws IOException {
             Configuration c = givenAnEmpty();
             assertFalse(c.isSaveCredentialsChecked());
             c.swapSaveCredentialsChecked();
@@ -168,73 +191,42 @@ public final class ConfigurationTest {
         }
     }
 
-    @Nested
-    class SaveFile {
-
-        @Test
-        void save() {
-            File f = new File("fileToSave.properties");
-            Configuration write = Configuration.getInstance().readFromFile(f);
-            write.setLogin("aLoginValue");
-            write.setPassword("aPwdValue");
-            write.setLanguage(LanguageValue.FR);
-            write.setSaveCredentialsChecked(true);
-            write.save();
-            Configuration read = Configuration.getInstance().readFromFile(f);
-            assertEquals("aLoginValue", read.getLogin());
-            assertEquals("aPwdValue", read.getPassword());
-            assertEquals(LanguageValue.FR, read.getLanguage());
-            assertTrue(read.isSaveCredentialsChecked());
-            f.deleteOnExit();
-        }
-    }
 
     @Nested
     class GetLanguage {
 
-        private Configuration givenLanguageConfiguration(final String file) {
-            return Configuration.getInstance().readFromFile(getFile("language/" + file));
+        private Configuration givenLanguageConfiguration(final String file) throws IOException {
+            Properties p = new Properties();
+            p.load(new FileInputStream(getFile("language/" + file)));
+            return Configuration.getInstance().readFromProperties(p);
         }
 
         @Test
-        void english() {
+        void english() throws IOException {
             Configuration c = givenLanguageConfiguration("english");
             assertTrue(c.isLanguagePresent());
             assertEquals(LanguageValue.EN, c.getLanguage());
         }
 
         @Test
-        void french() {
+        void french() throws IOException {
             Configuration c = givenLanguageConfiguration("french");
             assertTrue(c.isLanguagePresent());
             assertEquals(LanguageValue.FR, c.getLanguage());
         }
 
         @Test
-        void invalid() {
+        void invalid() throws IOException {
             Configuration c = givenLanguageConfiguration("invalid");
             assertTrue(c.isLanguagePresent());
             assertEquals(LanguageValue.EN, c.getLanguage());
         }
 
         @Test
-        void withEmpty() {
+        void withEmpty() throws IOException {
             Configuration c = givenAnEmpty();
             assertFalse(c.isLanguagePresent());
             assertEquals(LanguageValue.EN, c.getLanguage());
-        }
-
-        @Test
-        void withInvalid() throws IOException {
-            File f = new File("temp.properties");
-            f.createNewFile();
-            Properties p = PropertiesHelper.getPropertiesFromFile(f);
-            p.setProperty(Configuration.LANGUAGE_KEY, "GF");
-            PropertiesHelper.save(p, f);
-            Configuration oc = Configuration.getInstance().readFromFile(f);
-            assertTrue(oc.isLanguagePresent());
-            assertEquals(LanguageValue.EN, oc.getLanguage());
-            f.deleteOnExit();
         }
     }
 
@@ -242,7 +234,7 @@ public final class ConfigurationTest {
     class SetLanguage {
 
         @Test
-        void french() {
+        void french() throws IOException {
             Configuration c = givenAnEmpty();
             assertFalse(c.isLanguagePresent());
             assertEquals(LanguageValue.EN, c.getLanguage());
@@ -252,41 +244,99 @@ public final class ConfigurationTest {
         }
 
         @Test
-        void withNull() {
+        void withNull() throws IOException {
             Configuration c = givenAnEmpty();
-            assertThrows(NullPointerException.class, () -> c.setLanguage(null));
+            assertThrows(ImplementationException.class, () -> c.setLanguage(null));
         }
     }
 
     @Nested
     class IsDebug {
 
-        private Configuration givenDebugConfiguration(final String file) {
-            return Configuration.getInstance().readFromFile(getFile("debug/" + file));
+        private Configuration givenDebugConfiguration(final String file) throws IOException{
+            Properties p = new Properties();
+            p.load(new FileInputStream(getFile("debug/" + file)));
+            return Configuration.getInstance().readFromProperties(p);
         }
 
         @Test
-        void fromEmptyFile() {
+        void fromEmptyFile() throws IOException {
             Configuration c = givenAnEmpty();
             assertFalse(c.isDebug());
         }
 
         @Test
-        void fromFileTrueValue() {
+        void fromFileTrueValue() throws IOException {
             Configuration c = givenDebugConfiguration("true");
             assertTrue(c.isDebug());
         }
 
         @Test
-        void fromFileFalseValue() {
+        void fromFileFalseValue() throws IOException {
             Configuration c = givenDebugConfiguration("false");
             assertFalse(c.isDebug());
         }
 
         @Test
-        void fromFileAnyValue() {
+        void fromFileAnyValue() throws IOException {
             Configuration c = givenDebugConfiguration("invalid");
-            assertThrows(IllegalArgumentException.class, c::isDebug);
+            assertThrows(TechnicalException.class, c::isDebug);
+        }
+    }
+
+    @Nested
+    class SetAuthenticationHost {
+
+        @Test
+        void happyFlow() throws IOException {
+            Configuration c = givenAnEmpty();
+            c.setAuthenticationHost("localhost");
+            assertEquals("localhost", c.getAuthenticationHost());
+        }
+
+        @Test
+        void withNull() throws IOException {
+            Configuration c = givenAnEmpty();
+            assertThrows(ImplementationException.class, () -> c.setAuthenticationHost(null));
+        }
+    }
+
+    @Nested
+    class SetAuthenticationPort {
+
+        @Test
+        void happyFlow() throws IOException {
+            Configuration c = givenAnEmpty();
+            c.setAuthenticationPort(5555);
+            assertEquals(5555, c.getAuthenticationPort());
+        }
+    }
+
+    @Nested
+    class SetServerHost {
+
+        @Test
+        void happyFlow() throws IOException {
+            Configuration c = givenAnEmpty();
+            c.setServerHost("localhost");
+            assertEquals("localhost", c.getServerHost());
+        }
+
+        @Test
+        void withNull() throws IOException {
+            Configuration c = givenAnEmpty();
+            assertThrows(ImplementationException.class, () -> c.setServerHost(null));
+        }
+    }
+
+    @Nested
+    class SetServerPort {
+
+        @Test
+        void happyFlow() throws IOException {
+            Configuration c = givenAnEmpty();
+            c.setServerPort(3333);
+            assertEquals(3333, c.getServerPort());
         }
     }
 
@@ -294,11 +344,12 @@ public final class ConfigurationTest {
         return new File("src/test/resources/config/" + name + ".properties");
     }
 
-    private static Configuration givenAnEmpty() {
-        Properties p  = PropertiesHelper.getPropertiesFromFile(getFile("configEmpty"));
+    private static Configuration givenAnEmpty() throws IOException{
+        Properties p = new Properties();
+        p.load(new FileInputStream(getFile("configEmpty")));
         if(!p.isEmpty()) {
             throw new InvalidParameterException("configEmpty.properties is not empty");
         }
-        return Configuration.getInstance().readFromFile(getFile("configEmpty"));
-    }*/
+        return Configuration.getInstance().readFromProperties(p);
+    }
 }

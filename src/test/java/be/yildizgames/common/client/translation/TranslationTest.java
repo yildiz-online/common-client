@@ -24,7 +24,9 @@
 
 package be.yildizgames.common.client.translation;
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.util.language.LanguageValue;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,22 +39,26 @@ public final class TranslationTest {
 
     @Test
     public void testAddLanguageNullArg() {
-        assertThrows(AssertionError.class, () -> Translation.getInstance().addLanguage(null, new LanguageProvider()));
+        assertThrows(ImplementationException.class, () -> Translation.getInstance().addLanguage(null, new LanguageProvider()));
     }
 
     @Test
     public void testAddLanguageArgNull() {
-        assertThrows(AssertionError.class, () -> Translation.getInstance().addLanguage(LanguageValue.EN, null));
+        assertThrows(ImplementationException.class, () -> Translation.getInstance().addLanguage(LanguageValue.EN, null));
     }
 
     @Test
     public void testAddLanguageArgArg() {
-        Translation.getInstance().addLanguage(LanguageValue.EN, new LanguageProvider());
+        LanguageProvider p = new LanguageProvider();
+        p.registerLanguage(LanguageValue.EN);
+        Translation.getInstance().addLanguage(LanguageValue.EN, p);
     }
 
     @Test
     public void testChooseLanguageNotExisting() {
-        Translation.getInstance().addLanguage(LanguageValue.EN, new LanguageProvider());
+        LanguageProvider p = new LanguageProvider();
+        p.registerLanguage(LanguageValue.EN);
+        Translation.getInstance().addLanguage(LanguageValue.EN, p);
         assertThrows(IllegalArgumentException.class, () -> Translation.getInstance().chooseLanguage(LanguageValue.FR));
         assertThrows(AssertionError.class, () -> Translation.getInstance().chooseLanguage(null));
     }
@@ -60,7 +66,8 @@ public final class TranslationTest {
     @Test
     public void testGet() {
         LanguageProvider p = new LanguageProvider();
-        p.add("test", "test-fr", "test-en");
+        p.registerLanguage(LanguageValue.EN);
+        p.add("test", LanguageValue.EN, "test-en");
         Translation.getInstance().addLanguage(LanguageValue.EN, p);
         Translation.getInstance().chooseLanguage(LanguageValue.EN);
         assertEquals("test-en", Translation.getInstance().translate(TranslationKey.get("test")));
@@ -69,9 +76,41 @@ public final class TranslationTest {
     @Test
     public void testGetNotExisting() {
         LanguageProvider p = new LanguageProvider();
-        p.add("test", "test-fr", "test-en");
+        p.registerLanguage(LanguageValue.EN);
+        p.add("test", LanguageValue.EN, "test-en");
         Translation.getInstance().addLanguage(LanguageValue.EN, p);
         Translation.getInstance().chooseLanguage(LanguageValue.EN);
-        assertThrows(IllegalArgumentException.class, () -> Translation.getInstance().translate(TranslationKey.get("test:)")));
+        assertThrows(ImplementationException.class, () -> Translation.getInstance().translate(TranslationKey.get("test:)")));
+    }
+
+    @Test
+    public void testGetEmpty() {
+        LanguageProvider p = new LanguageProvider();
+        p.registerLanguage(LanguageValue.EN);
+        Translation.getInstance().addLanguage(LanguageValue.EN, p);
+        Translation.getInstance().chooseLanguage(LanguageValue.EN);
+        Assertions.assertEquals("", Translation.getInstance().translate(TranslationKey.get("")));
+    }
+
+    @Test
+    public void translateWithArgs() {
+        LanguageProvider p = new LanguageProvider();
+        p.registerLanguage(LanguageValue.EN);
+        Translation.getInstance().addLanguage(LanguageValue.EN, p);
+        p.add("test", LanguageValue.EN, "value${0}");
+        Translation.getInstance().chooseLanguage(LanguageValue.EN);
+        Assertions.assertEquals("value-replace", Translation.getInstance().translate(TranslationKey.get("test"), "-replace"));
+    }
+
+    @Test
+    public void translateMultiKeys() {
+        LanguageProvider p = new LanguageProvider();
+        p.registerLanguage(LanguageValue.EN);
+        Translation.getInstance().addLanguage(LanguageValue.EN, p);
+        p.add("test1", LanguageValue.EN, "value1-");
+        p.add("test2", LanguageValue.EN, "value2");
+        Translation.getInstance().chooseLanguage(LanguageValue.EN);
+        TranslationKey.MultiKey keys = TranslationKey.get(TranslationKey.get("test1"), TranslationKey.get("test2"));
+        Assertions.assertEquals("value1-value2", Translation.getInstance().translate(keys));
     }
 }

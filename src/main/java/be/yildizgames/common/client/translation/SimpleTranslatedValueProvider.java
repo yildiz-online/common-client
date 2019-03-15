@@ -24,6 +24,8 @@
 
 package be.yildizgames.common.client.translation;
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
+
 /**
  * @author Grégory Van den Borre
  */
@@ -36,9 +38,7 @@ public class SimpleTranslatedValueProvider implements TranslatedValueProvider {
 
     public SimpleTranslatedValueProvider(final TranslatedValue translatedValue) {
         super();
-        if(translatedValue == null) {
-            throw new IllegalArgumentException("TranslatedValue cannot be null.");
-        }
+        ImplementationException.throwForNull(translatedValue);
         this.translatedValue = translatedValue;
     }
 

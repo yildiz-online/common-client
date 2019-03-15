@@ -24,6 +24,7 @@
 
 package be.yildizgames.common.client.translation;
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.util.language.Language;
 import be.yildizgames.common.util.language.LanguageValue;
 
@@ -38,10 +39,7 @@ import java.util.Properties;
  * @author Grégory Van den Borre
  *         specfield languages:Map of LanguageValue, Properties:Provide the property data for a given language.
  */
-//@Invariant("language != null")
-//@Invariant("!language.keys.contains(null)")
-//@Invariant("!language.values.contains(null)")
-public final class LanguageProvider {
+public class LanguageProvider {
 
     /**
      * Available languages.
@@ -49,51 +47,30 @@ public final class LanguageProvider {
     private final Map<Language, Properties> languages = new HashMap<>();
 
     /**
-     * Property holding the French translation.
-     */
-    private final Properties fr = new Properties();
-
-    /**
-     * Property holding the English translation.
-     */
-    private final Properties en = new Properties();
-
-    /**
      * Build a new language provider, it will hold the property files for EN and FR.
      */
     public LanguageProvider() {
         super();
-        this.languages.put(LanguageValue.EN, this.en);
-        this.languages.put(LanguageValue.FR, this.fr);
-    }
-
-    public void registerLanguage(Language l) {
-        this.languages.put(l, new Properties());
     }
 
     /**
-     * Add a translation text.
-     *
-     * @param key     TranslationKey to call in the application.
-     * @param french  French translation.
-     * @param english English translation.
-     * @throws NullPointerException     If any parameter is <code>null</code>.
+     * Add a supported language.
+     * @param l Language to support.
      */
-    public void add(final String key, final String french, final String english) {
-        this.fr.put(key, french);
-        this.en.put(key, english);
+    public final void registerLanguage(final Language l) {
+        ImplementationException.throwForNull(l);
+        this.languages.put(l, new Properties());
     }
 
-    public void add(final TranslationKey key, final String french, final String english) {
-        this.fr.put(key.translationKey, french);
-        this.en.put(key.translationKey, english);
+    public final void add(final String key, final Language language, final String value) {
+        ImplementationException.throwForNull(key);
+        ImplementationException.throwForNull(language);
+        ImplementationException.throwForNull(value);
+        this.get(language).put(key, value);
     }
 
-    public void add(final String key, final Language language, final String value) {
-        this.languages.get(language).put(key, value);
-    }
-
-    public void add(TranslatedValueProvider provider) {
+    public final void add(TranslatedValueProvider provider) {
+        ImplementationException.throwForNull(provider);
         this.add(provider.getTranslatedValue());
     }
 
@@ -101,22 +78,19 @@ public final class LanguageProvider {
      * Add a translation text.
      *
      * @param value   Translation to add.
-     * @throws NullPointerException     If value is <code>null</code>.
      */
-    public void add(final TranslatedValue value) {
-        this.add(
-                value.getKey(),
-                value.getFrench(),
-                value.getEnglish());
+    public final void add(final TranslatedValue value) {
+        ImplementationException.throwForNull(value);
+        this.add(value.getKey(), value.getLanguage(), value.getValue());
     }
 
     /**
      * Add several translation texts.
      *
      * @param provider   Provide the translations.
-     * @throws NullPointerException     If provider is <code>null</code>.
      */
     public void add(TranslatedValuesProvider provider) {
+        ImplementationException.throwForNull(provider);
         for(TranslatedValueProvider t : provider) {
             this.add(t.getTranslatedValue());
         }
@@ -127,11 +101,11 @@ public final class LanguageProvider {
      *
      * @param language LanguageValue to retrieve.
      * @return The properties matching the language.
-     * @throws NullPointerException     If language is <code>null</code>.
      */
     public Properties get(final Language language) {
-        assert language != null;
-        return this.languages.get(language);
+        ImplementationException.throwForNull(language);
+        Properties p = this.languages.get(language);
+        ImplementationException.throwForNull(p);
+        return p;
     }
-
 }

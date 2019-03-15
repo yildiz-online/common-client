@@ -24,6 +24,7 @@
 
 package be.yildizgames.common.client.translation;
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -47,13 +48,13 @@ public class KeyTest {
         @Test
         public void happyFlow() {
             TranslationKey k = TranslationKey.get("blabla");
-            assertEquals("blabla", k.translationKey);
+            assertEquals("blabla", k.key);
             assertFalse(k.args.length > 0);
         }
 
         @Test
         public void withNull() {
-            assertThrows(IllegalArgumentException.class, () -> TranslationKey.get((String)null));
+            assertThrows(ImplementationException.class, () -> TranslationKey.get((String)null));
         }
 
         @Test
@@ -78,51 +79,51 @@ public class KeyTest {
         @Test
         public void withKeyListContainingNull() {
             List<TranslationKey> keys = Arrays.asList(TranslationKey.get("k1"), null);
-            assertThrows(IllegalArgumentException.class, () -> TranslationKey.get(keys));
+            assertThrows(ImplementationException.class, () -> TranslationKey.get(keys));
         }
 
         @Test
         public void withKeyListNull() {
-            assertThrows(IllegalArgumentException.class, () -> TranslationKey.get((List<TranslationKey>)null));
+            assertThrows(ImplementationException.class, () -> TranslationKey.get((List<TranslationKey>)null));
         }
 
         @Test
         public void withKeyListEmpty() {
-            assertThrows(IllegalArgumentException.class, () -> TranslationKey.get(new ArrayList<>()));
+            assertThrows(ImplementationException.class, () -> TranslationKey.get(new ArrayList<>()));
         }
 
         @Test
         public void withNullKey() {
-            assertThrows(IllegalArgumentException.class, () -> TranslationKey.get((TranslationKey)null));
+            assertThrows(ImplementationException.class, () -> TranslationKey.get((TranslationKey)null));
         }
 
         @Test
         public void withEmptyKey() {
-            assertThrows(IllegalArgumentException.class, TranslationKey::get);
+            assertThrows(ImplementationException.class, TranslationKey::get);
         }
 
         @Test
         public void withArgs() {
             TranslationKey k = TranslationKey.get("blabla", 1);
-            assertEquals("blabla", k.translationKey);
+            assertEquals("blabla", k.key);
             assertEquals(1, k.args[0]);
         }
 
         @Test
         public void withArgsContainingNull() {
             Object[] args = {"ok", null};
-            assertThrows(IllegalArgumentException.class, () -> TranslationKey.get("blabla", args));
+            assertThrows(ImplementationException.class, () -> TranslationKey.get("blabla", args));
         }
 
         @Test
         public void withArgsNull() {
-            assertThrows(IllegalArgumentException.class, () -> TranslationKey.get("blabla", (Object[]) null));
+            assertThrows(ImplementationException.class, () -> TranslationKey.get("blabla", (Object[]) null));
         }
 
         @Test
         public void withEmptyArgs() {
             TranslationKey k = TranslationKey.get("blabla", new Object[]{});
-            assertEquals("blabla", k.translationKey);
+            assertEquals("blabla", k.key);
             assertFalse(k.args.length > 0);
         }
     }
@@ -146,7 +147,7 @@ public class KeyTest {
             TranslationKey k1 = TranslationKey.get("k1");
             TranslationKey k2 = TranslationKey.get("k2");
             TranslationKey.MultiKey mk = TranslationKey.get(k1, k2);
-            assertThrows(IllegalArgumentException.class, () -> mk.add(null));
+            assertThrows(ImplementationException.class, () -> mk.add(null));
         }
 
         @Test

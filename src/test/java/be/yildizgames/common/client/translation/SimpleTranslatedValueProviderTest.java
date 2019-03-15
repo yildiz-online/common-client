@@ -24,6 +24,9 @@
 
 package be.yildizgames.common.client.translation;
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
+import be.yildizgames.common.util.language.Language;
+import be.yildizgames.common.util.language.LanguageValue;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -40,14 +43,14 @@ public class SimpleTranslatedValueProviderTest {
 
         @Test
         public void happyFlow() {
-            TranslatedValue v = new TranslatedValue("k", "f", "e");
+            TranslatedValue v = new TranslatedValue("k", LanguageValue.EN, "e");
             TranslatedValueProvider p = new SimpleTranslatedValueProvider(v);
             assertEquals(v, p.getTranslatedValue());
         }
 
         @Test
         public void withNull() {
-            assertThrows(IllegalArgumentException.class, () -> new SimpleTranslatedValueProvider(null));
+            assertThrows(ImplementationException.class, () -> new SimpleTranslatedValueProvider(null));
         }
     }
 

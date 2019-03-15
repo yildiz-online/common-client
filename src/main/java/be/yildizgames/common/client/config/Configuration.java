@@ -24,6 +24,7 @@
 
 package be.yildizgames.common.client.config;
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.util.PropertiesHelper;
 import be.yildizgames.common.util.language.Language;
 import be.yildizgames.common.util.language.LanguageValue;
@@ -134,7 +135,7 @@ public final class Configuration {
      * @return This object for chaining.
      */
     public Configuration setLogin(final String value) {
-        assert value != null;
+        ImplementationException.throwForNull(value);
         this.properties.setProperty(LOGIN_KEY, value);
         return this;
     }
@@ -151,7 +152,7 @@ public final class Configuration {
      * @return This object for chaining.
      */
     public Configuration setPassword(final String value) {
-        assert value != null;
+        ImplementationException.throwForNull(value);
         this.properties.setProperty(Configuration.PWD_KEY, value);
         return this;
     }
@@ -194,6 +195,7 @@ public final class Configuration {
      * @return This object for chaining.
      */
     public Configuration setLanguage(final Language language) {
+        ImplementationException.throwForNull(language);
         this.properties.setProperty(LANGUAGE_KEY, language.getShortName());
         return this;
     }
@@ -227,7 +229,7 @@ public final class Configuration {
      * @throws NullPointerException If value is null.
      */
     public Configuration setAuthenticationHost(final String value) {
-        assert value != null;
+        ImplementationException.throwForNull(value);
         this.properties.setProperty(Configuration.AUTHENTICATION_HOST_KEY, value);
         return this;
     }
@@ -261,7 +263,7 @@ public final class Configuration {
      * @throws NullPointerException If value is null.
      */
     public Configuration setServerHost(final String value) {
-        assert value != null;
+        ImplementationException.throwForNull(value);
         this.properties.setProperty(Configuration.SERVER_HOST_KEY, value);
         return this;
     }

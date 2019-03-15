@@ -24,6 +24,8 @@
 
 package be.yildizgames.common.client.translation;
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +45,7 @@ public class TranslationKey {
     /**
      * TranslationKey to translate.
      */
-    final String translationKey;
+    final String key;
 
     /**
      * Optional arguments.
@@ -67,28 +69,15 @@ public class TranslationKey {
      * @param key  Value to translate.
      * @param args Arguments to add to translation.
      */
-    //@Invariant("keys != null")
-    //@Invariant("args != null")
     private TranslationKey(final String key, final Object... args) {
         super();
-        this.translationKey = key;
+        ImplementationException.throwForNull(key);
+        ImplementationException.throwForNull(args);
+        this.key = key;
         this.args = args;
-        assert this.invariant();
-    }
-
-    private boolean invariant() {
-        if(this.translationKey == null) {
-            throw new IllegalArgumentException("Translation key should not be null.");
-        }
-        if(this.args == null) {
-            throw new IllegalArgumentException("Args should not be null.");
-        }
         for(Object o: this.args) {
-            if(o == null) {
-                throw new IllegalArgumentException("Args should not contains null.");
-            }
+            ImplementationException.throwForNull(o);
         }
-        return true;
     }
 
     /**
@@ -131,7 +120,7 @@ public class TranslationKey {
      * @return <code>true</code> if the key is empty.
      */
     public boolean isEmpty() {
-        return "".equals(this.translationKey);
+        return "".equals(this.key);
     }
 
     @Override
@@ -145,7 +134,7 @@ public class TranslationKey {
 
         TranslationKey key = (TranslationKey) o;
 
-        if (!translationKey.equals(key.translationKey)) {
+        if (!this.key.equals(key.key)) {
             return false;
         }
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
@@ -154,7 +143,7 @@ public class TranslationKey {
 
     @Override
     public int hashCode() {
-        int result = translationKey.hashCode();
+        int result = key.hashCode();
         result = 31 * result + Arrays.hashCode(args);
         return result;
     }
@@ -185,19 +174,17 @@ public class TranslationKey {
             for(TranslationKey k : keys) {
                 this.add(k);
             }
-            assert this.invariant();
+            ImplementationException.throwForEmpty(this.keys);
         }
 
         private MultiKey(final List<TranslationKey> l) {
             super();
-            if (l == null) {
-                throw new IllegalArgumentException("List is null");
-            }
+            ImplementationException.throwForNull(l);
+            ImplementationException.throwForEmpty(l);
             this.keys = new ArrayList<>();
             for(TranslationKey k : l) {
                 this.add(k);
             }
-            assert this.invariant();
         }
 
         /**
@@ -206,29 +193,10 @@ public class TranslationKey {
          * @param key key to add, null is not allowed.
          */
         public void add(final TranslationKey key) {
-            if (key == null) {
-                throw new IllegalArgumentException("key is null");
-            }
+            ImplementationException.throwForNull(key);
             if (!key.isEmpty()) {
                 this.keys.add(key);
             }
-            assert this.invariant();
-        }
-
-        /**
-         * Invariant, only called if assertions are enabled.
-         *
-         * @return <code>true</code>.
-         * @throws AssertionError if the invariant is broken in any way.
-         */
-        private boolean invariant() {
-            if (this.keys.isEmpty()) {
-                throw new IllegalArgumentException("Keys is empty.");
-            }
-            if (this.keys.contains(null)) {
-                throw new IllegalArgumentException("null value not allowed.");
-            }
-            return true;
         }
     }
 }

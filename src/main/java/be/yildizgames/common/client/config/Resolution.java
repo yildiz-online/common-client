@@ -24,6 +24,8 @@
 
 package be.yildizgames.common.client.config;
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
+
 /**
  * List of resolutions supported by the game.
  *
@@ -83,7 +85,6 @@ public enum Resolution {
         final String[] name = this.toString().split("X");
         this.x = Integer.parseInt(name[0]);
         this.y = Integer.parseInt(name[1]);
-        assert this.invariant();
     }
 
     /**
@@ -92,21 +93,5 @@ public enum Resolution {
     @Override
     public final String toString() {
         return this.name().replace("RES_", "");
-    }
-
-    /**
-     * Invariant, only called if assertions are enabled.
-     *
-     * @return <code>true</code>.
-     * @throws AssertionError if the invariant is broken in any way.
-     */
-    private boolean invariant() {
-        if (this.x < 0) {
-            throw new AssertionError("x < 0");
-        }
-        if (this.y < 0) {
-            throw new AssertionError("y < 0");
-        }
-        return true;
     }
 }

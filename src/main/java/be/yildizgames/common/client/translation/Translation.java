@@ -24,6 +24,7 @@
 
 package be.yildizgames.common.client.translation;
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.util.StringUtil;
 import be.yildizgames.common.util.language.Language;
 import be.yildizgames.common.util.language.LanguageValue;
@@ -65,21 +66,13 @@ public final class Translation {
      * @param language LanguageValue to add.
      * @param provider Object containing the language properties.
      * @return This object.
-     * @throws NullPointerException If any parameter is null.
      */
     public Translation addLanguage(final Language language, final LanguageProvider provider) {
-        assert language != null;
-        assert provider != null;
+        ImplementationException.throwForNull(language);
+        ImplementationException.throwForNull(provider);
         this.languages.put(language, provider.get(language));
-        assert this.invariant();
+        this.languages.values().forEach(ImplementationException::throwForNull);
         return this;
-    }
-
-    private boolean invariant() {
-        if (this.languages.containsValue(null)) {
-            throw new AssertionError("Null value not allowed in languages.");
-        }
-        return true;
     }
 
     /**
@@ -109,9 +102,7 @@ public final class Translation {
             return "";
         }
         String s = this.languages.get(this.chosenLanguage).getProperty(key);
-        if (s == null) {
-            throw new IllegalArgumentException(key + " translation does not exists");
-        }
+        ImplementationException.throwForNull(s);
         return s;
     }
 
@@ -130,10 +121,10 @@ public final class Translation {
      * @return The translated value associated to the key.
      */
     public String translate(final TranslationKey key) {
-        return StringUtil.fillVariable(this.get(key.translationKey), key.args);
+        return StringUtil.fillVariable(this.get(key.key), key.args);
     }
 
     public String translate(final TranslationKey key, String... args) {
-        return StringUtil.fillVariable(this.get(key.translationKey), args);
+        return StringUtil.fillVariable(this.get(key.key), args);
     }
 }

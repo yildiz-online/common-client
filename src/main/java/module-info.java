@@ -25,6 +25,7 @@
 module be.yildizgames.common.client {
 
     requires be.yildizgames.common.util;
+    requires be.yildizgames.common.exception;
 
     exports be.yildizgames.common.client.config;
     exports be.yildizgames.common.client.debug;

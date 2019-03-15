@@ -24,6 +24,8 @@
 
 package be.yildizgames.common.client.translation;
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
+import be.yildizgames.common.util.language.LanguageValue;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -40,25 +42,25 @@ public class TranslatedValueTest {
 
         @Test
         public void happyFlow() {
-            TranslatedValue v = new TranslatedValue("aKey", "frValue", "enValue");
+            TranslatedValue v = new TranslatedValue("aKey", LanguageValue.EN, "enValue");
             assertEquals("aKey", v.getKey());
-            assertEquals("frValue", v.getFrench());
-            assertEquals("enValue", v.getEnglish());
+            assertEquals(LanguageValue.EN, v.getLanguage());
+            assertEquals("enValue", v.getValue());
         }
 
         @Test
         public void withNullKey() {
-            assertThrows(AssertionError.class, () -> new TranslatedValue(null, "frValue", "enValue"));
+            assertThrows(ImplementationException.class, () -> new TranslatedValue(null, LanguageValue.EN, "enValue"));
         }
 
         @Test
-        public void withNullFrench() {
-            assertThrows(AssertionError.class, () -> new TranslatedValue("aKey", null, "enValue"));
+        public void withNullLanguage() {
+            assertThrows(ImplementationException.class, () -> new TranslatedValue("aKey", null, "enValue"));
         }
 
         @Test
-        public void withNullEnglish() {
-            assertThrows(AssertionError.class, () -> new TranslatedValue("aKey", "frValue", null));
+        public void withNullValue() {
+            assertThrows(ImplementationException.class, () -> new TranslatedValue("aKey", LanguageValue.EN, null));
         }
 
     }
