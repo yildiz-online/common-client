@@ -26,7 +26,6 @@ package be.yildizgames.common.client.translation;
 
 import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.util.language.Language;
-import be.yildizgames.common.util.language.LanguageValue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -109,3 +108,4 @@ public class LanguageProvider {
         return p;
     }
 }
+

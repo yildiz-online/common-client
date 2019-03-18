@@ -25,7 +25,6 @@
 package be.yildizgames.common.client.translation;
 
 import be.yildizgames.common.exception.implementation.ImplementationException;
-import be.yildizgames.common.util.language.Language;
 import be.yildizgames.common.util.language.LanguageValue;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
