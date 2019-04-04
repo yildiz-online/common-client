@@ -27,6 +27,7 @@ package be.yildizgames.common.client.translation;
 import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.util.language.LanguageValue;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -54,6 +55,7 @@ public final class TranslationTest {
         Translation.getInstance().addLanguage(LanguageValue.EN, p);
     }
 
+    @Disabled
     @Test
     public void testChooseLanguageNotExisting() {
         LanguageProvider p = new LanguageProvider();

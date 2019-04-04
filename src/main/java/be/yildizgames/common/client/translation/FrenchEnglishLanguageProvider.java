@@ -38,6 +38,8 @@ public class FrenchEnglishLanguageProvider extends LanguageProvider {
         super();
         this.registerLanguage(LanguageValue.EN);
         this.registerLanguage(LanguageValue.FR);
+        Translation.getInstance().addLanguage(LanguageValue.EN, this);
+        Translation.getInstance().addLanguage(LanguageValue.FR, this);
     }
 
     public void add(String key, String french, String english) {
