@@ -28,5 +28,4 @@ package be.yildizgames.common.client.translation;
  * @author Grégory Van den Borre
  */
 public interface TranslatedValuesProvider extends Iterable <TranslatedValueProvider>{
-
 }

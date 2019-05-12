@@ -124,7 +124,7 @@ public class TranslationKey {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) {
             return true;
         }
@@ -142,7 +142,7 @@ public class TranslationKey {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         int result = key.hashCode();
         result = 31 * result + Arrays.hashCode(args);
         return result;
@@ -192,7 +192,7 @@ public class TranslationKey {
          *
          * @param key key to add, null is not allowed.
          */
-        public void add(final TranslationKey key) {
+        public final void add(final TranslationKey key) {
             ImplementationException.throwForNull(key);
             if (!key.isEmpty()) {
                 this.keys.add(key);

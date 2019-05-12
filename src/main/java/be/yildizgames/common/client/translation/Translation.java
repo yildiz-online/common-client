@@ -67,7 +67,7 @@ public final class Translation {
      * @param provider Object containing the language properties.
      * @return This object.
      */
-    public Translation addLanguage(final Language language, final LanguageProvider provider) {
+    public final Translation addLanguage(final Language language, final LanguageProvider provider) {
         ImplementationException.throwForNull(language);
         ImplementationException.throwForNull(provider);
         this.languages.put(language, provider.get(language));
@@ -81,7 +81,7 @@ public final class Translation {
      * @param language LanguageValue to use.
      * @return This object for method chaining.
      */
-    public Translation chooseLanguage(final Language language) {
+    public final Translation chooseLanguage(final Language language) {
         ImplementationException.throwForNull(language);
         if (!this.languages.containsKey(language)) {
             throw new IllegalArgumentException("Unexisting language:" + language);
@@ -106,7 +106,7 @@ public final class Translation {
         return s;
     }
 
-    public String translate(final TranslationKey.MultiKey keys) {
+    public final String translate(final TranslationKey.MultiKey keys) {
         StringBuilder sb = new StringBuilder();
         for (TranslationKey k : keys.keys) {
             sb.append(this.translate(k));
@@ -120,11 +120,11 @@ public final class Translation {
      * @param key TranslationKey of the value to translate.
      * @return The translated value associated to the key.
      */
-    public String translate(final TranslationKey key) {
+    public final String translate(final TranslationKey key) {
         return StringUtil.fillVariable(this.get(key.key), key.args);
     }
 
-    public String translate(final TranslationKey key, String... args) {
+    public final String translate(final TranslationKey key, String... args) {
         return StringUtil.fillVariable(this.get(key.key), args);
     }
 }

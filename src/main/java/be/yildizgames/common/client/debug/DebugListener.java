@@ -46,5 +46,4 @@ public interface DebugListener {
      * @param message Message to display.
      */
     void displayDebugMessage(Object message);
-
 }

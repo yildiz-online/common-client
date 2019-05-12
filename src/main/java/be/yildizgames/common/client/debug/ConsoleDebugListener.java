@@ -40,5 +40,4 @@ public class ConsoleDebugListener implements DebugListener {
     public void displayDebugMessage(Object message) {
         Terminal.print("DEBUG: " + message);
     }
-
 }

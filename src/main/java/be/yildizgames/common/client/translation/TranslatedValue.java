@@ -32,6 +32,9 @@ import be.yildizgames.common.util.language.Language;
  */
 public class TranslatedValue {
 
+    /**
+     * Translation key.
+     */
     private final String key;
 
     private final Language language;

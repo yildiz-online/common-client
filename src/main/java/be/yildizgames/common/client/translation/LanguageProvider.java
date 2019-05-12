@@ -36,7 +36,8 @@ import java.util.Properties;
  * Mutable class.
  *
  * @author Grégory Van den Borre
- *         specfield languages:Map of LanguageValue, Properties:Provide the property data for a given language.
+ *
+ * specfield languages:Map of LanguageValue, Properties:Provide the property data for a given language.
  */
 public class LanguageProvider {
 
@@ -88,7 +89,7 @@ public class LanguageProvider {
      *
      * @param provider   Provide the translations.
      */
-    public void add(TranslatedValuesProvider provider) {
+    public final void add(TranslatedValuesProvider provider) {
         ImplementationException.throwForNull(provider);
         for(TranslatedValueProvider t : provider) {
             this.add(t.getTranslatedValue());
@@ -101,7 +102,7 @@ public class LanguageProvider {
      * @param language LanguageValue to retrieve.
      * @return The properties matching the language.
      */
-    public Properties get(final Language language) {
+    public final Properties get(final Language language) {
         ImplementationException.throwForNull(language);
         Properties p = this.languages.get(language);
         ImplementationException.throwForNull(p);

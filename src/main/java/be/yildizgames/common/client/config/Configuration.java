@@ -36,10 +36,6 @@ import java.util.Properties;
  * Configuration data, data are retrieved by parsing the property file. If the file does not contains the required property, a default value is returned.
  *
  * @author Grégory Van Den Borre
- *         specfield login:String: Value of the login if the user saved it, empty string if not found.
- *         specfield password:String: Value of the password if the user saved it, saved in clear to be updated in view if necessary, empty string if not found.
- *         specfield language:String: Value of one possible language in the system, if empty of invalid, English is returned.
- *         specfield saveCredential: boolean: if true, the password and language will be persisted in the property file.
  */
 public final class Configuration {
 

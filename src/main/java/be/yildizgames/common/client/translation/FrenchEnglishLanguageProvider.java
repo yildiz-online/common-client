@@ -30,6 +30,7 @@ import be.yildizgames.common.util.language.LanguageValue;
 
 /**
  * Example language provider supporting french and english languages, to have additional support, simply create other implementations.
+ *
  * @author Grégory Van den Borre.
  */
 public class FrenchEnglishLanguageProvider extends LanguageProvider {

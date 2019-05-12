@@ -39,5 +39,4 @@ public class NoDebugListener implements DebugListener {
     public void displayDebugMessage(Object message) {
         //does nothing.
     }
-
 }

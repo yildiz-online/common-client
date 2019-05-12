@@ -30,5 +30,9 @@ package be.yildizgames.common.client.translation;
 @FunctionalInterface
 public interface TranslatedValueProvider {
 
+    /**
+     * Provide the translated value.
+     * @return The translated value.
+     */
     TranslatedValue getTranslatedValue();
 }

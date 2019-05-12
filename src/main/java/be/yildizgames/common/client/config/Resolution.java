@@ -28,12 +28,7 @@ package be.yildizgames.common.client.config;
  * List of resolutions supported by the game.
  *
  * @author Grégory Van Den Borre
- *         specfield Resolution:Resolution:value for the resolution, must match the pattern RES_\\d{3,4}X\\d{3,4}.
- *         derivedfield x:int:width resolution extracted from the x value of RES_xXy.
- *         derivedfield y:int:height resolution extracted from the y value of RES_xXy.
  */
-//@Invariant x > 0
-//@Invariant y > 0
 public enum Resolution {
 
     /**
