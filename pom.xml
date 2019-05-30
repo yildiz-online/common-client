@@ -24,27 +24,32 @@
   ~
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
-  <name>Yildiz Common Client</name>
+
+  <name>Yildiz-Engine Common Client</name>
   <description>Common library for the yildiz client projects, contains utilities, helper classes and more.</description>
+  <inceptionYear>2011</inceptionYear>
   <url>https://engine.yildiz-games.be</url>
 
   <artifactId>common-client</artifactId>
   <version>3.0.2-SNAPSHOT</version>
 
-  <packaging>jar</packaging>
-  <inceptionYear>2011</inceptionYear>
-  <scm>
-    <connection>scm:git:https://github.com/yildiz-online/common-client</connection>
-    <developerConnection>scm:git:https://github.com/yildiz-online/common-client</developerConnection>
-    <url>https://github.com/yildiz-online/common-client</url>
-  </scm>
   <parent>
     <groupId>be.yildiz-games</groupId>
     <artifactId>parent</artifactId>
     <version>3.0.5</version>
   </parent>
+
+  <packaging>jar</packaging>
+
+  <scm>
+    <connection>scm:git:https://github.com/yildiz-online/common-client</connection>
+    <developerConnection>scm:git:https://github.com/yildiz-online/common-client</developerConnection>
+    <url>https://github.com/yildiz-online/common-client</url>
+  </scm>
 
   <dependencies>
     <dependency>
