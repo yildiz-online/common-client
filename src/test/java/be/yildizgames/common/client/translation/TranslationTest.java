@@ -24,7 +24,6 @@
 
 package be.yildizgames.common.client.translation;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.util.language.LanguageValue;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -40,12 +39,12 @@ public final class TranslationTest {
 
     @Test
     public void testAddLanguageNullArg() {
-        assertThrows(ImplementationException.class, () -> Translation.getInstance().addLanguage(null, new LanguageProvider()));
+        assertThrows(NullPointerException.class, () -> Translation.getInstance().addLanguage(null, new LanguageProvider()));
     }
 
     @Test
     public void testAddLanguageArgNull() {
-        assertThrows(ImplementationException.class, () -> Translation.getInstance().addLanguage(LanguageValue.EN, null));
+        assertThrows(NullPointerException.class, () -> Translation.getInstance().addLanguage(LanguageValue.EN, null));
     }
 
     @Test
@@ -69,7 +68,7 @@ public final class TranslationTest {
         LanguageProvider p = new LanguageProvider();
         p.registerLanguage(LanguageValue.EN);
         Translation.getInstance().addLanguage(LanguageValue.EN, p);
-        assertThrows(ImplementationException.class, () -> Translation.getInstance().chooseLanguage(null));
+        assertThrows(NullPointerException.class, () -> Translation.getInstance().chooseLanguage(null));
     }
 
     @Test
@@ -89,7 +88,7 @@ public final class TranslationTest {
         p.add("test", LanguageValue.EN, "test-en");
         Translation.getInstance().addLanguage(LanguageValue.EN, p);
         Translation.getInstance().chooseLanguage(LanguageValue.EN);
-        assertThrows(ImplementationException.class, () -> Translation.getInstance().translate(TranslationKey.get("test:)")));
+        assertThrows(NullPointerException.class, () -> Translation.getInstance().translate(TranslationKey.get("test:)")));
     }
 
     @Test

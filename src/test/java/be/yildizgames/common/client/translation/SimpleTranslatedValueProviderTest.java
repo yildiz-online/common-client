@@ -24,7 +24,6 @@
 
 package be.yildizgames.common.client.translation;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.util.language.LanguageValue;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -49,7 +48,7 @@ public class SimpleTranslatedValueProviderTest {
 
         @Test
         public void withNull() {
-            assertThrows(ImplementationException.class, () -> new SimpleTranslatedValueProvider(null));
+            assertThrows(NullPointerException.class, () -> new SimpleTranslatedValueProvider(null));
         }
     }
 

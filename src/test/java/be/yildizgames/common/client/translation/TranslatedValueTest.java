@@ -24,7 +24,6 @@
 
 package be.yildizgames.common.client.translation;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.util.language.LanguageValue;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -50,17 +49,17 @@ public class TranslatedValueTest {
 
         @Test
         public void withNullKey() {
-            assertThrows(ImplementationException.class, () -> new TranslatedValue(null, LanguageValue.EN, "enValue"));
+            assertThrows(NullPointerException.class, () -> new TranslatedValue(null, LanguageValue.EN, "enValue"));
         }
 
         @Test
         public void withNullLanguage() {
-            assertThrows(ImplementationException.class, () -> new TranslatedValue("aKey", null, "enValue"));
+            assertThrows(NullPointerException.class, () -> new TranslatedValue("aKey", null, "enValue"));
         }
 
         @Test
         public void withNullValue() {
-            assertThrows(ImplementationException.class, () -> new TranslatedValue("aKey", LanguageValue.EN, null));
+            assertThrows(NullPointerException.class, () -> new TranslatedValue("aKey", LanguageValue.EN, null));
         }
 
     }

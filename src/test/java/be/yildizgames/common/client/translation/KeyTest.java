@@ -24,11 +24,9 @@
 
 package be.yildizgames.common.client.translation;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,7 +52,7 @@ public class KeyTest {
 
         @Test
         public void withNull() {
-            assertThrows(ImplementationException.class, () -> TranslationKey.get((String)null));
+            assertThrows(NullPointerException.class, () -> TranslationKey.get((String)null));
         }
 
         @Test
@@ -79,27 +77,17 @@ public class KeyTest {
         @Test
         public void withKeyListContainingNull() {
             List<TranslationKey> keys = Arrays.asList(TranslationKey.get("k1"), null);
-            assertThrows(ImplementationException.class, () -> TranslationKey.get(keys));
+            assertThrows(NullPointerException.class, () -> TranslationKey.get(keys));
         }
 
         @Test
         public void withKeyListNull() {
-            assertThrows(ImplementationException.class, () -> TranslationKey.get((List<TranslationKey>)null));
-        }
-
-        @Test
-        public void withKeyListEmpty() {
-            assertThrows(ImplementationException.class, () -> TranslationKey.get(new ArrayList<>()));
+            assertThrows(NullPointerException.class, () -> TranslationKey.get((List<TranslationKey>)null));
         }
 
         @Test
         public void withNullKey() {
-            assertThrows(ImplementationException.class, () -> TranslationKey.get((TranslationKey)null));
-        }
-
-        @Test
-        public void withEmptyKey() {
-            assertThrows(ImplementationException.class, TranslationKey::get);
+            assertThrows(NullPointerException.class, () -> TranslationKey.get((TranslationKey)null));
         }
 
         @Test
@@ -112,12 +100,12 @@ public class KeyTest {
         @Test
         public void withArgsContainingNull() {
             Object[] args = {"ok", null};
-            assertThrows(ImplementationException.class, () -> TranslationKey.get("blabla", args));
+            assertThrows(NullPointerException.class, () -> TranslationKey.get("blabla", args));
         }
 
         @Test
         public void withArgsNull() {
-            assertThrows(ImplementationException.class, () -> TranslationKey.get("blabla", (Object[]) null));
+            assertThrows(NullPointerException.class, () -> TranslationKey.get("blabla", (Object[]) null));
         }
 
         @Test
@@ -147,7 +135,7 @@ public class KeyTest {
             TranslationKey k1 = TranslationKey.get("k1");
             TranslationKey k2 = TranslationKey.get("k2");
             TranslationKey.MultiKey mk = TranslationKey.get(k1, k2);
-            assertThrows(ImplementationException.class, () -> mk.add(null));
+            assertThrows(NullPointerException.class, () -> mk.add(null));
         }
 
         @Test

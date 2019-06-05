@@ -24,13 +24,13 @@
 
 package be.yildizgames.common.client.translation;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.util.StringUtil;
 import be.yildizgames.common.util.language.Language;
 import be.yildizgames.common.util.language.LanguageValue;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -68,10 +68,9 @@ public final class Translation {
      * @return This object.
      */
     public final Translation addLanguage(final Language language, final LanguageProvider provider) {
-        ImplementationException.throwForNull(language);
-        ImplementationException.throwForNull(provider);
+        Objects.requireNonNull(language);
+        Objects.requireNonNull(provider);
         this.languages.put(language, provider.get(language));
-        this.languages.values().forEach(ImplementationException::throwForNull);
         return this;
     }
 
@@ -82,7 +81,7 @@ public final class Translation {
      * @return This object for method chaining.
      */
     public final Translation chooseLanguage(final Language language) {
-        ImplementationException.throwForNull(language);
+        Objects.requireNonNull(language);
         if (!this.languages.containsKey(language)) {
             throw new IllegalArgumentException("Unexisting language:" + language);
         }
@@ -102,7 +101,7 @@ public final class Translation {
             return "";
         }
         String s = this.languages.get(this.chosenLanguage).getProperty(key);
-        ImplementationException.throwForNull(s);
+        Objects.requireNonNull(s);
         return s;
     }
 

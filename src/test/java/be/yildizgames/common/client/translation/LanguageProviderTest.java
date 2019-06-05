@@ -24,7 +24,6 @@
 
 package be.yildizgames.common.client.translation;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.util.language.LanguageValue;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
@@ -57,13 +56,13 @@ public class LanguageProviderTest {
         @Test
         public void unregistered() {
             LanguageProvider p = new LanguageProvider();
-            Assertions.assertThrows(ImplementationException.class, () -> p.get(LanguageValue.EN));
+            Assertions.assertThrows(NullPointerException.class, () -> p.get(LanguageValue.EN));
         }
 
         @Test
         public void withNull() {
             LanguageProvider p = new LanguageProvider();
-            Assertions.assertThrows(ImplementationException.class, () -> p.registerLanguage(null));
+            Assertions.assertThrows(NullPointerException.class, () -> p.registerLanguage(null));
         }
 
     }
@@ -82,19 +81,19 @@ public class LanguageProviderTest {
         @Test
         public void keyNull() {
             LanguageProvider p = new LanguageProvider();
-            assertThrows(ImplementationException.class, () -> p.add(null, LanguageValue.EN, "enValue"));
+            assertThrows(NullPointerException.class, () -> p.add(null, LanguageValue.EN, "enValue"));
         }
 
         @Test
         public void frNull() {
             LanguageProvider p = new LanguageProvider();
-            assertThrows(ImplementationException.class, () -> p.add("aKey", null, "enValue"));
+            assertThrows(NullPointerException.class, () -> p.add("aKey", null, "enValue"));
         }
 
         @Test
         public void enNull() {
             LanguageProvider p = new LanguageProvider();
-            assertThrows(ImplementationException.class, () -> p.add("aKey", LanguageValue.EN, null));
+            assertThrows(NullPointerException.class, () -> p.add("aKey", LanguageValue.EN, null));
         }
     }
 
@@ -113,7 +112,7 @@ public class LanguageProviderTest {
         @Test
         public void valueNull() {
             LanguageProvider p = new LanguageProvider();
-            assertThrows(ImplementationException.class, () -> p.add((TranslatedValue)null));
+            assertThrows(NullPointerException.class, () -> p.add((TranslatedValue)null));
         }
     }
 
@@ -132,7 +131,7 @@ public class LanguageProviderTest {
         @Test
         public void valueNull() {
             LanguageProvider p = new LanguageProvider();
-            assertThrows(ImplementationException.class, () -> p.add((TranslatedValueProvider) null));
+            assertThrows(NullPointerException.class, () -> p.add((TranslatedValueProvider) null));
         }
     }
 
@@ -155,7 +154,7 @@ public class LanguageProviderTest {
         @Test
         public void valueNull() {
             LanguageProvider p = new LanguageProvider();
-            assertThrows(ImplementationException.class, () -> p.add((TranslatedValuesProvider) null));
+            assertThrows(NullPointerException.class, () -> p.add((TranslatedValuesProvider) null));
         }
 
         private class DummyValuesProvider implements TranslatedValuesProvider {
@@ -187,7 +186,7 @@ public class LanguageProviderTest {
         @Test
         public void nullParameter() {
             LanguageProvider p = new LanguageProvider();
-            assertThrows(ImplementationException.class, () -> p.get(null));
+            assertThrows(NullPointerException.class, () -> p.get(null));
         }
     }
 }

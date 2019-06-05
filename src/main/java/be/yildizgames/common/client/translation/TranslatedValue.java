@@ -24,8 +24,9 @@
 
 package be.yildizgames.common.client.translation;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.util.language.Language;
+
+import java.util.Objects;
 
 /**
  * @author Grégory Van den Borre
@@ -42,9 +43,9 @@ public class TranslatedValue {
     private final String value;
 
     public TranslatedValue(String key, Language language, String value) {
-        ImplementationException.throwForNull(key);
-        ImplementationException.throwForNull(language);
-        ImplementationException.throwForNull(value);
+        Objects.requireNonNull(key);
+        Objects.requireNonNull(language);
+        Objects.requireNonNull(value);
         this.key = key;
         this.language = language;
         this.value = value;

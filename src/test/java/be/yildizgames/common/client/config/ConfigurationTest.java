@@ -24,8 +24,6 @@
 
 package be.yildizgames.common.client.config;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
-import be.yildizgames.common.exception.technical.TechnicalException;
 import be.yildizgames.common.util.language.LanguageValue;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -76,7 +74,7 @@ public final class ConfigurationTest {
         @Test
         public void withNull() throws IOException {
             Configuration c = givenAnEmpty();
-            assertThrows(ImplementationException.class, () -> c.setLogin(null));
+            assertThrows(NullPointerException.class, () -> c.setLogin(null));
         }
     }
 
@@ -111,7 +109,7 @@ public final class ConfigurationTest {
         @Test
         public void withNull() throws IOException {
             Configuration c = givenAnEmpty();
-            assertThrows(ImplementationException.class, () -> c.setPassword(null));
+            assertThrows(NullPointerException.class, () -> c.setPassword(null));
         }
     }
 
@@ -246,7 +244,7 @@ public final class ConfigurationTest {
         @Test
         public void withNull() throws IOException {
             Configuration c = givenAnEmpty();
-            assertThrows(ImplementationException.class, () -> c.setLanguage(null));
+            assertThrows(NullPointerException.class, () -> c.setLanguage(null));
         }
     }
 
@@ -280,7 +278,7 @@ public final class ConfigurationTest {
         @Test
         public void fromFileAnyValue() throws IOException {
             Configuration c = givenDebugConfiguration("invalid");
-            assertThrows(TechnicalException.class, c::isDebug);
+            assertFalse(c.isDebug());
         }
     }
 
@@ -297,7 +295,7 @@ public final class ConfigurationTest {
         @Test
         public void withNull() throws IOException {
             Configuration c = givenAnEmpty();
-            assertThrows(ImplementationException.class, () -> c.setAuthenticationHost(null));
+            assertThrows(NullPointerException.class, () -> c.setAuthenticationHost(null));
         }
     }
 
@@ -325,7 +323,7 @@ public final class ConfigurationTest {
         @Test
         public void withNull() throws IOException {
             Configuration c = givenAnEmpty();
-            assertThrows(ImplementationException.class, () -> c.setServerHost(null));
+            assertThrows(NullPointerException.class, () -> c.setServerHost(null));
         }
     }
 

@@ -24,11 +24,10 @@
 
 package be.yildizgames.common.client.translation;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A TranslationKey is a value meant to be translated, it is composed of a key, and optional arguments.
@@ -71,12 +70,12 @@ public class TranslationKey {
      */
     private TranslationKey(final String key, final Object... args) {
         super();
-        ImplementationException.throwForNull(key);
-        ImplementationException.throwForNull(args);
+        Objects.requireNonNull(key);
+        Objects.requireNonNull(args);
         this.key = key;
         this.args = args;
         for(Object o: this.args) {
-            ImplementationException.throwForNull(o);
+            Objects.requireNonNull(o);
         }
     }
 
@@ -174,13 +173,11 @@ public class TranslationKey {
             for(TranslationKey k : keys) {
                 this.add(k);
             }
-            ImplementationException.throwForEmpty(this.keys);
         }
 
         private MultiKey(final List<TranslationKey> l) {
             super();
-            ImplementationException.throwForNull(l);
-            ImplementationException.throwForEmpty(l);
+            Objects.requireNonNull(l);
             this.keys = new ArrayList<>();
             for(TranslationKey k : l) {
                 this.add(k);
@@ -193,7 +190,6 @@ public class TranslationKey {
          * @param key key to add, null is not allowed.
          */
         public final void add(final TranslationKey key) {
-            ImplementationException.throwForNull(key);
             if (!key.isEmpty()) {
                 this.keys.add(key);
             }

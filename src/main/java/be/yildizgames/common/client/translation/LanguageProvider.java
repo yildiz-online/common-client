@@ -24,11 +24,11 @@
 
 package be.yildizgames.common.client.translation;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.util.language.Language;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -58,19 +58,18 @@ public class LanguageProvider {
      * @param l Language to support.
      */
     public final void registerLanguage(final Language l) {
-        ImplementationException.throwForNull(l);
+        Objects.requireNonNull(l);
         this.languages.put(l, new Properties());
     }
 
     public final void add(final String key, final Language language, final String value) {
-        ImplementationException.throwForNull(key);
-        ImplementationException.throwForNull(language);
-        ImplementationException.throwForNull(value);
+        Objects.requireNonNull(key);
+        Objects.requireNonNull(language);
+        Objects.requireNonNull(value);
         this.get(language).put(key, value);
     }
 
     public final void add(TranslatedValueProvider provider) {
-        ImplementationException.throwForNull(provider);
         this.add(provider.getTranslatedValue());
     }
 
@@ -80,7 +79,6 @@ public class LanguageProvider {
      * @param value   Translation to add.
      */
     public final void add(final TranslatedValue value) {
-        ImplementationException.throwForNull(value);
         this.add(value.getKey(), value.getLanguage(), value.getValue());
     }
 
@@ -90,7 +88,6 @@ public class LanguageProvider {
      * @param provider   Provide the translations.
      */
     public final void add(TranslatedValuesProvider provider) {
-        ImplementationException.throwForNull(provider);
         for(TranslatedValueProvider t : provider) {
             this.add(t.getTranslatedValue());
         }
@@ -103,9 +100,9 @@ public class LanguageProvider {
      * @return The properties matching the language.
      */
     public final Properties get(final Language language) {
-        ImplementationException.throwForNull(language);
+        Objects.requireNonNull(language);
         Properties p = this.languages.get(language);
-        ImplementationException.throwForNull(p);
+        Objects.requireNonNull(p);
         return p;
     }
 }

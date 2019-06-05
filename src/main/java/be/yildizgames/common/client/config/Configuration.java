@@ -24,12 +24,11 @@
 
 package be.yildizgames.common.client.config;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
-import be.yildizgames.common.util.PropertiesHelper;
 import be.yildizgames.common.util.language.Language;
 import be.yildizgames.common.util.language.LanguageValue;
 
 import java.io.File;
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -131,7 +130,7 @@ public final class Configuration {
      * @return This object for chaining.
      */
     public Configuration setLogin(final String value) {
-        ImplementationException.throwForNull(value);
+        Objects.requireNonNull(value);
         this.properties.setProperty(LOGIN_KEY, value);
         return this;
     }
@@ -148,7 +147,7 @@ public final class Configuration {
      * @return This object for chaining.
      */
     public Configuration setPassword(final String value) {
-        ImplementationException.throwForNull(value);
+        Objects.requireNonNull(value);
         this.properties.setProperty(Configuration.PWD_KEY, value);
         return this;
     }
@@ -191,7 +190,7 @@ public final class Configuration {
      * @return This object for chaining.
      */
     public Configuration setLanguage(final Language language) {
-        ImplementationException.throwForNull(language);
+        Objects.requireNonNull(language);
         this.properties.setProperty(LANGUAGE_KEY, language.getShortName());
         return this;
     }
@@ -209,7 +208,8 @@ public final class Configuration {
      * @return <code>true</code> If the application must be run in debug mode.
      */
     public boolean isDebug() {
-        return PropertiesHelper.getBooleanValue(this.properties, Configuration.DEBUG_KEY, false);
+        String p = this.properties.getProperty(Configuration.DEBUG_KEY);
+        return p == null ? false: p.equalsIgnoreCase("true");
     }
 
     /**
@@ -225,7 +225,7 @@ public final class Configuration {
      * @throws NullPointerException If value is null.
      */
     public Configuration setAuthenticationHost(final String value) {
-        ImplementationException.throwForNull(value);
+        Objects.requireNonNull(value);
         this.properties.setProperty(Configuration.AUTHENTICATION_HOST_KEY, value);
         return this;
     }
@@ -259,7 +259,7 @@ public final class Configuration {
      * @throws NullPointerException If value is null.
      */
     public Configuration setServerHost(final String value) {
-        ImplementationException.throwForNull(value);
+        Objects.requireNonNull(value);
         this.properties.setProperty(Configuration.SERVER_HOST_KEY, value);
         return this;
     }

@@ -24,7 +24,7 @@
 
 package be.yildizgames.common.client.translation;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
+import java.util.Objects;
 
 /**
  * @author Grégory Van den Borre
@@ -38,7 +38,7 @@ public class SimpleTranslatedValueProvider implements TranslatedValueProvider {
 
     public SimpleTranslatedValueProvider(final TranslatedValue translatedValue) {
         super();
-        ImplementationException.throwForNull(translatedValue);
+        Objects.requireNonNull(translatedValue);
         this.translatedValue = translatedValue;
     }
 
