@@ -32,6 +32,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -157,14 +158,14 @@ public class KeyTest {
         public void happyFlow() {
             TranslationKey k1 = TranslationKey.get("k1");
             TranslationKey k2 = TranslationKey.get("k1");
-            assertTrue(k1.hashCode() == k2.hashCode());
+            assertEquals(k1.hashCode(), k2.hashCode());
         }
 
         @Test
         public void differentValue() {
             TranslationKey k1 = TranslationKey.get("k1");
             TranslationKey k2 = TranslationKey.get("k2");
-            assertFalse(k1.hashCode() == k2.hashCode());
+            assertNotEquals(k1.hashCode(), k2.hashCode());
         }
     }
 
@@ -174,27 +175,27 @@ public class KeyTest {
         @Test
         public void sameInstance() {
             TranslationKey k = TranslationKey.get("k1");
-            assertTrue(k.equals(k));
+            assertEquals(k, k);
         }
 
         @Test
         public void sameValue() {
-            assertTrue(TranslationKey.get("k1").equals(TranslationKey.get("k1")));
+            assertEquals(TranslationKey.get("k1"), TranslationKey.get("k1"));
         }
 
         @Test
         public void differentValue() {
-            assertFalse(TranslationKey.get("k1").equals(TranslationKey.get("k2")));
+            assertNotEquals(TranslationKey.get("k1"), TranslationKey.get("k2"));
         }
 
         @Test
         public void withNull() {
-            assertFalse(TranslationKey.get("k1").equals(null));
+            assertNotEquals(null, TranslationKey.get("k1"));
         }
 
         @Test
         public void differentType() {
-            assertFalse(TranslationKey.get("k1").equals("k1"));
+            assertNotEquals("k1", TranslationKey.get("k1"));
         }
     }
 

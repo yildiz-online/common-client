@@ -209,7 +209,7 @@ public final class Configuration {
      */
     public boolean isDebug() {
         String p = this.properties.getProperty(Configuration.DEBUG_KEY);
-        return p == null ? false: p.equalsIgnoreCase("true");
+        return p != null && p.equalsIgnoreCase("true");
     }
 
     /**
