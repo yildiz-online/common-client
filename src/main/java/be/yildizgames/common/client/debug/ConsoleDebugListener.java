@@ -24,20 +24,26 @@
 
 package be.yildizgames.common.client.debug;
 
-import be.yildizgames.common.util.Terminal;
+import java.io.PrintStream;
 
 /**
  * @author Grégory Van den Borre
  */
 public class ConsoleDebugListener implements DebugListener {
 
+    private final PrintStream stream;
+
+    public ConsoleDebugListener(PrintStream stream) {
+        this.stream = stream;
+    }
+
     @Override
     public void updateFps(float fps) {
-        Terminal.print("FPS: " + fps);
+        this.stream.print("FPS: " + fps);
     }
 
     @Override
     public void displayDebugMessage(Object message) {
-        Terminal.print("DEBUG: " + message);
+        this.stream.print("DEBUG: " + message);
     }
 }

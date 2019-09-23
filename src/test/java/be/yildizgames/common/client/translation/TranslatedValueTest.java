@@ -24,9 +24,10 @@
 
 package be.yildizgames.common.client.translation;
 
-import be.yildizgames.common.util.language.LanguageValue;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -41,15 +42,15 @@ public class TranslatedValueTest {
 
         @Test
         public void happyFlow() {
-            TranslatedValue v = new TranslatedValue("aKey", LanguageValue.EN, "enValue");
+            TranslatedValue v = new TranslatedValue("aKey", Locale.ENGLISH, "enValue");
             assertEquals("aKey", v.getKey());
-            assertEquals(LanguageValue.EN, v.getLanguage());
+            assertEquals(Locale.ENGLISH, v.getLanguage());
             assertEquals("enValue", v.getValue());
         }
 
         @Test
         public void withNullKey() {
-            assertThrows(NullPointerException.class, () -> new TranslatedValue(null, LanguageValue.EN, "enValue"));
+            assertThrows(NullPointerException.class, () -> new TranslatedValue(null, Locale.ENGLISH, "enValue"));
         }
 
         @Test
@@ -59,7 +60,7 @@ public class TranslatedValueTest {
 
         @Test
         public void withNullValue() {
-            assertThrows(NullPointerException.class, () -> new TranslatedValue("aKey", LanguageValue.EN, null));
+            assertThrows(NullPointerException.class, () -> new TranslatedValue("aKey", Locale.ENGLISH, null));
         }
 
     }

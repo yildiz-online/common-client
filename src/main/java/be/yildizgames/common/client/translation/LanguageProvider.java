@@ -24,12 +24,7 @@
 
 package be.yildizgames.common.client.translation;
 
-import be.yildizgames.common.util.language.Language;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Provide a translation contained in a properties for a given language.
@@ -44,7 +39,7 @@ public class LanguageProvider {
     /**
      * Available languages.
      */
-    private final Map<Language, Properties> languages = new HashMap<>();
+    private final Map<Locale, Properties> languages = new HashMap<>();
 
     /**
      * Build a new language provider, it will hold the property files for EN and FR.
@@ -57,12 +52,12 @@ public class LanguageProvider {
      * Add a supported language.
      * @param l Language to support.
      */
-    public final void registerLanguage(final Language l) {
+    public final void registerLanguage(final Locale l) {
         Objects.requireNonNull(l);
         this.languages.put(l, new Properties());
     }
 
-    public final void add(final String key, final Language language, final String value) {
+    public final void add(final String key, final Locale language, final String value) {
         Objects.requireNonNull(key);
         Objects.requireNonNull(language);
         Objects.requireNonNull(value);
@@ -99,7 +94,7 @@ public class LanguageProvider {
      * @param language LanguageValue to retrieve.
      * @return The properties matching the language.
      */
-    public final Properties get(final Language language) {
+    public final Properties get(final Locale language) {
         Objects.requireNonNull(language);
         Properties p = this.languages.get(language);
         Objects.requireNonNull(p);

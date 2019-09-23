@@ -26,7 +26,7 @@
 
 package be.yildizgames.common.client.translation;
 
-import be.yildizgames.common.util.language.LanguageValue;
+import java.util.Locale;
 
 /**
  * Example language provider supporting french and english languages, to have additional support, simply create other implementations.
@@ -37,23 +37,23 @@ public class FrenchEnglishLanguageProvider extends LanguageProvider {
 
     public FrenchEnglishLanguageProvider() {
         super();
-        this.registerLanguage(LanguageValue.EN);
-        this.registerLanguage(LanguageValue.FR);
-        Translation.getInstance().addLanguage(LanguageValue.EN, this);
-        Translation.getInstance().addLanguage(LanguageValue.FR, this);
+        this.registerLanguage(Locale.ENGLISH);
+        this.registerLanguage(Locale.FRENCH);
+        Translation.getInstance().addLanguage(Locale.ENGLISH, this);
+        Translation.getInstance().addLanguage(Locale.FRENCH, this);
     }
 
     public void add(String key, String french, String english) {
-        this.add(key, LanguageValue.FR, french);
-        this.add(key, LanguageValue.EN, english);
+        this.add(key, Locale.FRENCH, french);
+        this.add(key, Locale.ENGLISH, english);
     }
 
     public final String getFrench(String key) {
-        return this.get(LanguageValue.FR).getProperty(key);
+        return this.get(Locale.FRENCH).getProperty(key);
     }
 
     public final String getEnglish(String key) {
-        return this.get(LanguageValue.EN).getProperty(key);
+        return this.get(Locale.ENGLISH).getProperty(key);
     }
 
 }

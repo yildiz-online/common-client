@@ -32,11 +32,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 
-public class ConsoleDebugListenerTest {
+class ConsoleDebugListenerTest {
 
     @Test
-    public void updateFps() {
-        DebugListener l = new ConsoleDebugListener();
+    void updateFps() {
+        DebugListener l = new ConsoleDebugListener(System.out);
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         System.setOut(new PrintStream(baos, false , StandardCharsets.UTF_8));
         l.updateFps(55);

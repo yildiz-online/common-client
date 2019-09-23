@@ -24,10 +24,7 @@
 
 package be.yildizgames.common.client.config;
 
-import be.yildizgames.common.util.language.Language;
-import be.yildizgames.common.util.language.LanguageValue;
-
-import java.io.File;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -89,11 +86,6 @@ public final class Configuration {
      * Associated property file.
      */
     private Properties properties = new Properties();
-
-    /**
-     * Path of the config file.
-     */
-    private File filePath = new File("config.properties");
 
     /**
      * Full constructor.
@@ -176,11 +168,11 @@ public final class Configuration {
     }
 
     /**
-     * @return The language used for the game, or English if the value in property file is empty or invalid.
+     * @return The language used for the game, or English if the value in property file is empty.
      */
-    public Language getLanguage() {
-        String value = this.properties.getProperty(LANGUAGE_KEY, LanguageValue.EN.shortName);
-        return LanguageValue.fromShortName(value);
+    public Locale getLanguage() {
+        String value = this.properties.getProperty(LANGUAGE_KEY, Locale.ENGLISH.toLanguageTag());
+        return Locale.forLanguageTag(value);
     }
 
     /**
@@ -189,9 +181,9 @@ public final class Configuration {
      * @param language New language.
      * @return This object for chaining.
      */
-    public Configuration setLanguage(final Language language) {
+    public Configuration setLanguage(final Locale language) {
         Objects.requireNonNull(language);
-        this.properties.setProperty(LANGUAGE_KEY, language.getShortName());
+        this.properties.setProperty(LANGUAGE_KEY, language.toLanguageTag());
         return this;
     }
 

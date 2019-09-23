@@ -24,7 +24,6 @@
 
 package be.yildizgames.common.client.translation;
 
-import be.yildizgames.common.util.language.LanguageValue;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -32,11 +31,10 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.function.Consumer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Grégory Van den Borre
@@ -49,14 +47,14 @@ public class LanguageProviderTest {
         @Test
         public void happyFlow() {
             LanguageProvider p = new LanguageProvider();
-            p.registerLanguage(LanguageValue.EN);
-            Assertions.assertNotNull(p.get(LanguageValue.EN));
+            p.registerLanguage(Locale.ENGLISH);
+            Assertions.assertNotNull(p.get(Locale.ENGLISH));
         }
 
         @Test
         public void unregistered() {
             LanguageProvider p = new LanguageProvider();
-            Assertions.assertThrows(NullPointerException.class, () -> p.get(LanguageValue.EN));
+            Assertions.assertThrows(NullPointerException.class, () -> p.get(Locale.ENGLISH));
         }
 
         @Test
@@ -73,15 +71,15 @@ public class LanguageProviderTest {
         @Test
         public void happyFlow() {
             LanguageProvider p = new LanguageProvider();
-            p.registerLanguage(LanguageValue.EN);
-            p.add("aKey", LanguageValue.EN, "enValue");
-            assertEquals("enValue", p.get(LanguageValue.EN).getProperty("aKey"));
+            p.registerLanguage(Locale.ENGLISH);
+            p.add("aKey", Locale.ENGLISH, "enValue");
+            assertEquals("enValue", p.get(Locale.ENGLISH).getProperty("aKey"));
         }
 
         @Test
         public void keyNull() {
             LanguageProvider p = new LanguageProvider();
-            assertThrows(NullPointerException.class, () -> p.add(null, LanguageValue.EN, "enValue"));
+            assertThrows(NullPointerException.class, () -> p.add(null, Locale.ENGLISH, "enValue"));
         }
 
         @Test
@@ -93,7 +91,7 @@ public class LanguageProviderTest {
         @Test
         public void enNull() {
             LanguageProvider p = new LanguageProvider();
-            assertThrows(NullPointerException.class, () -> p.add("aKey", LanguageValue.EN, null));
+            assertThrows(NullPointerException.class, () -> p.add("aKey", Locale.ENGLISH, null));
         }
     }
 
@@ -103,10 +101,10 @@ public class LanguageProviderTest {
         @Test
         public void happyFlow() {
             LanguageProvider p = new LanguageProvider();
-            p.registerLanguage(LanguageValue.EN);
-            TranslatedValue v = new TranslatedValue("aKey", LanguageValue.EN, "enValue");
+            p.registerLanguage(Locale.ENGLISH);
+            TranslatedValue v = new TranslatedValue("aKey", Locale.ENGLISH, "enValue");
             p.add(v);
-            assertEquals("enValue", p.get(LanguageValue.EN).getProperty("aKey"));
+            assertEquals("enValue", p.get(Locale.ENGLISH).getProperty("aKey"));
         }
 
         @Test
@@ -122,10 +120,10 @@ public class LanguageProviderTest {
         @Test
         public void happyFlow() {
             LanguageProvider p = new LanguageProvider();
-            p.registerLanguage(LanguageValue.EN);
-            TranslatedValueProvider value = new SimpleTranslatedValueProvider(new TranslatedValue("tt", LanguageValue.EN, "vv"));
+            p.registerLanguage(Locale.ENGLISH);
+            TranslatedValueProvider value = new SimpleTranslatedValueProvider(new TranslatedValue("tt", Locale.ENGLISH, "vv"));
             p.add(value);
-            Assertions.assertEquals("vv", p.get(LanguageValue.EN).getProperty("tt"));
+            Assertions.assertEquals("vv", p.get(Locale.ENGLISH).getProperty("tt"));
         }
 
         @Test
@@ -141,13 +139,13 @@ public class LanguageProviderTest {
         @Test
         public void happyFlow() {
             DummyValuesProvider providers = new DummyValuesProvider();
-            providers.values.add(new SimpleTranslatedValueProvider(new TranslatedValue("t1", LanguageValue.EN, "v1")));
-            providers.values.add(new SimpleTranslatedValueProvider(new TranslatedValue("t2", LanguageValue.EN, "v2")));
+            providers.values.add(new SimpleTranslatedValueProvider(new TranslatedValue("t1", Locale.ENGLISH, "v1")));
+            providers.values.add(new SimpleTranslatedValueProvider(new TranslatedValue("t2", Locale.ENGLISH, "v2")));
             LanguageProvider p = new LanguageProvider();
-            p.registerLanguage(LanguageValue.EN);
+            p.registerLanguage(Locale.ENGLISH);
             p.add(providers);
-            Assertions.assertEquals("v1", p.get(LanguageValue.EN).getProperty("t1"));
-            Assertions.assertEquals("v2", p.get(LanguageValue.EN).getProperty("t2"));
+            Assertions.assertEquals("v1", p.get(Locale.ENGLISH).getProperty("t1"));
+            Assertions.assertEquals("v2", p.get(Locale.ENGLISH).getProperty("t2"));
         }
 
 
@@ -179,8 +177,8 @@ public class LanguageProviderTest {
         @Test
         public void happyFlow() {
             LanguageProvider p = new LanguageProvider();
-            p.registerLanguage(LanguageValue.EN);
-            assertNotNull(p.get(LanguageValue.EN));
+            p.registerLanguage(Locale.ENGLISH);
+            assertNotNull(p.get(Locale.ENGLISH));
         }
 
         @Test

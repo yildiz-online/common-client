@@ -24,8 +24,7 @@
 
 package be.yildizgames.common.client.translation;
 
-import be.yildizgames.common.util.language.Language;
-
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -38,11 +37,11 @@ public class TranslatedValue {
      */
     private final String key;
 
-    private final Language language;
+    private final Locale language;
 
     private final String value;
 
-    public TranslatedValue(String key, Language language, String value) {
+    public TranslatedValue(String key, Locale language, String value) {
         Objects.requireNonNull(key);
         Objects.requireNonNull(language);
         Objects.requireNonNull(value);
@@ -55,7 +54,7 @@ public class TranslatedValue {
         return this.key;
     }
 
-    public final Language getLanguage() {
+    public final Locale getLanguage() {
         return this.language;
     }
 

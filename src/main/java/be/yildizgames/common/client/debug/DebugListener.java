@@ -31,8 +31,6 @@ package be.yildizgames.common.client.debug;
  */
 public interface DebugListener {
 
-    DebugListener EMPTY = new NoDebugListener();
-
     /**
      * Update with the last debug information. This is done once per frame.
      *

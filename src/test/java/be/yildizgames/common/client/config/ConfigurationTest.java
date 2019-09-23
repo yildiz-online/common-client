@@ -24,7 +24,6 @@
 
 package be.yildizgames.common.client.config;
 
-import be.yildizgames.common.util.language.LanguageValue;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -32,23 +31,21 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.InvalidParameterException;
+import java.util.Locale;
 import java.util.Properties;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Grégory Van den Borre
  */
-public final class ConfigurationTest {
+final class ConfigurationTest {
 
     @Nested
-    public class TranslationKey {
+    class TranslationKey {
 
         @Test
-        public void values() {
+        void values() {
             assertEquals("user_login", Configuration.LOGIN_KEY);
             assertEquals("user_password", Configuration.PWD_KEY);
             assertEquals("language", Configuration.LANGUAGE_KEY);
@@ -62,27 +59,27 @@ public final class ConfigurationTest {
     }
 
     @Nested
-    public class SetLogin {
+    class SetLogin {
 
         @Test
-        public void happyFlow() throws IOException {
+        void happyFlow() throws IOException {
             Configuration c = givenAnEmpty();
             c.setLogin("tree");
             assertEquals("tree", c.getLogin());
         }
 
         @Test
-        public void withNull() throws IOException {
+        void withNull() throws IOException {
             Configuration c = givenAnEmpty();
             assertThrows(NullPointerException.class, () -> c.setLogin(null));
         }
     }
 
     @Nested
-    public class GetLogin {
+    class GetLogin {
 
         @Test
-        public void happyFlow() throws IOException {
+        void happyFlow() throws IOException {
             Properties p = new Properties();
             p.load(new FileInputStream(getFile("login/chair")));
             Configuration c = Configuration.getInstance().readFromProperties(p);
@@ -90,34 +87,34 @@ public final class ConfigurationTest {
         }
 
         @Test
-        public void empty() throws IOException {
+        void empty() throws IOException {
             Configuration c = givenAnEmpty();
             assertEquals("", c.getLogin());
         }
     }
 
     @Nested
-    public class SetPassword {
+    class SetPassword {
 
         @Test
-        public void happyFlow() throws IOException {
+        void happyFlow() throws IOException {
             Configuration c = givenAnEmpty();
             c.setPassword("leaf");
             assertEquals("leaf", c.getPassword());
         }
 
         @Test
-        public void withNull() throws IOException {
+        void withNull() throws IOException {
             Configuration c = givenAnEmpty();
             assertThrows(NullPointerException.class, () -> c.setPassword(null));
         }
     }
 
     @Nested
-    public class GetPassword {
+    class GetPassword {
 
         @Test
-        public void happyFlow() throws IOException {
+        void happyFlow() throws IOException {
             Properties p = new Properties();
             p.load(new FileInputStream(getFile("password/table")));
             Configuration c = Configuration.getInstance().readFromProperties(p);
@@ -125,14 +122,14 @@ public final class ConfigurationTest {
         }
 
         @Test
-        public void empty() throws IOException {
+        void empty() throws IOException {
             Configuration c = givenAnEmpty();
             assertEquals("", c.getPassword());
         }
     }
 
     @Nested
-    public class IsSaveCredential {
+    class IsSaveCredential {
 
         private Configuration givenSaveCredentialConfiguration(final String file) throws IOException {
             Properties p = new Properties();
@@ -141,35 +138,35 @@ public final class ConfigurationTest {
         }
 
         @Test
-        public void fromEmptyFile() throws IOException {
+        void fromEmptyFile() throws IOException {
             Configuration c = givenAnEmpty();
             assertFalse(c.isSaveCredentialsChecked());
         }
 
         @Test
-        public void fromFileTrueValue() throws IOException {
+        void fromFileTrueValue() throws IOException {
             Configuration c = givenSaveCredentialConfiguration("true");
             assertTrue(c.isSaveCredentialsChecked());
         }
 
         @Test
-        public void fromFileFalseValue() throws IOException {
+        void fromFileFalseValue() throws IOException {
             Configuration c = givenSaveCredentialConfiguration("false");
             assertFalse(c.isSaveCredentialsChecked());
         }
 
         @Test
-        public void fromFileAnyValue() throws IOException {
+        void fromFileAnyValue() throws IOException {
             Configuration c = givenSaveCredentialConfiguration("invalid");
             assertFalse(c.isSaveCredentialsChecked());
         }
     }
 
     @Nested
-    public class SetSave {
+    class SetSave {
 
         @Test
-        public void withTrueThenFalse() throws IOException {
+        void withTrueThenFalse() throws IOException {
             Configuration c = givenAnEmpty();
             c.setSaveCredentialsChecked(true);
             assertTrue(c.isSaveCredentialsChecked());
@@ -178,7 +175,7 @@ public final class ConfigurationTest {
         }
 
         @Test
-        public void swap() throws IOException {
+        void swap() throws IOException {
             Configuration c = givenAnEmpty();
             assertFalse(c.isSaveCredentialsChecked());
             c.swapSaveCredentialsChecked();
@@ -191,7 +188,7 @@ public final class ConfigurationTest {
 
 
     @Nested
-   public class GetLanguage {
+    class GetLanguage {
 
         private Configuration givenLanguageConfiguration(final String file) throws IOException {
             Properties p = new Properties();
@@ -200,56 +197,56 @@ public final class ConfigurationTest {
         }
 
         @Test
-        public void english() throws IOException {
+        void english() throws IOException {
             Configuration c = givenLanguageConfiguration("english");
             assertTrue(c.isLanguagePresent());
-            assertEquals(LanguageValue.EN, c.getLanguage());
+            assertEquals(Locale.ENGLISH, c.getLanguage());
         }
 
         @Test
-        public void french() throws IOException {
+        void french() throws IOException {
             Configuration c = givenLanguageConfiguration("french");
             assertTrue(c.isLanguagePresent());
-            assertEquals(LanguageValue.FR, c.getLanguage());
+            assertEquals(Locale.FRENCH, c.getLanguage());
         }
 
         @Test
-        public void invalid() throws IOException {
+        void invalid() throws IOException {
             Configuration c = givenLanguageConfiguration("invalid");
             assertTrue(c.isLanguagePresent());
-            assertEquals(LanguageValue.EN, c.getLanguage());
+            assertEquals(new Locale("any"), c.getLanguage());
         }
 
         @Test
-        public void withEmpty() throws IOException {
+        void withEmpty() throws IOException {
             Configuration c = givenAnEmpty();
             assertFalse(c.isLanguagePresent());
-            assertEquals(LanguageValue.EN, c.getLanguage());
+            assertEquals(Locale.ENGLISH, c.getLanguage());
         }
     }
 
     @Nested
-    public class SetLanguage {
+    class SetLanguage {
 
         @Test
-        public void french() throws IOException {
+        void french() throws IOException {
             Configuration c = givenAnEmpty();
             assertFalse(c.isLanguagePresent());
-            assertEquals(LanguageValue.EN, c.getLanguage());
-            c.setLanguage(LanguageValue.FR);
+            assertEquals(Locale.ENGLISH, c.getLanguage());
+            c.setLanguage(Locale.FRENCH);
             assertTrue(c.isLanguagePresent());
-            assertEquals(LanguageValue.FR, c.getLanguage());
+            assertEquals(Locale.FRENCH, c.getLanguage());
         }
 
         @Test
-        public void withNull() throws IOException {
+        void withNull() throws IOException {
             Configuration c = givenAnEmpty();
             assertThrows(NullPointerException.class, () -> c.setLanguage(null));
         }
     }
 
     @Nested
-    public class IsDebug {
+    class IsDebug {
 
         private Configuration givenDebugConfiguration(final String file) throws IOException{
             Properties p = new Properties();
@@ -258,52 +255,52 @@ public final class ConfigurationTest {
         }
 
         @Test
-        public void fromEmptyFile() throws IOException {
+        void fromEmptyFile() throws IOException {
             Configuration c = givenAnEmpty();
             assertFalse(c.isDebug());
         }
 
         @Test
-        public void fromFileTrueValue() throws IOException {
+        void fromFileTrueValue() throws IOException {
             Configuration c = givenDebugConfiguration("true");
             assertTrue(c.isDebug());
         }
 
         @Test
-        public void fromFileFalseValue() throws IOException {
+        void fromFileFalseValue() throws IOException {
             Configuration c = givenDebugConfiguration("false");
             assertFalse(c.isDebug());
         }
 
         @Test
-        public void fromFileAnyValue() throws IOException {
+        void fromFileAnyValue() throws IOException {
             Configuration c = givenDebugConfiguration("invalid");
             assertFalse(c.isDebug());
         }
     }
 
     @Nested
-    public class SetAuthenticationHost {
+    class SetAuthenticationHost {
 
         @Test
-        public void happyFlow() throws IOException {
+        void happyFlow() throws IOException {
             Configuration c = givenAnEmpty();
             c.setAuthenticationHost("localhost");
             assertEquals("localhost", c.getAuthenticationHost());
         }
 
         @Test
-        public void withNull() throws IOException {
+        void withNull() throws IOException {
             Configuration c = givenAnEmpty();
             assertThrows(NullPointerException.class, () -> c.setAuthenticationHost(null));
         }
     }
 
     @Nested
-    public class SetAuthenticationPort {
+    class SetAuthenticationPort {
 
         @Test
-        public void happyFlow() throws IOException {
+        void happyFlow() throws IOException {
             Configuration c = givenAnEmpty();
             c.setAuthenticationPort(5555);
             assertEquals(5555, c.getAuthenticationPort());
@@ -311,27 +308,27 @@ public final class ConfigurationTest {
     }
 
     @Nested
-    public class SetServerHost {
+    class SetServerHost {
 
         @Test
-        public void happyFlow() throws IOException {
+        void happyFlow() throws IOException {
             Configuration c = givenAnEmpty();
             c.setServerHost("localhost");
             assertEquals("localhost", c.getServerHost());
         }
 
         @Test
-        public void withNull() throws IOException {
+        void withNull() throws IOException {
             Configuration c = givenAnEmpty();
             assertThrows(NullPointerException.class, () -> c.setServerHost(null));
         }
     }
 
     @Nested
-    public class SetServerPort {
+    class SetServerPort {
 
         @Test
-        public void happyFlow() throws IOException {
+        void happyFlow() throws IOException {
             Configuration c = givenAnEmpty();
             c.setServerPort(3333);
             assertEquals(3333, c.getServerPort());

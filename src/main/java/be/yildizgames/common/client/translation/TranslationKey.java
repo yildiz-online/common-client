@@ -131,19 +131,18 @@ public class TranslationKey {
             return false;
         }
 
-        TranslationKey key = (TranslationKey) o;
+        TranslationKey other = (TranslationKey) o;
 
-        if (!this.key.equals(key.key)) {
+        if (!this.key.equals(other.key)) {
             return false;
         }
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        return Arrays.equals(args, key.args);
+        return Arrays.equals(this.args, other.args);
     }
 
     @Override
     public final int hashCode() {
-        int result = key.hashCode();
-        result = 31 * result + Arrays.hashCode(args);
+        int result = this.key.hashCode();
+        result = 31 * result + Arrays.hashCode(this.args);
         return result;
     }
 

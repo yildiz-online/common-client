@@ -24,14 +24,8 @@
 
 package be.yildizgames.common.client.translation;
 
-import be.yildizgames.common.util.StringUtil;
-import be.yildizgames.common.util.language.Language;
-import be.yildizgames.common.util.language.LanguageValue;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Properties;
+import java.text.MessageFormat;
+import java.util.*;
 
 /**
  * Manage different languages, use properties to get the translation.
@@ -45,12 +39,12 @@ public final class Translation {
     /**
      * Association between a language and its values.
      */
-    private final Map<Language, Properties> languages = new HashMap<>();
+    private final Map<Locale, Properties> languages = new HashMap<>();
 
     /**
      * LanguageValue currently active.
      */
-    private Language chosenLanguage = LanguageValue.EN;
+    private Locale chosenLanguage = Locale.ENGLISH;
 
     private Translation() {
         super();
@@ -67,7 +61,7 @@ public final class Translation {
      * @param provider Object containing the language properties.
      * @return This object.
      */
-    public final Translation addLanguage(final Language language, final LanguageProvider provider) {
+    public final Translation addLanguage(final Locale language, final LanguageProvider provider) {
         Objects.requireNonNull(language);
         Objects.requireNonNull(provider);
         this.languages.put(language, provider.get(language));
@@ -80,7 +74,7 @@ public final class Translation {
      * @param language LanguageValue to use.
      * @return This object for method chaining.
      */
-    public final Translation chooseLanguage(final Language language) {
+    public final Translation chooseLanguage(final Locale language) {
         Objects.requireNonNull(language);
         if (!this.languages.containsKey(language)) {
             throw new IllegalArgumentException("Unexisting language:" + language);
@@ -120,10 +114,12 @@ public final class Translation {
      * @return The translated value associated to the key.
      */
     public final String translate(final TranslationKey key) {
-        return StringUtil.fillVariable(this.get(key.key), key.args);
+        MessageFormat messageFormat =  new MessageFormat(this.get(key.key));
+        return messageFormat.format(key.args);
     }
 
     public final String translate(final TranslationKey key, String... args) {
-        return StringUtil.fillVariable(this.get(key.key), args);
+        MessageFormat messageFormat =  new MessageFormat(this.get(key.key));
+        return messageFormat.format(args);
     }
 }

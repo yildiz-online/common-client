@@ -24,8 +24,6 @@
 
 module be.yildizgames.common.client {
 
-    requires be.yildizgames.common.util;
-
     exports be.yildizgames.common.client.config;
     exports be.yildizgames.common.client.debug;
     exports be.yildizgames.common.client.translation;
