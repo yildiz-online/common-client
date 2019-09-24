@@ -39,26 +39,26 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author Grégory Van den Borre
  */
-public class LanguageProviderTest {
+class LanguageProviderTest {
 
     @Nested
-    public class RegisterLanguage {
+    class RegisterLanguage {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             LanguageProvider p = new LanguageProvider();
             p.registerLanguage(Locale.ENGLISH);
             Assertions.assertNotNull(p.get(Locale.ENGLISH));
         }
 
         @Test
-        public void unregistered() {
+        void unregistered() {
             LanguageProvider p = new LanguageProvider();
             Assertions.assertThrows(NullPointerException.class, () -> p.get(Locale.ENGLISH));
         }
 
         @Test
-        public void withNull() {
+        void withNull() {
             LanguageProvider p = new LanguageProvider();
             Assertions.assertThrows(NullPointerException.class, () -> p.registerLanguage(null));
         }
@@ -66,10 +66,10 @@ public class LanguageProviderTest {
     }
 
     @Nested
-    public class AddString {
+    class AddString {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             LanguageProvider p = new LanguageProvider();
             p.registerLanguage(Locale.ENGLISH);
             p.add("aKey", Locale.ENGLISH, "enValue");
@@ -77,29 +77,29 @@ public class LanguageProviderTest {
         }
 
         @Test
-        public void keyNull() {
+        void keyNull() {
             LanguageProvider p = new LanguageProvider();
             assertThrows(NullPointerException.class, () -> p.add(null, Locale.ENGLISH, "enValue"));
         }
 
         @Test
-        public void frNull() {
+        void frNull() {
             LanguageProvider p = new LanguageProvider();
             assertThrows(NullPointerException.class, () -> p.add("aKey", null, "enValue"));
         }
 
         @Test
-        public void enNull() {
+        void enNull() {
             LanguageProvider p = new LanguageProvider();
             assertThrows(NullPointerException.class, () -> p.add("aKey", Locale.ENGLISH, null));
         }
     }
 
     @Nested
-    public class AddValue {
+    class AddValue {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             LanguageProvider p = new LanguageProvider();
             p.registerLanguage(Locale.ENGLISH);
             TranslatedValue v = new TranslatedValue("aKey", Locale.ENGLISH, "enValue");
@@ -108,17 +108,17 @@ public class LanguageProviderTest {
         }
 
         @Test
-        public void valueNull() {
+        void valueNull() {
             LanguageProvider p = new LanguageProvider();
             assertThrows(NullPointerException.class, () -> p.add((TranslatedValue)null));
         }
     }
 
     @Nested
-    public class AddProvider {
+    class AddProvider {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             LanguageProvider p = new LanguageProvider();
             p.registerLanguage(Locale.ENGLISH);
             TranslatedValueProvider value = new SimpleTranslatedValueProvider(new TranslatedValue("tt", Locale.ENGLISH, "vv"));
@@ -127,17 +127,17 @@ public class LanguageProviderTest {
         }
 
         @Test
-        public void valueNull() {
+        void valueNull() {
             LanguageProvider p = new LanguageProvider();
             assertThrows(NullPointerException.class, () -> p.add((TranslatedValueProvider) null));
         }
     }
 
     @Nested
-    public class AddProviders {
+    class AddProviders {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             DummyValuesProvider providers = new DummyValuesProvider();
             providers.values.add(new SimpleTranslatedValueProvider(new TranslatedValue("t1", Locale.ENGLISH, "v1")));
             providers.values.add(new SimpleTranslatedValueProvider(new TranslatedValue("t2", Locale.ENGLISH, "v2")));
@@ -150,14 +150,14 @@ public class LanguageProviderTest {
 
 
         @Test
-        public void valueNull() {
+        void valueNull() {
             LanguageProvider p = new LanguageProvider();
             assertThrows(NullPointerException.class, () -> p.add((TranslatedValuesProvider) null));
         }
 
         private class DummyValuesProvider implements TranslatedValuesProvider {
 
-            private List<TranslatedValueProvider> values = new ArrayList<>();
+            private final List<TranslatedValueProvider> values = new ArrayList<>();
 
             @Override
             public Iterator<TranslatedValueProvider> iterator() {
@@ -172,17 +172,17 @@ public class LanguageProviderTest {
     }
 
     @Nested
-    public class Get {
+    class Get {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             LanguageProvider p = new LanguageProvider();
             p.registerLanguage(Locale.ENGLISH);
             assertNotNull(p.get(Locale.ENGLISH));
         }
 
         @Test
-        public void nullParameter() {
+        void nullParameter() {
             LanguageProvider p = new LanguageProvider();
             assertThrows(NullPointerException.class, () -> p.get(null));
         }

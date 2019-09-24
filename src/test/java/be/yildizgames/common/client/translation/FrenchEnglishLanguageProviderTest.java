@@ -29,10 +29,10 @@ package be.yildizgames.common.client.translation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class FrenchEnglishLanguageProviderTest {
+class FrenchEnglishLanguageProviderTest {
 
     @Test
-    public void happyFlow() {
+    void happyFlow() {
         FrenchEnglishLanguageProvider provider = new FrenchEnglishLanguageProvider();
         provider.add("test1", "test1FR", "test1EN");
         provider.add("test2", "test2FR", "test2EN");

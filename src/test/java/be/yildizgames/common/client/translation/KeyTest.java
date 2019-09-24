@@ -39,25 +39,25 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * @author Grégory Van den Borre
  */
-public class KeyTest {
+class KeyTest {
 
     @Nested
-    public class GetKey {
+    class GetKey {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             TranslationKey k = TranslationKey.get("blabla");
             assertEquals("blabla", k.key);
             assertFalse(k.args.length > 0);
         }
 
         @Test
-        public void withNull() {
+        void withNull() {
             assertThrows(NullPointerException.class, () -> TranslationKey.get((String)null));
         }
 
         @Test
-        public void withKey() {
+        void withKey() {
             TranslationKey k1 = TranslationKey.get("k1");
             TranslationKey k2 = TranslationKey.get("k2");
             TranslationKey.MultiKey mk = TranslationKey.get(k1, k2);
@@ -66,7 +66,7 @@ public class KeyTest {
         }
 
         @Test
-        public void withKeyList() {
+        void withKeyList() {
             TranslationKey k1 = TranslationKey.get("k1");
             TranslationKey k2 = TranslationKey.get("k2");
             List<TranslationKey> keys = Arrays.asList(k1, k2);
@@ -76,41 +76,41 @@ public class KeyTest {
         }
 
         @Test
-        public void withKeyListContainingNull() {
+        void withKeyListContainingNull() {
             List<TranslationKey> keys = Arrays.asList(TranslationKey.get("k1"), null);
             assertThrows(NullPointerException.class, () -> TranslationKey.get(keys));
         }
 
         @Test
-        public void withKeyListNull() {
+        void withKeyListNull() {
             assertThrows(NullPointerException.class, () -> TranslationKey.get((List<TranslationKey>)null));
         }
 
         @Test
-        public void withNullKey() {
+        void withNullKey() {
             assertThrows(NullPointerException.class, () -> TranslationKey.get((TranslationKey)null));
         }
 
         @Test
-        public void withArgs() {
+        void withArgs() {
             TranslationKey k = TranslationKey.get("blabla", 1);
             assertEquals("blabla", k.key);
             assertEquals(1, k.args[0]);
         }
 
         @Test
-        public void withArgsContainingNull() {
+        void withArgsContainingNull() {
             Object[] args = {"ok", null};
             assertThrows(NullPointerException.class, () -> TranslationKey.get("blabla", args));
         }
 
         @Test
-        public void withArgsNull() {
+        void withArgsNull() {
             assertThrows(NullPointerException.class, () -> TranslationKey.get("blabla", (Object[]) null));
         }
 
         @Test
-        public void withEmptyArgs() {
+        void withEmptyArgs() {
             TranslationKey k = TranslationKey.get("blabla", new Object[]{});
             assertEquals("blabla", k.key);
             assertFalse(k.args.length > 0);
@@ -118,10 +118,10 @@ public class KeyTest {
     }
 
     @Nested
-    public class Add {
+    class Add {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             TranslationKey k1 = TranslationKey.get("k1");
             TranslationKey k2 = TranslationKey.get("k2");
             TranslationKey k3 = TranslationKey.get("k3");
@@ -132,7 +132,7 @@ public class KeyTest {
         }
 
         @Test
-        public void withNull() {
+        void withNull() {
             TranslationKey k1 = TranslationKey.get("k1");
             TranslationKey k2 = TranslationKey.get("k2");
             TranslationKey.MultiKey mk = TranslationKey.get(k1, k2);
@@ -140,7 +140,7 @@ public class KeyTest {
         }
 
         @Test
-        public void withEmpty() {
+        void withEmpty() {
             TranslationKey k1 = TranslationKey.get("k1");
             TranslationKey k2 = TranslationKey.get("k2");
             TranslationKey k3 = TranslationKey.get("");
@@ -152,17 +152,17 @@ public class KeyTest {
     }
 
     @Nested
-    public class HashCode {
+    class HashCode {
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
             TranslationKey k1 = TranslationKey.get("k1");
             TranslationKey k2 = TranslationKey.get("k1");
             assertEquals(k1.hashCode(), k2.hashCode());
         }
 
         @Test
-        public void differentValue() {
+        void differentValue() {
             TranslationKey k1 = TranslationKey.get("k1");
             TranslationKey k2 = TranslationKey.get("k2");
             assertNotEquals(k1.hashCode(), k2.hashCode());
@@ -170,37 +170,37 @@ public class KeyTest {
     }
 
     @Nested
-    public class Equals {
+    class Equals {
 
         @Test
-        public void sameInstance() {
+        void sameInstance() {
             TranslationKey k = TranslationKey.get("k1");
             assertEquals(k, k);
         }
 
         @Test
-        public void sameValue() {
+        void sameValue() {
             assertEquals(TranslationKey.get("k1"), TranslationKey.get("k1"));
         }
 
         @Test
-        public void differentValue() {
+        void differentValue() {
             assertNotEquals(TranslationKey.get("k1"), TranslationKey.get("k2"));
         }
 
         @Test
-        public void withNull() {
+        void withNull() {
             assertNotEquals(null, TranslationKey.get("k1"));
         }
 
         @Test
-        public void differentType() {
+        void differentType() {
             assertNotEquals("k1", TranslationKey.get("k1"));
         }
     }
 
     @Test
-    public void withEmptyKey() {
+    void withEmptyKey() {
         TranslationKey k = TranslationKey.get("");
         assertTrue(k.isEmpty());
         k = TranslationKey.get("a");
