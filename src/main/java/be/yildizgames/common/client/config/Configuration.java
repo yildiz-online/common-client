@@ -226,7 +226,7 @@ public final class Configuration {
      * @return The Authentication port number or 15023 if that property is not found in this configuration.
      */
     public int getAuthenticationPort() {
-        return Integer.valueOf(this.properties.getProperty(Configuration.AUTHENTICATION_PORT_KEY, "15023"));
+        return Integer.parseInt(this.properties.getProperty(Configuration.AUTHENTICATION_PORT_KEY, "15023"));
     }
 
     /**
@@ -260,7 +260,7 @@ public final class Configuration {
      * @return The server port number or 11139 if that property is not found in this configuration.
      */
     public int getServerPort() {
-        return Integer.valueOf(this.properties.getProperty(Configuration.SERVER_PORT_KEY, "11139"));
+        return Integer.parseInt(this.properties.getProperty(Configuration.SERVER_PORT_KEY, "11139"));
     }
 
     /**
