@@ -22,7 +22,7 @@
  *
  */
 
-module be.yildizgames.common.client {
+open module be.yildizgames.common.client {
 
     exports be.yildizgames.common.client.config;
     exports be.yildizgames.common.client.debug;
