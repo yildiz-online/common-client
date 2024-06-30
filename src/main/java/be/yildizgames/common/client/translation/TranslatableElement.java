@@ -10,7 +10,7 @@ package be.yildizgames.common.client.translation;
 /**
  * @author Grégory Van den Borre
  */
-public interface Translation {
+public interface TranslatableElement {
 
-    String get(String key);
+    void translate();
 }

@@ -1,7 +1,7 @@
 /*
  * This file is part of the Yildiz-Engine project, licenced under the MIT License  (MIT)
  *
- *  Copyright (c) 2019 Grégory Van den Borre
+ *  Copyright (c) 2019-2024 Grégory Van den Borre
  *
  *  More infos available: https://engine.yildiz-games.be
  *
@@ -23,8 +23,11 @@
  */
 
 open module be.yildizgames.common.client {
+    requires be.yildizgames.common.configuration;
+    requires java.desktop;
+    requires be.yildizgames.common.application;
+    requires be.yildizgames.common.logging;
 
-    exports be.yildizgames.common.client.config;
-    exports be.yildizgames.common.client.debug;
     exports be.yildizgames.common.client.translation;
+    exports be.yildizgames.common.client.splash;
 }
