@@ -104,7 +104,6 @@ public class SwingSplashScreen implements SplashScreen {
         } catch (Exception e) {
             this.logger.error(e);
             this.title.setFont(new Font("Arial", Font.BOLD, 32));
-
         }
     }
 
