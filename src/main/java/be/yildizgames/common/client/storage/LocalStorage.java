@@ -15,23 +15,18 @@
  */
 package be.yildizgames.common.client.storage;
 
-import be.yildizgames.common.logging.Logger;
-import be.yildizgames.common.os.factory.OperatingSystems;
-
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
  * @author Grégory Van den Borre
  */
-public class Storage {
+public class LocalStorage {
 
-    private Storage() {
+    private LocalStorage() {
         super();
     }
 
-    private static Path getMachineLocalDirectory() {
+    public static Path getMachineLocalDirectory() {
         if(System.getProperty("os.name").toLowerCase().contains("win")) {
             return Path.of(System.getenv("ProgramData"));
         } else if(System.getProperty("os.name").toLowerCase().contains("linux")) {

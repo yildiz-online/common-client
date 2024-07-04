@@ -21,4 +21,5 @@ open module be.yildizgames.common.client {
 
     exports be.yildizgames.common.client.translation;
     exports be.yildizgames.common.client.splash;
+    exports be.yildizgames.common.client.storage;
 }
