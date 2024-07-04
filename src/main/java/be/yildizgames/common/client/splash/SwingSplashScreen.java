@@ -28,9 +28,9 @@ public class SwingSplashScreen implements SplashScreen {
 
     private final JLabel title;
 
-    private final JLabel subTitle;
-
     private final JLabel logo;
+
+    private final JLabel loadingItemName;
 
     private final int targetLogoSize;
 
@@ -60,23 +60,28 @@ public class SwingSplashScreen implements SplashScreen {
         this.title = new JLabel("");
         this.title.setForeground(Color.WHITE);
         this.title.setBounds(screenWidth / 2 - 50, 100, 280, 30);
-        this.panel.add(title);
-        this.subTitle = new JLabel(this.getMessageLoading(configuration.getLocale()));
-        this.subTitle.setForeground(Color.WHITE);
-        this.subTitle.setBounds(screenWidth / 2 - 100, 150, 280, 30);
-        this.panel.add(this.subTitle);
+        this.panel.add(this.title);
+        var subTitle = new JLabel(this.getMessageLoading(configuration.getLocale()));
+        subTitle.setForeground(Color.WHITE);
+        subTitle.setBounds(screenWidth / 2 - 100, 150, 280, 30);
+        this.panel.add(subTitle);
         this.progressBar = new JProgressBar();
         this.progressBar.setLayout(null);
         this.progressBar.setMaximum(50);
         var progressWidth = screenWidth >> 2;
         this.progressBar.setBounds(screenWidth / 2 - progressWidth / 2, screenHeight - 200, progressWidth, 30);
-        this.panel.add(progressBar);
+        this.panel.add(this.progressBar);
+        this.loadingItemName = new JLabel();
+        this.loadingItemName.setLayout(null);
+        this.loadingItemName.setForeground(Color.WHITE);
+        this.loadingItemName.setBounds(screenWidth / 2 - 200, screenHeight - 100, 280, 30);
+        this.panel.add(this.loadingItemName);
         this.logo = new JLabel();
         this.targetLogoSize = screenHeight >> 1;
         this.logo.setBounds(((screenWidth >> 1) - (targetLogoSize >> 1)), targetLogoSize >> 1, targetLogoSize, targetLogoSize);
         this.setLogo(base64Logo);
         this.setFont(base64Font);
-        this.panel.add(logo);
+        this.panel.add(this.logo);
     }
 
     public static SwingSplashScreen create(BaseConfiguration configuration, String base64Logo, String base64Font) {
@@ -111,7 +116,6 @@ public class SwingSplashScreen implements SplashScreen {
 
     @Override
     public final void setProgress(int percent) {
-        this.progressBar.setVisible(true);
         this.progressBar.setValue(percent);
         this.progressBar.setString(percent + "%");
     }
@@ -128,7 +132,7 @@ public class SwingSplashScreen implements SplashScreen {
 
     @Override
     public final void setCurrentLoading(String name) {
-        //TODO implements
+        this.loadingItemName.setText(name);
     }
 
     @Override

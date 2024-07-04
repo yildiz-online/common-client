@@ -41,7 +41,7 @@ public class UpdatableSwingSplashScreen extends UpdateSplashScreen {
         this.splashScreen.display();
         new Timer(50, t -> {
             count++;
-            int percent = count * 100;
+            int percent = count;
             this.setProgress(percent);
         }).start();
     }
