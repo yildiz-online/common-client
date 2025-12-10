@@ -1,0 +1,26 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Set up JDK 8
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '8'
+          cache: 'maven'
+      
+      - name: Build with Docker
+        run: |
+          BRANCH=${{ github.ref }}
+          VAULT_TOKEN=${{ secrets.VAULT_TOKEN }}
+          docker run -v $(pwd):/src -v $HOME/.m2:/root/.m2 \
+            -e BRANCH=$BRANCH -e VAULT_TOKEN=$VAULT_TOKEN \
+            moussavdb/build-java:lts
